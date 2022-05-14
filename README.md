@@ -5,7 +5,7 @@
 
 ---
 
-This provides a [build hook](https://ofek.dev/hatch/latest/config/build/#build-hooks) plugin for [Hatch](https://github.com/ofek/hatch) that adds a build step for use with Jupyter packages.
+This provides a [build hook](https://hatch.pypa.io/latest/config/build/#build-hooks) plugin for [Hatch](https://github.com/pypa/hatch) that adds a build step for use with Jupyter packages.
 
 **Table of Contents**
 
@@ -25,7 +25,7 @@ pip install hatch-jupyter-builder
 
 ## Usage and Configuration
 
-The [build hook plugin](https://ofek.dev/hatch/latest/plugins/build-hook/) name is `jupyter_builder`.
+The [build hook plugin](https://hatch.pypa.io/latest/plugins/build-hook/) name is `jupyter_builder`.
 
 - **_pyproject.toml_**
 
