@@ -214,7 +214,7 @@ def run(cmd: Union[str, list], **kwargs: Any) -> int:
     return subprocess.check_call(cmd, **kwargs)
 
 
-def ensure_targets(ensured_targets: list[str]) -> None:
+def ensure_targets(ensured_targets: List[str]) -> None:
     """Ensure that target files are available"""
     for target in ensured_targets:
         if not Path(target).exists():
