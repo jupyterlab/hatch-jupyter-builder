@@ -29,7 +29,7 @@ The [build hook plugin](https://ofek.dev/hatch/latest/plugins/build-hook/) name 
 
 - **_pyproject.toml_**
 
-  ```
+  ```toml
   [tool.hatch.build.targets.wheel.hooks.jupyter_builder]
   dependencies = ["hatch-jupyter-builder"]
   build_function = "hatch_jupyter_builder.npm_builder"
