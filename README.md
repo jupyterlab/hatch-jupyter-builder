@@ -1,7 +1,7 @@
 # hatch-jupyter-builder
 
-[![PyPI - Version](https://img.shields.io/pypi/v/hatch-jupyter.svg)](https://pypi.org/project/hatch-jupyter)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/hatch-jupyter.svg)](https://pypi.org/project/hatch-jupyter)
+[![PyPI - Version](https://img.shields.io/pypi/v/hatch-jupyter-builder.svg)](https://pypi.org/project/hatch-jupyter-builder)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/hatch-jupyter-builder.svg)](https://pypi.org/project/hatch-jupyter-builder)
 
 ---
 
