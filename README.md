@@ -5,6 +5,8 @@
 
 ---
 
+This provides a [build hook](https://ofek.dev/hatch/latest/config/build/#build-hooks) plugin for [Hatch](https://github.com/ofek/hatch) that adds a build step for use with Jupyter packages.
+
 **Table of Contents**
 
 - [Installation](#installation)
@@ -19,19 +21,25 @@ pip install hatch-jupyter-builder
 
 ## License
 
-`hatch-jupyter` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
+`hatch-jupyter-builder` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
 
 ## Usage and Configuration
 
-```toml
-[tool.hatch.build.targets.wheel.hooks.jupyter]
-dependencies = ["hatch-jupyter-builder"]
-build_function = "hatch_jupyter_builder.npm_builder"
-ensured_targets = ["foo/generated.txt"]
+The [build hook plugin](https://ofek.dev/hatch/latest/plugins/build-hook/) name is `jupyter_builder`.
 
-[tool.hatch.build.targets.wheel.hooks.jupyter_builder.build_kwargs]
-build_cmd = "build:src"
-```
+- **_pyproject.toml_**
+
+  ```
+  [tool.hatch.build.targets.wheel.hooks.jupyter_builder]
+  dependencies = ["hatch-jupyter-builder"]
+  build_function = "hatch_jupyter_builder.npm_builder"
+  ensured_targets = ["foo/generated.txt"]
+
+  [tool.hatch.build.targets.wheel.hooks.jupyter_builder.build_kwargs]
+  build_cmd = "build:src"
+  ```
+
+### Options
 
 The only required fields are `dependencies` and `build_function`.
 The build function is defined as an importable string with a module and a function name, separated by a dot. The function must accept a
@@ -41,6 +49,8 @@ The optional `ensured_targets` is a list of expected files after the build.
 
 The optional `build_kwargs` is a set of keyword arguments to pass to the build
 function.
+
+### Npm Builder Function
 
 This library provides a convenenice `npm_builder` function which can be
 used to build `npm` assets as part of the build.
