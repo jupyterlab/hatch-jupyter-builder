@@ -79,6 +79,14 @@ version_template = '({major}, {minor}, {patch}, "{channel}", "{release}")'
 src = "pyproject.toml"
 version_template = "{major}.{minor}.{patch}{channel}{release}"
 
+[[tool.tbump.field]]
+name = "channel"
+default = ""
+
+[[tool.tbump.field]]
+name = "release"
+default = ""
+
 [tool.mypy]
 check_untyped_defs = true
 disallow_incomplete_defs = true
