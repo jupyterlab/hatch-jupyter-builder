@@ -31,7 +31,7 @@ Issues = "https://github.com/blink0173/hatch-jupyter-builder/issues"
 Source = "https://github.com/blink0173/hatch-jupyter"
 
 [project.optional-dependencies]
-test = ["pytest", "pre-commit"]
+test = ["pytest", "pytest-mock", "pre-commit"]
 
 [tool.hatch.build.targets.sdist]
 [tool.hatch.build.targets.wheel]
@@ -72,12 +72,20 @@ message_template = "Bump to {new_version}"
 tag_template = "v{new_version}"
 
 [[tool.tbump.file]]
-src = "hatch_jupyter_builder/_version.py"
-version_template = '({major}, {minor}, {patch}, "{channel}", "{release}")'
+src = "hatch_jupyter_builder/__init__.py"
+version_template = '{major}.{minor}.{patch}{channel}{release}'
 
 [[tool.tbump.file]]
 src = "pyproject.toml"
 version_template = "{major}.{minor}.{patch}{channel}{release}"
+
+[[tool.tbump.field]]
+name = "channel"
+default = ""
+
+[[tool.tbump.field]]
+name = "release"
+default = ""
 
 [tool.mypy]
 check_untyped_defs = true
