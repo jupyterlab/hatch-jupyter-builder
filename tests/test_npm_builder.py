@@ -11,7 +11,7 @@ def test_npm_builder(mocker):
     which = mocker.patch("hatch_jupyter_builder.utils.which")
     run = mocker.patch("hatch_jupyter_builder.utils.run")
     which.return_value = "foo"
-    npm_builder("wheel", "standard")
+    npm_builder("wheel", "standard", force=True)
     cwd = str(Path.cwd())
     run.assert_has_calls(
         [call(["foo", "install"], cwd=cwd), call(["foo", "run", "build"], cwd=cwd)]
@@ -23,7 +23,7 @@ def test_npm_build_skip(mocker):
     run = mocker.patch("hatch_jupyter_builder.utils.run")
     os.environ["HATCH_JUPYTER_BUILDER_SKIP_NPM"] = "1"
     which.return_value = "foo"
-    npm_builder("wheel", "standard")
+    npm_builder("wheel", "standard", force=True)
     run.assert_not_called()
     del os.environ["HATCH_JUPYTER_BUILDER_SKIP_NPM"]
 
@@ -62,7 +62,7 @@ def test_npm_builder_not_stale(tmp_path, mocker):
     is_stale = mocker.patch("hatch_jupyter_builder.utils.is_stale")
     is_stale.return_value = False
     which.return_value = "foo"
-    npm_builder("wheel", "standard", build_dir=tmp_path, source_dir=tmp_path)
+    npm_builder("wheel", "standard", build_dir=tmp_path, source_dir=tmp_path, force=True)
     run.assert_not_called()
 
 
@@ -73,5 +73,5 @@ def test_npm_builder_no_npm(mocker):
     is_stale.return_value = False
     which.return_value = ""
     with pytest.raises(ValueError):
-        npm_builder("wheel", "standard")
+        npm_builder("wheel", "standard", force=True)
     run.assert_not_called()
