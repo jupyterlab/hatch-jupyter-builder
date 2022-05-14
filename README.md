@@ -42,10 +42,19 @@ The [build hook plugin](https://ofek.dev/hatch/latest/plugins/build-hook/) name 
 ### Options
 
 The only required fields are `dependencies` and `build_function`.
-The build function is defined as an importable string with a module and a function name, separated by a dot. The function must accept a
-`target_name` (either "wheel" or "sdist"), and a `version` (either "standard" or "editable") as its only positional arguments.
+The build function is defined as an importable string with a module and a function name, separated by a period. The function must accept a
+`target_name` (either "wheel" or "sdist"), and a `version` (either "standard" or "editable") as its only positional arguments. E.g.
 
-The optional `ensured_targets` is a list of expected files after the build.
+- **_builder.py_**
+
+  ```python
+  def build_func(target_name, version):
+      ...
+  ```
+
+Would be defined as `build_function = "builder.build_func"`
+
+The optional `ensured_targets` is a list of expected file paths after the build.
 
 The optional `build_kwargs` is a set of keyword arguments to pass to the build
 function.
