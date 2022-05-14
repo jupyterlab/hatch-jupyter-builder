@@ -1,16 +1,16 @@
-from .utils import get_build_func, ensure_targets
-
 from hatchling.builders.hooks.plugin.interface import BuildHookInterface
+
+from .utils import ensure_targets, get_build_func
 
 
 class JupyterBuildHook(BuildHookInterface):
-    PLUGIN_NAME = 'jupyter_builder'
+    PLUGIN_NAME = "jupyter_builder"
 
     def initialize(self, version, build_data):
         # Get the configuration options.
-        build_function = self.config.get('build_function')
-        build_kwargs = self.config.get('build_kwargs', {})
-        ensured_targets = self.config.get('ensured_targets', [])
+        build_function = self.config.get("build_function")
+        build_kwargs = self.config.get("build_kwargs", {})
+        ensured_targets = self.config.get("ensured_targets", [])
         if not build_function:
             return
 

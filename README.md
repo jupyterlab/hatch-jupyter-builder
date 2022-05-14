@@ -3,7 +3,7 @@
 [![PyPI - Version](https://img.shields.io/pypi/v/hatch-jupyter.svg)](https://pypi.org/project/hatch-jupyter)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/hatch-jupyter.svg)](https://pypi.org/project/hatch-jupyter)
 
------
+---
 
 **Table of Contents**
 
@@ -20,7 +20,6 @@ pip install hatch-jupyter-builder
 ## License
 
 `hatch-jupyter` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
-
 
 ## Configuration
 

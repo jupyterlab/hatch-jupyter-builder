@@ -1,22 +1,25 @@
 import importlib
 import logging
 import os
+import shlex
+import subprocess
 import sys
 from pathlib import Path
 from shutil import which
-from typing import Callable, List, Optional, Tuple, Union
-
+from typing import Any, Callable, List, Optional, Union
 
 if sys.platform == "win32":  # pragma: no cover
     from subprocess import list2cmdline
 else:
+    import pipes
+
     def list2cmdline(cmd_list):
         return " ".join(map(pipes.quote, cmd_list))
 
 
 log = logging.getLogger(__name__)
 
-if "--skip-npm" in sys.argv or os.environ.get("HATCH_JUPYTER_SKIP_NPM") == "1":
+if "--skip-npm" in sys.argv or os.environ.get("HATCH_JUPYTER_BUILDER_SKIP_NPM") == "1":
     log.info("Skipping npm install as requested.")
     skip_npm = True
     sys.argv.remove("--skip-npm")
@@ -24,12 +27,20 @@ else:
     skip_npm = False
 
 
-def npm_builder(target_name, version,
-    path=None, build_dir=None, source_dir=None, build_cmd="build", force=False, npm=None, editable_build_cmd=None
-):
+def npm_builder(
+    target_name: str,
+    version: str,
+    path: str = ".",
+    build_dir: Optional[str] = None,
+    source_dir: Optional[str] = None,
+    build_cmd: str = "build",
+    force: bool = False,
+    npm: Optional[Union[str, List]] = None,
+    editable_build_cmd: Optional[str] = None,
+) -> None:
     """Build function for managing an npm installation.
     Note: The function is a no-op if the `--skip-npm` cli flag is used
-        or HATCH_JUPYTER_SKIP_NPM env is set.
+        or HATCH_JUPYTER_BUILDER_SKIP_NPM env is set.
 
     Parameters
     ----------
@@ -52,9 +63,9 @@ def npm_builder(target_name, version,
         The npm executable name, or a tuple of ['node', executable].
     """
     # Check if we are building a wheel from an sdist.
-    path = Path(path or '.').resolve()
+    abs_path = Path(path).resolve()
 
-    is_git_checkout = (path / ".git").exists()
+    is_git_checkout = (abs_path / ".git").exists()
     if target_name == "wheel" and not is_git_checkout and not force:
         skip_npm = True
 
@@ -62,7 +73,7 @@ def npm_builder(target_name, version,
         log.info("Skipping npm-installation")
         return
 
-    if version == 'editable':
+    if version == "editable":
         build_cmd = editable_build_cmd or build_cmd
 
     if isinstance(npm, str):
@@ -70,7 +81,7 @@ def npm_builder(target_name, version,
 
     # Find a suitable default for the npm command.
     if npm is None:
-        is_yarn = (path / "yarn.lock").exists()
+        is_yarn = (abs_path / "yarn.lock").exists()
         if is_yarn and not which("yarn"):
             log.warning("yarn not found, ignoring yarn.lock file")
             is_yarn = False
@@ -80,7 +91,7 @@ def npm_builder(target_name, version,
         else:
             npm = ["npm"]
 
-    npm_cmd = normalize_cmd(npm_cmd)
+    npm_cmd = normalize_cmd(npm)
 
     if build_dir and source_dir and not force:
         should_build = is_stale(build_dir, source_dir)
@@ -88,12 +99,10 @@ def npm_builder(target_name, version,
         should_build = True
 
     if should_build:
-        log.info(
-            "Installing build dependencies with npm.  This may take a while..."
-        )
-        run(npm_cmd + ["install"], cwd=node_package)
+        log.info("Installing build dependencies with npm.  This may take a while...")
+        run(npm_cmd + ["install"], cwd=str(abs_path))
         if build_cmd:
-            run(npm_cmd + ["run", build_cmd], cwd=node_package)
+            run(npm_cmd + ["run", build_cmd], cwd=str(abs_path))
 
 
 def is_stale(target: Union[str, Path], source: Union[str, Path]) -> bool:
@@ -108,9 +117,7 @@ def is_stale(target: Union[str, Path], source: Union[str, Path]) -> bool:
     return compare_recursive_mtime(source, cutoff=target_mtime)
 
 
-def compare_recursive_mtime(
-    path: Union[str, Path], cutoff: float, newest: bool = True
-) -> bool:
+def compare_recursive_mtime(path: Union[str, Path], cutoff: float, newest: bool = True) -> bool:
     """Compare the newest/oldest mtime for all files in a directory.
     Cutoff should be another mtime to be compared against. If an mtime that is
     newer/older than the cutoff is found it will return True.
@@ -141,7 +148,7 @@ def recursive_mtime(path: Union[str, Path], newest: bool = True) -> float:
     path = Path(path)
     if path.is_file():
         return mtime(path)
-    current_extreme = None
+    current_extreme = -1.0
     for dirname, _, filenames in os.walk(str(path), topdown=False):
         for filename in filenames:
             mt = mtime(Path(dirname) / filename)
@@ -158,7 +165,7 @@ def mtime(path: Union[str, Path]) -> float:
     return Path(path).stat().st_mtime
 
 
-def get_build_func(build_func_str):
+def get_build_func(build_func_str: str) -> Callable[..., None]:
     # Get the build function by importing it.
     mod_name, _, func_name = build_func_str.rpartition(".")
 
@@ -175,7 +182,7 @@ def get_build_func(build_func_str):
     return getattr(mod, func_name)
 
 
-def normalize_cmd(cmd):
+def normalize_cmd(cmd: Union[str, list]) -> List[str]:
     if not isinstance(cmd, (list, tuple)):
         cmd = shlex.split(cmd, posix=os.name != "nt")
     if not Path(cmd[0]).is_absolute():
@@ -191,7 +198,7 @@ def normalize_cmd(cmd):
     return cmd
 
 
-def run(cmd, **kwargs):
+def run(cmd: Union[str, list], **kwargs: Any) -> int:
     """Echo a command before running it."""
     kwargs.setdefault("shell", os.name == "nt")
     normalize_cmd(cmd)
@@ -199,7 +206,7 @@ def run(cmd, **kwargs):
     return subprocess.check_call(cmd, **kwargs)
 
 
-def ensure_targets(ensured_targets):
+def ensure_targets(ensured_targets: list[str]) -> None:
     """Ensure that target files are available"""
     for target in ensured_targets:
         if not Path(target).exists():

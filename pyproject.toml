@@ -4,6 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "hatch-jupyter-builder"
+version = "0.0.1"
 description = 'A hatch plugin to help build Jupyter packages'
 readme = "README.md"
 requires-python = ">=3.7"
@@ -23,15 +24,14 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = []
-dynamic = ["version"]
 
 [project.urls]
 Documentation = "https://github.com/blink1073/hatch-jupyter-builder#readme"
 Issues = "https://github.com/blink0173/hatch-jupyter-builder/issues"
 Source = "https://github.com/blink0173/hatch-jupyter"
 
-[tool.hatch.version]
-path = "hatch_jupyter/__about__.py"
+[project.optional-dependencies]
+test = ["pytest", "pre-commit"]
 
 [tool.hatch.build.targets.sdist]
 [tool.hatch.build.targets.wheel]
@@ -39,28 +39,54 @@ path = "hatch_jupyter/__about__.py"
 [project.entry-points.hatch]
 jupyter = "hatch_jupyter_builder.hooks"
 
-[tool.hatch.envs.default]
-dependencies = [
-  "pytest",
-  "pytest-cov",
+[tool.black]
+line_length = 100
+
+[tool.isort]
+profile = "black"
+
+[tool.pytest.ini_options]
+addopts = "-raXs --durations 10 --color=yes --doctest-modules"
+testpaths = [
+    "tests/"
 ]
-[tool.hatch.envs.default.scripts]
-cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=hatch_jupyter --cov=tests"
-no-cov = "cov --no-cov"
-
-[[tool.hatch.envs.test.matrix]]
-python = ["37", "38", "39", "310"]
-
-[tool.coverage.run]
-branch = true
-parallel = true
-omit = [
-  "hatch_jupyter/__about__.py",
+filterwarnings = [
+  "error"
 ]
 
-[tool.coverage.report]
-exclude_lines = [
-  "no cov",
-  "if __name__ == .__main__.:",
-  "if TYPE_CHECKING:",
-]
+[tool.jupyter-releaser]
+skip = ["check-links"]
+
+[tool.jupyter-releaser.options]
+post-version-spec = "dev"
+
+[tool.tbump.version]
+current = "0.0.1"
+regex = '''
+  (?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)
+  ((?P<channel>a|b|rc|.dev)(?P<release>\d+))?
+'''
+
+[tool.tbump.git]
+message_template = "Bump to {new_version}"
+tag_template = "v{new_version}"
+
+[[tool.tbump.file]]
+src = "hatch_jupyter_builder/_version.py"
+version_template = '({major}, {minor}, {patch}, "{channel}", "{release}")'
+
+[[tool.tbump.file]]
+src = "pyproject.toml"
+version_template = "{major}.{minor}.{patch}{channel}{release}"
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_incomplete_defs = true
+no_implicit_optional = true
+pretty = true
+show_error_context = true
+show_error_codes = true
+strict_equality = true
+warn_unused_configs = true
+warn_unused_ignores = true
+warn_redundant_casts = true
