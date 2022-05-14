@@ -104,3 +104,8 @@ def test_empty_dir(source_dir, tmpdir):
     assert is_stale(str(empty_dir), str(source_dir)) is True
     assert is_stale(str(source_dir), str(empty_dir)) is False
     assert is_stale(str(empty_dir), str(empty_dir)) is False
+
+
+def test_missing_dir(source_dir, destination_dir):
+    assert not is_stale(destination_dir, "does_not_exist")
+    assert is_stale("does_not_exist", source_dir)

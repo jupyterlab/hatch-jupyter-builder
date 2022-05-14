@@ -26,7 +26,7 @@ def npm_builder(
     path: str = ".",
     build_dir: Optional[str] = None,
     source_dir: Optional[str] = None,
-    build_cmd: str = "build",
+    build_cmd: Optional[str] = "build",
     force: bool = False,
     npm: Optional[Union[str, List]] = None,
     editable_build_cmd: Optional[str] = None,
