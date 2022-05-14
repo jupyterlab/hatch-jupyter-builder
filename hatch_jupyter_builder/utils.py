@@ -6,7 +6,7 @@ import subprocess
 import sys
 from pathlib import Path
 from shutil import which
-from typing import Any, Callable, List, Optional, Union
+from typing import Any, Callable, Dict, List, Optional, Union
 
 if sys.platform == "win32":  # pragma: no cover
     from subprocess import list2cmdline
@@ -18,13 +18,6 @@ else:
 
 
 log = logging.getLogger(__name__)
-
-if "--skip-npm" in sys.argv or os.environ.get("HATCH_JUPYTER_BUILDER_SKIP_NPM") == "1":
-    log.info("Skipping npm install as requested.")
-    skip_npm = True
-    sys.argv.remove("--skip-npm")
-else:
-    skip_npm = False
 
 
 def npm_builder(
@@ -62,8 +55,17 @@ def npm_builder(
     npm: str or list, optional.
         The npm executable name, or a tuple of ['node', executable].
     """
+
     # Check if we are building a wheel from an sdist.
     abs_path = Path(path).resolve()
+
+    if "--skip-npm" in sys.argv or os.environ.get("HATCH_JUPYTER_BUILDER_SKIP_NPM") == "1":
+        log.info("Skipping npm install as requested.")
+        skip_npm = True
+        if "--skip-npm" in sys.argv:
+            sys.argv.remove("--skip-npm")
+    else:
+        skip_npm = False
 
     is_git_checkout = (abs_path / ".git").exists()
     if target_name == "wheel" and not is_git_checkout and not force:
@@ -171,13 +173,10 @@ def get_build_func(build_func_str: str) -> Callable[..., None]:
 
     # If the module fails to import, try importing as a local script.
     try:
+        sys.path.insert(0, str(Path.cwd()))
         mod = importlib.import_module(mod_name)
-    except ImportError:
-        try:
-            sys.path.insert(0, str(Path.cwd()))
-            mod = importlib.import_module(mod_name)
-        finally:
-            sys.path.pop(0)
+    finally:
+        sys.path.pop(0)
 
     return getattr(mod, func_name)
 
@@ -198,10 +197,19 @@ def normalize_cmd(cmd: Union[str, list]) -> List[str]:
     return cmd
 
 
+def normalize_kwargs(kwargs: Dict[str, str]) -> Dict[str, str]:
+    """Normalize the key names in a kwargs input dictionary"""
+    for key in list(kwargs):
+        if "-" in key:
+            kwargs[key.replace("-", "_")] = kwargs[key]
+            del kwargs[key]
+    return kwargs
+
+
 def run(cmd: Union[str, list], **kwargs: Any) -> int:
     """Echo a command before running it."""
     kwargs.setdefault("shell", os.name == "nt")
-    normalize_cmd(cmd)
+    cmd = normalize_cmd(cmd)
     log.info(f"> {list2cmdline(cmd)}")
     return subprocess.check_call(cmd, **kwargs)
 

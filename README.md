@@ -25,23 +25,23 @@ pip install hatch-jupyter-builder
 
 ## Usage and Configuration
 
-The [build hook plugin](https://hatch.pypa.io/latest/plugins/build-hook/) name is `jupyter_builder`.
+The [build hook plugin](https://hatch.pypa.io/latest/plugins/build-hook/) name is `jupyter-builder`.
 
 - **_pyproject.toml_**
 
   ```toml
-  [tool.hatch.build.targets.wheel.hooks.jupyter_builder]
+  [tool.hatch.build.targets.wheel.hooks.jupyter-builder]
   dependencies = ["hatch-jupyter-builder"]
-  build_function = "hatch_jupyter_builder.npm_builder"
-  ensured_targets = ["foo/generated.txt"]
+  build-function = "hatch_jupyter_builder.npm_builder"
+  ensured-targets = ["foo/generated.txt"]
 
-  [tool.hatch.build.targets.wheel.hooks.jupyter_builder.build_kwargs]
+  [tool.hatch.build.targets.wheel.hooks.jupyter-builder.build-kwargs]
   build_cmd = "build:src"
   ```
 
 ### Options
 
-The only required fields are `dependencies` and `build_function`.
+The only required fields are `dependencies` and `build-function`.
 The build function is defined as an importable string with a module and a function name, separated by a period. The function must accept a
 `target_name` (either "wheel" or "sdist"), and a `version` (either "standard" or "editable") as its only positional arguments. E.g.
 
@@ -52,9 +52,10 @@ The build function is defined as an importable string with a module and a functi
       ...
   ```
 
-Would be defined as `build_function = "builder.build_func"`
+Would be defined as `build-function = "builder.build_func"`
 
-The optional `ensured_targets` is a list of expected file paths after the build.
+The optional `ensured-targets` is a list of expected file paths after building a
+"standard" version sdist or wheel.
 
 The optional `build_kwargs` is a set of keyword arguments to pass to the build
 function.

@@ -31,7 +31,7 @@ Issues = "https://github.com/blink0173/hatch-jupyter-builder/issues"
 Source = "https://github.com/blink0173/hatch-jupyter"
 
 [project.optional-dependencies]
-test = ["pytest", "pre-commit"]
+test = ["pytest", "pytest-mock", "pre-commit"]
 
 [tool.hatch.build.targets.sdist]
 [tool.hatch.build.targets.wheel]
