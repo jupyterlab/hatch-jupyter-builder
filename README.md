@@ -30,12 +30,12 @@ The [build hook plugin](https://hatch.pypa.io/latest/plugins/build-hook/) name i
 - **_pyproject.toml_**
 
   ```toml
-  [tool.hatch.build.targets.wheel.hooks.jupyter-builder]
+  [tool.hatch.build.hooks.jupyter-builder]
   dependencies = ["hatch-jupyter-builder"]
   build-function = "hatch_jupyter_builder.npm_builder"
   ensured-targets = ["foo/generated.txt"]
 
-  [tool.hatch.build.targets.wheel.hooks.jupyter-builder.build-kwargs]
+  [tool.hatch.build.hooks.jupyter-builder.build-kwargs]
   build_cmd = "build:src"
   ```
 
