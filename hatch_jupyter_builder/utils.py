@@ -222,7 +222,7 @@ def ensure_targets(ensured_targets: List[str]) -> None:
 
 
 def install_pre_commit_hook():
-    data = f"""
+    data = f"""#!/usr/bin/env bash
 INSTALL_PYTHON={sys.executable}
 ARGS=(hook-impl --config=.pre-commit-config.yaml --hook-type=pre-commit)
 HERE="$(cd "$(dirname "$0")" && pwd)"
