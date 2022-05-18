@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "hatch-jupyter-builder"
-version = "0.2.0"
+version = "0.3.0.dev0"
 description = 'A hatch plugin to help build Jupyter packages'
 readme = "README.md"
 requires-python = ">=3.7"
@@ -61,7 +61,7 @@ skip = ["check-links"]
 post-version-spec = "dev"
 
 [tool.tbump.version]
-current = "0.2.0"
+current = "0.3.0.dev0"
 regex = '''
   (?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)
   ((?P<channel>a|b|rc|.dev)(?P<release>\d+))?
