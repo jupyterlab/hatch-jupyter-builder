@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.2.0
+
+([Full Changelog](https://github.com/blink1073/hatch_jupyter_builder/compare/v0.1.0...a2d21ea9e635db39fd8917a3f89e1b52a7b8b15c))
+
+### Enhancements made
+
+- Clean up and add pre-commit option [#5](https://github.com/blink1073/hatch_jupyter_builder/pull/5) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/blink1073/hatch_jupyter_builder/graphs/contributors?from=2022-05-14&to=2022-05-18&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ablink1073%2Fhatch_jupyter_builder+involves%3Ablink1073+updated%3A2022-05-14..2022-05-18&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.1.0
 
 ([Full Changelog](https://github.com/blink1073/hatch_jupyter_builder/compare/e5628cbc0407fa230ceea54cc12ef946cc1281e2...acf4d62bd0158d5344055eba9418c1c8e18b14a6))
@@ -17,5 +33,3 @@
 ([GitHub contributors page for this release](https://github.com/blink1073/hatch_jupyter_builder/graphs/contributors?from=2022-05-13&to=2022-05-14&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ablink1073%2Fhatch_jupyter_builder+involves%3Ablink1073+updated%3A2022-05-13..2022-05-14&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
