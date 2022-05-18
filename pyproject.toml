@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling>=1.0"]
 build-backend = "hatchling.build"
 
 [project]
@@ -73,11 +73,9 @@ tag_template = "v{new_version}"
 
 [[tool.tbump.file]]
 src = "hatch_jupyter_builder/__init__.py"
-version_template = '{major}.{minor}.{patch}{channel}{release}'
 
 [[tool.tbump.file]]
 src = "pyproject.toml"
-version_template = "{major}.{minor}.{patch}{channel}{release}"
 
 [[tool.tbump.field]]
 name = "channel"

@@ -52,3 +52,9 @@ def test_get_build_func(tmp_path):
 
     with pytest.raises(AttributeError):
         utils.get_build_func("test.bar")
+
+
+def test_install_pre_commit_hook(tmp_path):
+    os.chdir(tmp_path)
+    os.makedirs(".git/hooks")
+    utils.install_pre_commit_hook()

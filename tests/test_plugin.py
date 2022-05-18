@@ -9,6 +9,7 @@ def test_build_hook(tmp_path):
         "build-function": "test.foo",
         "ensured-targets": ["test.py"],
         "build-kwargs": {"foo-bar": "1", "fizz_buzz": "2"},
+        "install-pre-commit-hook": True,
     }
     os.chdir(tmp_path)
     test = Path("test.py")
@@ -17,6 +18,7 @@ def foo(target_name, version, foo_bar=None, fizz_buzz=None):
     return(target_name)
 """
     test.write_text(text, encoding="utf-8")
+    os.makedirs(".git/hooks")
 
     hook = JupyterBuildHook(tmp_path, config, {}, {}, tmp_path, "wheel")
     hook.initialize("standard", {})
@@ -27,3 +29,4 @@ def foo(target_name, version, foo_bar=None, fizz_buzz=None):
 
     hook = JupyterBuildHook(tmp_path, {}, {}, {}, tmp_path, "wheel")
     hook.initialize("standard", {})
+    hook.initialize("editable", {})
