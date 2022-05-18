@@ -12,6 +12,7 @@ This provides a [build hook](https://hatch.pypa.io/latest/config/build/#build-ho
 - [Installation](#installation)
 - [License](#license)
 - [Usage and Configuration](#usage_and_configuration)
+- [Local Development](#local_development)
 
 ## Installation
 
@@ -34,6 +35,7 @@ The [build hook plugin](https://hatch.pypa.io/latest/plugins/build-hook/) name i
   dependencies = ["hatch-jupyter-builder"]
   build-function = "hatch_jupyter_builder.npm_builder"
   ensured-targets = ["foo/generated.txt"]
+  install-pre-commit-hook = true
 
   [tool.hatch.build.hooks.jupyter-builder.build-kwargs]
   build_cmd = "build:src"
@@ -57,10 +59,21 @@ Would be defined as `build-function = "builder.build_func"`
 The optional `ensured-targets` is a list of expected file paths after building a
 "standard" version sdist or wheel.
 
-The optional `build_kwargs` is a set of keyword arguments to pass to the build
+The optional `build-kwargs` is a set of keyword arguments to pass to the build
 function.
+
+The optional `install-pre-commit-hook` option causes a `pre-commit` hook to be installed during an editable install.
 
 ### Npm Builder Function
 
 This library provides a convenenice `npm_builder` function which can be
 used to build `npm` assets as part of the build.
+
+## Local Development
+
+To test this package along locally with another package, use the following:
+
+```toml
+[tool.hatch.build.hooks.jupyter-builder]
+dependencies = ["hatch-jupyter-builder@file://<path_to_this_repo>"]
+```

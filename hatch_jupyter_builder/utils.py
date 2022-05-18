@@ -219,3 +219,20 @@ def ensure_targets(ensured_targets: List[str]) -> None:
     for target in ensured_targets:
         if not Path(target).exists():
             raise ValueError(f'Ensured target "{target}" does not exist')
+
+
+def install_pre_commit_hook():
+    data = f"""
+INSTALL_PYTHON={sys.executable}
+ARGS=(hook-impl --config=.pre-commit-config.yaml --hook-type=pre-commit)
+HERE="$(cd "$(dirname "$0")" && pwd)"
+ARGS+=(--hook-dir "$HERE" -- "$@")
+exec "$INSTALL_PYTHON" -mpre_commit "${{ARGS[@]}}"
+"""
+    path = ".git/hooks/pre-commit"
+    with open(path, "w") as fid:
+        fid.write(data)
+
+    mode = os.stat(path).st_mode
+    mode |= (mode & 0o444) >> 2  # copy R bits to X
+    os.chmod(path, mode)

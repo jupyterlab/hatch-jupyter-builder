@@ -1,12 +1,25 @@
 from hatchling.builders.hooks.plugin.interface import BuildHookInterface
 
-from .utils import ensure_targets, get_build_func, normalize_kwargs
+from .utils import (
+    ensure_targets,
+    get_build_func,
+    install_pre_commit_hook,
+    normalize_kwargs,
+)
 
 
 class JupyterBuildHook(BuildHookInterface):
     PLUGIN_NAME = "jupyter-builder"
 
     def initialize(self, version, build_data):
+        if self.target_name not in ["wheel", "sdist"]:
+            return
+
+        should_install_hook = self.config.get("install-pre-commit-hook")
+
+        if version == "editable" and should_install_hook:
+            install_pre_commit_hook()
+
         # Get the configuration options.
         build_function = self.config.get("build-function")
         build_kwargs = self.config.get("build-kwargs", {})
