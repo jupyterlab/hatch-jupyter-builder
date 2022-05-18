@@ -62,7 +62,7 @@ The optional `ensured-targets` is a list of expected file paths after building a
 The optional `build-kwargs` is a set of keyword arguments to pass to the build
 function.
 
-The optional `install-pre-commit-hook` option causes a `pre-commit` hook to be installed during an editable install.
+The optional `install-pre-commit-hook` boolean causes a `pre-commit` hook to be installed during an editable install.
 
 ### Npm Builder Function
 
@@ -71,7 +71,7 @@ used to build `npm` assets as part of the build.
 
 ## Local Development
 
-To test this package along locally with another package, use the following:
+To test this package locally with another package, use the following:
 
 ```toml
 [tool.hatch.build.hooks.jupyter-builder]
