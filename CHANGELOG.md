@@ -2,7 +2,7 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
-## 0.2.1
+## 0.2.2
 
 ([Full Changelog](https://github.com/blink1073/hatch_jupyter_builder/compare/v0.2.0...880241f6537ecd3e1ad7fc202cb410dc8545f9fc))
 
