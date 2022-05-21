@@ -62,6 +62,10 @@ The optional `ensured-targets` is a list of expected file paths after building a
 The optional `build-kwargs` is a set of keyword arguments to pass to the build
 function.
 
+You can also use `editable-build-kwargs` if the parameters should differ
+in editable mode. If only the build command is different, you can use
+`editable_build_cmd` in `build-kwargs` instead.
+
 The optional `install-pre-commit-hook` boolean causes a `pre-commit` hook to be installed during an editable install.
 
 ### Npm Builder Function
