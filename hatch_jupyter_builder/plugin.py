@@ -23,6 +23,7 @@ class JupyterBuildHook(BuildHookInterface):
         # Get the configuration options.
         build_function = self.config.get("build-function")
         build_kwargs = self.config.get("build-kwargs", {})
+        editable_build_kwargs = self.config.get("editable-build-kwargs")
         ensured_targets = self.config.get("ensured-targets", [])
 
         if not build_function:
@@ -30,6 +31,10 @@ class JupyterBuildHook(BuildHookInterface):
 
         # Get build function and call it with normalized parameter names.
         build_func = get_build_func(build_function)
+
+        if version == "editable":
+            build_kwargs = editable_build_kwargs or build_kwargs
+
         build_kwargs = normalize_kwargs(build_kwargs)
         build_func(self.target_name, version, **build_kwargs)
 

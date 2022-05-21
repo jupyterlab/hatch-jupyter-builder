@@ -30,3 +30,9 @@ def foo(target_name, version, foo_bar=None, fizz_buzz=None):
     hook = JupyterBuildHook(tmp_path, {}, {}, {}, tmp_path, "wheel")
     hook.initialize("standard", {})
     hook.initialize("editable", {})
+
+    config["editable-build-kwargs"] = {"foo-bar": "2", "fizz_buzz": "3"}
+    hook.initialize("editable", {})
+
+    hook = JupyterBuildHook(tmp_path, config, {}, {}, tmp_path, "foo")
+    hook.initialize("standard", {})
