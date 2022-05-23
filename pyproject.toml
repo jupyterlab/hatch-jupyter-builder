@@ -8,10 +8,10 @@ version = "0.4.0.dev0"
 description = 'A hatch plugin to help build Jupyter packages'
 readme = "README.md"
 requires-python = ">=3.7"
-license = "MIT"
-keywords = []
+license = { file = "LICENSE.txt" }
+keywords = ["jupyter", "jupyterlab", "hatch"]
 authors = [
-  { name = "Steven Silvester", email = "steven.silvester@ieee.org" },
+  { name = "Jupyter Development Team", email = "jupyter@googlegroups.com" },
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -23,18 +23,15 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = []
+dependencies = ["hatchling"]
 
 [project.urls]
-Documentation = "https://github.com/blink1073/hatch-jupyter-builder#readme"
-Issues = "https://github.com/blink0173/hatch-jupyter-builder/issues"
-Source = "https://github.com/blink0173/hatch-jupyter"
+Documentation = "https://github.com/jupyterlab/hatch-jupyter-builder#readme"
+Issues = "https://github.com/jupyterlab/hatch-jupyter-builder/issues"
+Source = "https://github.com/jupyterlab/hatch-jupyter"
 
 [project.optional-dependencies]
 test = ["pytest", "pytest-mock", "pre-commit", "hatchling", "pytest-cov"]
-
-[tool.hatch.build.targets.sdist]
-[tool.hatch.build.targets.wheel]
 
 [project.entry-points.hatch]
 jupyter = "hatch_jupyter_builder.hooks"
