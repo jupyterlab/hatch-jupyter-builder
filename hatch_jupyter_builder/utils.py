@@ -242,6 +242,11 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 ARGS+=(--hook-dir "$HERE" -- "$@")
 exec "$INSTALL_PYTHON" -mpre_commit "${{ARGS[@]}}"
 """
+    if not os.path.exists(".git"):
+        log = _get_log()
+        log.warning("Refusing to install pre-commit hook since this is not a git repository")
+        return
+
     path = ".git/hooks/pre-commit"
     with open(path, "w") as fid:
         fid.write(data)
