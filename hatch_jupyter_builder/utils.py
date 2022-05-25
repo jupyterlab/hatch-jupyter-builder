@@ -24,7 +24,7 @@ def _get_log() -> logging.Logger:
     global _logger
     if _logger:
         return _logger
-    _logger =logging.getLogger(__name__)
+    _logger = logging.getLogger(__name__)
     _logger.setLevel(logging.INFO)
     logging.basicConfig(level=logging.INFO)
     return _logger
