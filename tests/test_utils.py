@@ -56,5 +56,8 @@ def test_get_build_func(tmp_path):
 
 def test_install_pre_commit_hook(tmp_path):
     os.chdir(tmp_path)
+    utils.install_pre_commit_hook()
+    assert not os.path.exists(".git/hooks")
     os.makedirs(".git/hooks")
     utils.install_pre_commit_hook()
+    assert os.path.exists(".git/hooks/pre-commit")
