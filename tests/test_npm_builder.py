@@ -65,12 +65,17 @@ def test_npm_builder_missing_yarn(mocker, repo):
     )
 
 
-def test_npm_builder_skip(mocker, tmp_path):
+def test_npm_builder_path(mocker, tmp_path):
     which = mocker.patch("hatch_jupyter_builder.utils.which")
     run = mocker.patch("hatch_jupyter_builder.utils.run")
     which.return_value = "foo"
     npm_builder("wheel", "standard", path=tmp_path)
-    run.assert_not_called()
+    run.assert_has_calls(
+        [
+            call(["foo", "install"], cwd=str(tmp_path)),
+            call(["foo", "run", "build"], cwd=str(tmp_path)),
+        ]
+    )
 
 
 def test_npm_builder_editable(mocker, repo):
