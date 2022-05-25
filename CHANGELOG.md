@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.3.2
+
+([Full Changelog](https://github.com/jupyterlab/hatch_jupyter_builder/compare/v0.3.1...8a4f0ff37caa506dc695c20bd4ade0402bc5744f))
+
+### Bugs fixed
+
+- Fix handling of pre_commit hook install [#15](https://github.com/jupyterlab/hatch_jupyter_builder/pull/15) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/hatch_jupyter_builder/graphs/contributors?from=2022-05-25&to=2022-05-25&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch_jupyter_builder+involves%3Ablink1073+updated%3A2022-05-25..2022-05-25&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.3.1
 
 ([Full Changelog](https://github.com/jupyterlab/hatch_jupyter_builder/compare/v0.3.0...2427c2e4df754453f348e66da27d3079e882d497))
@@ -20,8 +36,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/hatch_jupyter_builder/graphs/contributors?from=2022-05-21&to=2022-05-25&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch_jupyter_builder+involves%3Ablink1073+updated%3A2022-05-21..2022-05-25&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch_jupyter_builder+involves%3Apre-commit-ci+updated%3A2022-05-21..2022-05-25&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.3.0
 
