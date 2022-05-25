@@ -17,7 +17,17 @@ else:
         return " ".join(map(pipes.quote, cmd_list))
 
 
-log = logging.getLogger(__name__)
+_logger = None
+
+
+def _get_log() -> logging.Logger:
+    global _logger
+    if _logger:
+        return _logger
+    _logger = logging.getLogger(__name__)
+    _logger.setLevel(logging.INFO)
+    logging.basicConfig(level=logging.INFO)
+    return _logger
 
 
 def npm_builder(
@@ -58,6 +68,8 @@ def npm_builder(
 
     # Check if we are building a wheel from an sdist.
     abs_path = Path(path).resolve()
+    here = Path(os.getcwd()).resolve()
+    log = _get_log()
 
     if "--skip-npm" in sys.argv or os.environ.get("HATCH_JUPYTER_BUILDER_SKIP_NPM") == "1":
         log.info("Skipping npm install as requested.")
@@ -67,7 +79,7 @@ def npm_builder(
     else:
         skip_npm = False
 
-    is_git_checkout = (abs_path / ".git").exists()
+    is_git_checkout = (here / ".git").exists()
     if target_name == "wheel" and not is_git_checkout and not force:
         skip_npm = True
 
@@ -210,6 +222,7 @@ def run(cmd: Union[str, list], **kwargs: Any) -> int:
     """Echo a command before running it."""
     kwargs.setdefault("shell", os.name == "nt")
     cmd = normalize_cmd(cmd)
+    log = _get_log()
     log.info(f"> {list2cmdline(cmd)}")
     return subprocess.check_call(cmd, **kwargs)
 
