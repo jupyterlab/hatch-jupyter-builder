@@ -2,6 +2,12 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.3.1
+
+No merged PRs
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.3.0
 
 ([Full Changelog](https://github.com/blink1073/hatch_jupyter_builder/compare/v0.2.2...3990b4e71d439753a6b237c0570a3df8f41407ed))
@@ -15,8 +21,6 @@
 ([GitHub contributors page for this release](https://github.com/blink1073/hatch_jupyter_builder/graphs/contributors?from=2022-05-18&to=2022-05-21&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ablink1073%2Fhatch_jupyter_builder+involves%3Ablink1073+updated%3A2022-05-18..2022-05-21&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.2.2
 
