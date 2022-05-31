@@ -31,6 +31,9 @@ def foo(target_name, version, foo_bar=None, fizz_buzz=None):
     hook.initialize("standard", {})
     hook.initialize("editable", {})
 
+    config["skip-if-exists"] = ["foo", "bar"]
+    hook.initialize("standard", {})
+
     config["editable-build-kwargs"] = {"foo-bar": "2", "fizz_buzz": "3"}
     hook.initialize("editable", {})
 

@@ -234,6 +234,13 @@ def ensure_targets(ensured_targets: List[str]) -> None:
             raise ValueError(f'Ensured target "{target}" does not exist')
 
 
+def should_skip(skip_if_exists):
+    """Detect whether all the paths in skip_if_exists exist"""
+    if not isinstance(skip_if_exists, list) or not len(skip_if_exists):
+        return False
+    return all(os.path.exists(p) for p in skip_if_exists)
+
+
 def install_pre_commit_hook():
     data = f"""#!/usr/bin/env bash
 INSTALL_PYTHON={sys.executable}
