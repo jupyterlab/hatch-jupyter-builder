@@ -54,6 +54,18 @@ def test_get_build_func(tmp_path):
         utils.get_build_func("test.bar")
 
 
+def test_should_skip(tmp_path):
+    assert not utils.should_skip("a")
+    assert not utils.should_skip([])
+    os.chdir(tmp_path)
+    Path(tmp_path).joinpath("foo.txt").touch()
+    assert utils.should_skip(["foo.txt"])
+    assert not utils.should_skip(["foo.txt", "bar.txt"])
+    Path(tmp_path).joinpath("bar.txt").touch()
+    assert utils.should_skip(["bar.txt"])
+    assert utils.should_skip(["foo.txt", "bar.txt"])
+
+
 def test_install_pre_commit_hook(tmp_path):
     os.chdir(tmp_path)
     utils.install_pre_commit_hook()

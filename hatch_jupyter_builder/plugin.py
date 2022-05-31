@@ -5,6 +5,7 @@ from .utils import (
     get_build_func,
     install_pre_commit_hook,
     normalize_kwargs,
+    should_skip,
 )
 
 
@@ -25,9 +26,13 @@ class JupyterBuildHook(BuildHookInterface):
         build_kwargs = self.config.get("build-kwargs", {})
         editable_build_kwargs = self.config.get("editable-build-kwargs")
         ensured_targets = self.config.get("ensured-targets", [])
+        skip_if_exists = self.config.get("skip-if-exists", [])
 
         if not build_function:
             return
+
+        if skip_if_exists:
+            return should_skip(skip_if_exists)
 
         # Get build function and call it with normalized parameter names.
         build_func = get_build_func(build_function)
