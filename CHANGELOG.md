@@ -2,7 +2,7 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
-## 0.3.2
+## 0.3.3
 
 ([Full Changelog](https://github.com/jupyterlab/hatch_jupyter_builder/compare/v0.3.1...8a4f0ff37caa506dc695c20bd4ade0402bc5744f))
 
