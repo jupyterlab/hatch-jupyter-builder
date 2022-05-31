@@ -2,6 +2,26 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.4.0
+
+([Full Changelog](https://github.com/jupyterlab/hatch_jupyter_builder/compare/v0.3.3...ab1b495716c502cb72e43cbd4e712ec40cb2e360))
+
+### Enhancements made
+
+- Add skip-if-exists capability [#18](https://github.com/jupyterlab/hatch_jupyter_builder/pull/18) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- [pre-commit.ci] pre-commit autoupdate [#17](https://github.com/jupyterlab/hatch_jupyter_builder/pull/17) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/hatch_jupyter_builder/graphs/contributors?from=2022-05-25&to=2022-05-31&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch_jupyter_builder+involves%3Ablink1073+updated%3A2022-05-25..2022-05-31&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch_jupyter_builder+involves%3Apre-commit-ci+updated%3A2022-05-25..2022-05-31&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.3.3
 
 ([Full Changelog](https://github.com/jupyterlab/hatch_jupyter_builder/compare/v0.3.1...8a4f0ff37caa506dc695c20bd4ade0402bc5744f))
@@ -15,8 +35,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/hatch_jupyter_builder/graphs/contributors?from=2022-05-25&to=2022-05-25&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch_jupyter_builder+involves%3Ablink1073+updated%3A2022-05-25..2022-05-25&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.3.1
 
