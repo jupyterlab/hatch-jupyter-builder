@@ -28,20 +28,21 @@ class JupyterBuildHook(BuildHookInterface):
         ensured_targets = self.config.get("ensured-targets", [])
         skip_if_exists = self.config.get("skip-if-exists", [])
 
-        if not build_function:
-            return
-
-        if skip_if_exists:
-            return should_skip(skip_if_exists)
-
-        # Get build function and call it with normalized parameter names.
-        build_func = get_build_func(build_function)
-
         if version == "editable":
             build_kwargs = editable_build_kwargs or build_kwargs
 
-        build_kwargs = normalize_kwargs(build_kwargs)
-        build_func(self.target_name, version, **build_kwargs)
+        should_skip_build = False
+        if not build_function:
+            should_skip_build = True
+
+        elif skip_if_exists and version == "standard":
+            should_skip_build = should_skip(skip_if_exists)
+
+        # Get build function and call it with normalized parameter names.
+        if not should_skip_build:
+            build_func = get_build_func(build_function)
+            build_kwargs = normalize_kwargs(build_kwargs)
+            build_func(self.target_name, version, **build_kwargs)
 
         # Ensure targets in distributable dists.
         if version == "standard":
