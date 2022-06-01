@@ -76,6 +76,26 @@ The optional `install-pre-commit-hook` boolean causes a `pre-commit` hook to be 
 This library provides a convenenice `npm_builder` function which can be
 used to build `npm` assets as part of the build.
 
+## Migration
+
+This library can be used to migrate from a `setuptools` based package to
+use `hatch_jupyter_builder`. It will attempt to migrate `jupyter-packaging`
+config as well, if present.
+
+To migrate, run the following:
+
+```bash
+python -m hatch_jupyter_builder.migration .
+```
+
+To compare dist files with a reference checkout, run the following:
+
+```bash
+python -m hatch_jupyter_builder.migration.compare <source_dir> <target_dir> sdist
+```
+
+Use `wheel` to compare wheel file contents.
+
 ## Local Development
 
 To test this package locally with another package, use the following:
