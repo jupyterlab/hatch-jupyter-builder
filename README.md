@@ -60,7 +60,8 @@ The optional `ensured-targets` is a list of expected file paths after building a
 "standard" version sdist or wheel.
 
 The optional `skip-if-exists` is a list of paths whose presence would cause
-the build step to be skipped.
+the build step to be skipped. This option is ignored in `editable` mode.
+The `ensured-targets` will still be checked, if given.
 
 The optional `build-kwargs` is a set of keyword arguments to pass to the build
 function.
