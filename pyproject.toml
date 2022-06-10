@@ -28,7 +28,7 @@ dependencies = ["hatchling"]
 [project.urls]
 Documentation = "https://github.com/jupyterlab/hatch-jupyter-builder#readme"
 Issues = "https://github.com/jupyterlab/hatch-jupyter-builder/issues"
-Source = "https://github.com/jupyterlab/hatch-jupyter"
+Source = "https://github.com/jupyterlab/hatch-jupyter-builder"
 
 [project.optional-dependencies]
 test = ["pytest", "pytest-mock", "pre-commit", "hatchling", "pytest-cov"]
