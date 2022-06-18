@@ -7,6 +7,19 @@ from pathlib import Path
 import tomli
 import tomli_w
 
+# Extract the current version before beginning any migration.
+setup_py = Path("setup.py")
+if setup_py.exists():
+    current_version = (
+        subprocess.check_output([sys.executable, str(setup_py), "--version"])
+        .decode("utf-8")
+        .strip()
+    )
+else:
+    # TODO: add a printout at the end with instructions.
+    current_version = "!!UNKONWN!!"
+
+
 # Automatic migration from hatch.
 subprocess.run([sys.executable, "-m", "hatch", "new", "--init"])
 
@@ -36,7 +49,6 @@ if setup_cfg.exists():
 
     subprocess.run(["git", "add", ".flake"])
     subprocess.run(["git", "rm", "setup.cfg"])
-
 
 # Handle pyproject.toml config.
 # Migrate and remove unused config.
@@ -95,14 +107,9 @@ if gitignore.exists() and project_name and Path(project_name).exists():
 if artifacts:
     build_table["artifacts"] = artifacts
 
-# Use code to get version in _version.py if avaiable.
-version_py_path = Path(project_name) / "_version.py"
-if version_py_path.exists():
-    hatch_table["version"] = dict(source="code", path=str(version_py_path))
 
 # Handle setup.py - jupyter_packaging and pre-commit config.
 # Remove the file when finished.
-setup_py = Path("setup.py")
 if setup_py.exists():
     text = setup_py.read_text("utf-8")
     if "pre-commit" in text:
@@ -127,10 +134,34 @@ if setup_py.exists():
             if match is not None:
                 editable_build_kwargs[name] = match.groups()[0]
             else:
+                # TODO: add a printout at the end with instructions.
                 editable_build_kwargs[name] = "!!! needs manual input !!!"
 
     elif editable_build_command:
         build_kwargs["editable_build_cmd"] = editable_build_command
+
+    # Handle versioning with tbump - allows for static versioning and makes
+    # it easier to use jupyter_releaser.
+    data["project"]["version"] = current_version
+    data["project"].pop("dynamic", None)
+
+    tbump_table = tool_table.setdefault("tbump", {})
+    tbump_table["version"] = dict(
+        current=current_version,
+        regex=r"""
+          (?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)((?P<channel>a|b|rc|.dev)(?P<release>\d+))?
+        """.strip(),
+    )
+    tbump_table["git"] = dict(
+        message_template=r"Bump to {new_version}", tag_template=r"v{new_version}"
+    )
+    tbump_table["field"] = [dict(name="channel", default=""), dict(name="release", default="")]
+    tbump_table["file"] = [dict(src="pyproject.toml")]
+
+    # Add entry for _version.py if it exists.
+    version_py_path = Path(project_name) / "_version.py"
+    if version_py_path.exists():
+        tbump_table["file"].append(dict(src=f"{project_name}/_version.py"))
 
     subprocess.run(["git", "rm", "setup.py"])
 

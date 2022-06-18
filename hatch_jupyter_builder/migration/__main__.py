@@ -23,11 +23,12 @@ with TemporaryDirectory() as td:
     print("Installing in temporary virtual environment...")
 
     # Create a virtual environment and use it to run the migration.
-    subprocess.run([python, "-m", "pip", "install", "-v", "-e", args.target_dir])
+    subprocess.run([python, "-m", "pip", "install", "build"])
     subprocess.run([python, "-m", "pip", "install", "jupyter_packaging"])
     subprocess.run([python, "-m", "pip", "install", "tomli_w"])
     subprocess.run([python, "-m", "pip", "install", "tomli"])
     subprocess.run([python, "-m", "pip", "install", "hatch"])
+    subprocess.run([python, "-m", "build", args.target_dir, "--sdist"])
 
-    migrator = Path(__file__).parent / "migrate_core.py"
+    migrator = Path(__file__).parent / "_migrate.py"
     subprocess.run([python, migrator], cwd=args.target_dir)
