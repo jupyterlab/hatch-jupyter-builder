@@ -1,3 +1,4 @@
+import json
 import os
 import re
 import subprocess
@@ -6,6 +7,10 @@ from pathlib import Path
 
 import tomli
 import tomli_w
+
+print("Starting pyproject.toml migration")
+
+warnings = []
 
 # Extract the current version before beginning any migration.
 setup_py = Path("setup.py")
@@ -16,7 +21,7 @@ if setup_py.exists():
         .strip()
     )
 else:
-    # TODO: add a printout at the end with instructions.
+    warnings.append("Fill in [project][version] in pyproject.toml")
     current_version = "!!UNKONWN!!"
 
 
@@ -48,7 +53,6 @@ if setup_cfg.exists():
     Path(".flake8").write_text("\n".join(flake8) + "\n", "utf-8")
 
     subprocess.run(["git", "add", ".flake"])
-    subprocess.run(["git", "rm", "setup.cfg"])
 
 # Handle pyproject.toml config.
 # Migrate and remove unused config.
@@ -134,7 +138,9 @@ if setup_py.exists():
             if match is not None:
                 editable_build_kwargs[name] = match.groups()[0]
             else:
-                # TODO: add a printout at the end with instructions.
+                warnings.append(
+                    f"Fill in [tool.hatch.build.hooks.jupyter-builder.editable-build-kwargs][{name}] in pyproject.toml, which was the {name} argument to npm_builder in setup.py"
+                )
                 editable_build_kwargs[name] = "!!! needs manual input !!!"
 
     elif editable_build_command:
@@ -159,15 +165,31 @@ if setup_py.exists():
     tbump_table["file"] = [dict(src="pyproject.toml")]
 
     # Add entry for _version.py if it exists.
-    version_py_path = Path(project_name) / "_version.py"
-    if version_py_path.exists():
-        tbump_table["file"].append(dict(src=f"{project_name}/_version.py"))
+    version_py = Path(project_name) / "_version.py"
+    if version_py.exists():
+        tbump_table["file"].append(dict(src=str(version_py)))
+        text = version_py.read_text(encoding="utf-8")
+        if current_version not in text:
+            warnings.append(f'Add the current version string "{current_version}" to {version_py}')
 
-    subprocess.run(["git", "rm", "setup.py"])
+    # Add entry for package.json if it exists and has the same version.
+    package_json = Path("package.json")
+    if package_json.exists():
+        text = package_json.read_text(encoding="utf-8")
+        npm_version = json.loads(text)["version"]
+        if npm_version == current_version:
+            tbump_table["file"].append(dict(src="package.json"))
 
-# Remove manifest file if it exists.
-if os.path.exists("MANIFEST.in"):
-    subprocess.run(["git", "rm", "MANIFEST.in"])
+# Remove old files
+for fname in ["MANIFEST.in", "setup.py", "setup.cfg"]:
+    if os.path.exists(fname):
+        os.remove(fname)
 
 # Write out the new config.
+print("Writing pyproject.toml")
 pyproject.write_text(tomli_w.dumps(data), "utf-8")
+
+if warnings:
+    print("Please address the following concerns:")
+    for warning in warnings:
+        print(f"  - {warning}")
