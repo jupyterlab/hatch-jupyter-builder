@@ -88,6 +88,9 @@ To migrate, run the following:
 python -m hatch_jupyter_builder.migration .
 ```
 
+The migration script will do most of the migration automatically, but
+will prompt you for anything it cannot do itself.
+
 To compare dist files with a reference checkout, run the following:
 
 ```bash
