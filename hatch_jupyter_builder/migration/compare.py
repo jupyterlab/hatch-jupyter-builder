@@ -61,13 +61,18 @@ else:
     target_names = get_zip_names(args.target_dir)
 
 removed = source_names - target_names
+removed = [r for r in removed if not filter_file(r, args.source_dir)]
 if removed:
     print("\nRemoved_files:")
-    [print(f) for f in removed if not filter_file(f, args.source_dir)]
+    [print(f) for f in removed]
 
 added = target_names - source_names
+added = [a for a in added if not filter_file(a, args.target_dir)]
 if added:
     print("\nAdded files:")
-    [print(f) for f in added if not filter_file(f, args.target_dir)]
+    [print(f) for f in added]
 
 print()
+
+if added or removed:
+    sys.exit(1)

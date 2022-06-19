@@ -31,7 +31,7 @@ Issues = "https://github.com/jupyterlab/hatch-jupyter-builder/issues"
 Source = "https://github.com/jupyterlab/hatch-jupyter"
 
 [project.optional-dependencies]
-test = ["pytest", "pytest-mock", "pre-commit", "hatchling", "pytest-cov"]
+test = ["pytest", "pytest-mock", "pre-commit", "hatchling", "pytest-cov", "tomli", "twine"]
 
 [project.entry-points.hatch]
 jupyter = "hatch_jupyter_builder.hooks"
@@ -47,6 +47,7 @@ addopts = "-raXs --durations 10 --color=yes --doctest-modules"
 testpaths = [
     "tests/"
 ]
+norecursedirs = "tests/data/*"
 filterwarnings = [
   "error"
 ]

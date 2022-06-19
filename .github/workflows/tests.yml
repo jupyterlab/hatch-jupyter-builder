@@ -32,6 +32,8 @@ jobs:
         run: pip install -e ".[test]"
       - name: Run tests
         run: python -m pytest -vv --cov hatch_jupyter_builder --cov-branch --cov-report term-missing:skip-covered --cov-fail-under 90
+      - name: Run Migration Tests
+        run: python -m pytest -vv --migration-tests
 
   pre-commit:
     name: pre-commit
