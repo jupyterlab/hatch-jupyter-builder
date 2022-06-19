@@ -21,7 +21,7 @@ if setup_py.exists():
         .strip()
     )
 else:
-    warnings.append("Fill in [project][version] in pyproject.toml")
+    warnings.append("Fill in '[project][version]' in 'pyproject.toml'")
     current_version = "!!UNKONWN!!"
 
 
@@ -139,7 +139,7 @@ if setup_py.exists():
                 editable_build_kwargs[name] = match.groups()[0]
             else:
                 warnings.append(
-                    f"Fill in [tool.hatch.build.hooks.jupyter-builder.editable-build-kwargs][{name}] in pyproject.toml, which was the {name} argument to npm_builder in setup.py"
+                    f"Fill in '[tool.hatch.build.hooks.jupyter-builder.editable-build-kwargs][{name}]' in 'pyproject.toml', which was the '{name}' argument to 'npm_builder' in 'setup.py'"
                 )
                 editable_build_kwargs[name] = "!!! needs manual input !!!"
 
@@ -170,7 +170,9 @@ if setup_py.exists():
         tbump_table["file"].append(dict(src=str(version_py)))
         text = version_py.read_text(encoding="utf-8")
         if current_version not in text:
-            warnings.append(f'Add the current version string "{current_version}" to {version_py}')
+            warnings.append(
+                f'Add the static version string "{current_version}" to "{version_py}" instead of dynamic version handling'
+            )
 
     # Add entry for package.json if it exists and has the same version.
     package_json = Path("package.json")
