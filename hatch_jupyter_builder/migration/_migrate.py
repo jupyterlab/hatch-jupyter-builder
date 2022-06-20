@@ -7,8 +7,15 @@ from pathlib import Path
 
 import tomli
 import tomli_w
+from packaging import version
 
-builder_version = sys.argv[1]
+# Handle the version.
+# If it is a dev version, use the previous minor version.
+builder_version = version.parse(sys.argv[1])
+if builder_version.is_devrelease:
+    assert isinstance(builder_version, version.Version)
+    builder_version = f"{builder_version.major}.{builder_version.minor - 1}.0"
+
 
 print("Starting pyproject.toml migration")
 

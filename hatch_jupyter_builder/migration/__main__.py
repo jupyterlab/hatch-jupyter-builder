@@ -28,6 +28,7 @@ with TemporaryDirectory() as td:
     # Create a virtual environment and use it to run the migration.
     runner = subprocess.check_call
     runner([python, "-m", "pip", "install", "build"])
+    runner([python, "-m", "pip", "install", "packaging"])
     runner([python, "-m", "pip", "install", "jupyter_packaging"])
     runner([python, "-m", "pip", "install", "tomli_w"])
     runner([python, "-m", "pip", "install", "tomli"])

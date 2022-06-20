@@ -30,11 +30,8 @@ def test_migration():
         source_data = tomli.loads(source_toml)
         target_data = tomli.loads(target_toml)
 
-        # The hatchling and hatch_jupyter_builder versions might differ.
+        # The hatchling versions might differ.
         source_data["build-system"]["requires"] = target_data["build-system"]["requires"]
-        source_hooks = source_data["tool"]["hatch"]["build"]["hooks"]
-        target_hooks = target_data["tool"]["hatch"]["build"]["hooks"]
-        source_hooks["jupyter-builder"] = target_hooks["jupyter-builder"]
         assert source_data == target_data
 
         # Compare the produced wheel and sdist for the migrated and unmigrated
