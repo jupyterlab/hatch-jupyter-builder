@@ -78,9 +78,12 @@ def npm_builder(
     else:
         skip_npm = False
 
+    # Use heuristics to check for whether to automatically
+    # skip npm build.
     is_git_checkout = (here / ".git").exists()
     if target_name == "wheel" and not is_git_checkout and not force:
-        skip_npm = True
+        if not source_dir or not Path(source_dir).exists():
+            skip_npm = True
 
     if skip_npm:
         log.info("Skipping npm-installation")
