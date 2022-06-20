@@ -32,9 +32,9 @@ def test_migration():
 
         # The hatchling and hatch_jupyter_builder versions might differ.
         source_data["build-system"]["requires"] = target_data["build-system"]["requires"]
-        source_data["tool"]["hatch"]["build"]["hooks"]["jupyter-builder"] = target_data["tool"][
-            "hatch"
-        ]["build"]["hooks"]["jupyter-builder"]
+        source_hooks = source_data["tool"]["hatch"]["build"]["hooks"]
+        target_hooks = target_data["tool"]["hatch"]["build"]["hooks"]
+        source_hooks["jupyter-builder"] = target_hooks["jupyter-builder"]
         assert source_data == target_data
 
         # Compare the produced wheel and sdist for the migrated and unmigrated
