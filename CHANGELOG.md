@@ -2,6 +2,23 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.5.1
+
+([Full Changelog](https://github.com/jupyterlab/hatch-jupyter-builder/compare/v0.5.0...766fcddec85c1ca1d49f806539f9177feadb1f48))
+
+### Maintenance and upkeep improvements
+
+- [pre-commit.ci] pre-commit autoupdate [#31](https://github.com/jupyterlab/hatch-jupyter-builder/pull/31) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- Migration cleanup [#29](https://github.com/jupyterlab/hatch-jupyter-builder/pull/29) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/hatch-jupyter-builder/graphs/contributors?from=2022-06-20&to=2022-06-20&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Ablink1073+updated%3A2022-06-20..2022-06-20&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Apre-commit-ci+updated%3A2022-06-20..2022-06-20&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.5.0
 
 ([Full Changelog](https://github.com/jupyterlab/hatch-jupyter-builder/compare/v0.4.0...38f709fd38fce179dcdbe6da78e64fbb38a89658))
@@ -27,8 +44,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/hatch-jupyter-builder/graphs/contributors?from=2022-05-31&to=2022-06-20&type=c))
 
 [@agoose77](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Aagoose77+updated%3A2022-05-31..2022-06-20&type=Issues) | [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Ablink1073+updated%3A2022-05-31..2022-06-20&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Apre-commit-ci+updated%3A2022-05-31..2022-06-20&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Awelcome+updated%3A2022-05-31..2022-06-20&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.4.0
 
