@@ -11,10 +11,9 @@ from typing import Any, Callable, Dict, List, Optional, Union
 if sys.platform == "win32":  # pragma: no cover
     from subprocess import list2cmdline
 else:
-    import pipes
 
     def list2cmdline(cmd_list):
-        return " ".join(map(pipes.quote, cmd_list))
+        return " ".join(map(shlex.quote, cmd_list))
 
 
 _logger = None
@@ -116,7 +115,7 @@ def npm_builder(
         log.info("Installing build dependencies with npm.  This may take a while...")
         run(npm_cmd + ["install"], cwd=str(abs_path))
         if build_cmd:
-            run(npm_cmd + ["run", build_cmd], cwd=str(abs_path))
+            run(npm_cmd + ["run", build_cmd], cwd=str(abs_path), check=True)
 
 
 def is_stale(target: Union[str, Path], source: Union[str, Path]) -> bool:
