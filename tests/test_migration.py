@@ -30,7 +30,12 @@ def test_migration():
         target_toml = target1.joinpath("pyproject.toml").read_text(encoding="utf-8")
         source_data = tomli.loads(source_toml)
         target_data = tomli.loads(target_toml)
-        TestCase().assertDictEqual(source_data, target_data)
+        for key, value in source_data.items():
+            if isinstance(value, dict):
+                TestCase().assertDictEqual(value, target_data[key])
+        for key, value in target_data.items():
+            if isinstance(value, dict):
+                TestCase().assertDictEqual(value, source_data[key])
 
         # Compare the produced wheel and sdist for the migrated and unmigrated
         # extensions.
