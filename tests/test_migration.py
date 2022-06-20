@@ -30,10 +30,10 @@ def test_migration():
         target_toml = target1.joinpath("pyproject.toml").read_text(encoding="utf-8")
         source_data = tomli.loads(source_toml)
         target_data = tomli.loads(target_toml)
-        for key, value in source_data.items():
+        for key, value in source_data["tool"]["hatch"].items():
             if isinstance(value, dict):
                 TestCase().assertDictEqual(value, target_data[key])
-        for key, value in target_data.items():
+        for key, value in target_data["tool"]["hatch"].items():
             if isinstance(value, dict):
                 TestCase().assertDictEqual(value, source_data[key])
 
