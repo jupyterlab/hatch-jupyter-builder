@@ -90,7 +90,7 @@ targets_table["sdist"] = dict(exclude=[".github"])
 hooks_table = build_table.setdefault("hooks", {})
 hooks_table["jupyter-builder"] = {}
 builder_table: dict = hooks_table["jupyter-builder"]
-current_version_here = metadata("hatch_jupyter_builder")["version"]
+current_version_here = metadata("hatch-jupyter-builder")["version"]
 builder_table["dependencies"] = [f"hatch-jupyter-builder>={current_version_here}"]
 
 # Migrate the jupyter-packaging static data.
