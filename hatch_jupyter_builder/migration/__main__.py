@@ -3,7 +3,6 @@ hatch_jupyter_builder."""
 import argparse
 import os
 import subprocess
-import sys
 import venv
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -29,8 +28,6 @@ with TemporaryDirectory() as td:
     subprocess.run([python, "-m", "pip", "install", "tomli_w"])
     subprocess.run([python, "-m", "pip", "install", "tomli"])
     subprocess.run([python, "-m", "pip", "install", "hatch"])
-    if sys.version_info[1] < 8:
-        subprocess.run([python, "-m", "pip", "install", "importlib_metadata"])
     subprocess.run([python, "-m", "build", args.target_dir, "--sdist"])
 
     migrator = Path(__file__).parent / "_migrate.py"
