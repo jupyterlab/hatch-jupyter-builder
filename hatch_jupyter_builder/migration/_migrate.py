@@ -211,6 +211,8 @@ print("Writing pyproject.toml")
 pyproject.write_text(tomli_w.dumps(data), "utf-8")
 
 if warnings:
+    print("\n\nWarning!! Not everything could be migrated automatically.")
     print("Please address the following concerns:")
     for warning in warnings:
         print(f"  - {warning}")
+    print("\n\n")
