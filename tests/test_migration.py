@@ -24,7 +24,7 @@ def test_migration():
 
         # Migrate the first extension and compare its migrated pyproject.toml
         # to the expected one.
-        subprocess.run([python, "-m", "hatch_jupyter_builder.migration", target1])
+        subprocess.check_output([python, "-m", "hatch_jupyter_builder.migration", target1])
         source_toml = source.joinpath("pyproject.toml").read_text(encoding="utf-8")
         target_toml = target1.joinpath("pyproject.toml").read_text(encoding="utf-8")
         source_data = tomli.loads(source_toml)
