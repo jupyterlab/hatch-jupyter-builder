@@ -29,6 +29,12 @@ def test_migration():
         target_toml = target1.joinpath("pyproject.toml").read_text(encoding="utf-8")
         source_data = tomli.loads(source_toml)
         target_data = tomli.loads(target_toml)
+
+        # The hatchling and hatch_jupyter_builder versions might differ.
+        source_data["build-system"]["requires"] = target_data["build-system"]["requires"]
+        source_data["tool"]["hatch"]["build"]["hooks"]["jupyter-builder"] = target_data["tool"][
+            "hatch"
+        ]["build"]["hooks"]["jupyter-builder"]
         assert source_data == target_data
 
         # Compare the produced wheel and sdist for the migrated and unmigrated

@@ -3,6 +3,7 @@ import os
 import re
 import subprocess
 import sys
+from importlib.metadata import metadata
 from pathlib import Path
 
 import tomli
@@ -85,7 +86,8 @@ targets_table["sdist"] = dict(exclude=[".github"])
 hooks_table = build_table.setdefault("hooks", {})
 hooks_table["jupyter-builder"] = {}
 builder_table: dict = hooks_table["jupyter-builder"]
-builder_table["dependencies"] = ["hatch-jupyter-builder>=0.3.3"]
+current_version_here = metadata("hatch_jupyter_builder")["version"]
+builder_table["dependencies"] = [f"hatch-jupyter-builder>={current_version_here}"]
 
 # Migrate the jupyter-packaging static data.
 if "jupyter-packaging" in tool_table:
