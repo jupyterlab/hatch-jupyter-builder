@@ -26,7 +26,7 @@ with TemporaryDirectory() as td:
     print("Installing in temporary virtual environment...")
 
     # Create a virtual environment and use it to run the migration.
-    runner = subprocess.check_output
+    runner = subprocess.check_call
     runner([python, "-m", "pip", "install", "build"])
     runner([python, "-m", "pip", "install", "jupyter_packaging"])
     runner([python, "-m", "pip", "install", "tomli_w"])

@@ -15,7 +15,7 @@ parser.add_argument(dest="dist_name", help="Dist name")
 
 args = parser.parse_args()
 
-subprocess.run([sys.executable, "-m", "pip", "install", "build"])
+subprocess.check_call([sys.executable, "-m", "pip", "install", "build"])
 
 
 def build_file(dirname):
@@ -23,7 +23,7 @@ def build_file(dirname):
     os.chdir(dirname)
     if os.path.exists("dist"):
         shutil.rmtree("dist")
-    subprocess.run([sys.executable, "-m", "build", f"--{args.dist_name}"])
+    subprocess.check_call([sys.executable, "-m", "build", f"--{args.dist_name}"])
     os.chdir(orig_dir)
 
 
