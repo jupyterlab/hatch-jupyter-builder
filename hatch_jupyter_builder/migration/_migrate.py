@@ -71,6 +71,10 @@ hatch_table = tool_table.setdefault("hatch", {})
 build_table = hatch_table.setdefault("build", {})
 targets_table = build_table.setdefault("targets", {})
 
+# Remove the dynamic version.
+if current_version:
+    del hatch_table["version"]
+
 # Remove any auto-generated sdist config.
 if "sdist" in targets_table:
     del targets_table["sdist"]
@@ -182,8 +186,14 @@ if setup_py.exists():
         if npm_version == current_version:
             tbump_table["file"].append(dict(src="package.json"))
 
+# Add a setup.py shim.
+shim_text = """# setup.py shim for use with applications that require it.
+__import__("setuptools").setup()
+"""
+setup_py.write_text(shim_text, encoding="utf-8")
+
 # Remove old files
-for fname in ["MANIFEST.in", "setup.py", "setup.cfg"]:
+for fname in ["MANIFEST.in", "setup.cfg"]:
     if os.path.exists(fname):
         os.remove(fname)
 

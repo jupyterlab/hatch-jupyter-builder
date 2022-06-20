@@ -38,9 +38,6 @@ version = "0.1.0"
 [project.urls]
 Homepage = "https://github.com/github_username/myextension"
 
-[tool.hatch.version]
-path = "myextension/__init__.py"
-
 [tool.hatch.build]
 artifacts = [
     "myextension/labextension",
