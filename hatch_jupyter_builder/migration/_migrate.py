@@ -33,6 +33,14 @@ else:
     warnings.append("Fill in '[project][version]' in 'pyproject.toml'")
     current_version = "!!UNKONWN!!"
 
+# Get the original requires list.
+pyproject = Path("pyproject.toml")
+text = pyproject.read_text("utf-8")
+data = tomli.loads(text)
+requires = data["build-system"]["requires"]
+requires = [
+    r for r in requires if not r.startswith("jupyter-packaging") and not r.startswith("setuptools")
+]
 
 # Automatic migration from hatch.
 subprocess.run([sys.executable, "-m", "hatch", "new", "--init"])
@@ -63,13 +71,15 @@ if setup_cfg.exists():
 
     subprocess.run(["git", "add", ".flake"])
 
+
 # Handle pyproject.toml config.
 # Migrate and remove unused config.
-pyproject = Path("pyproject.toml")
 text = pyproject.read_text("utf-8")
 data = tomli.loads(text)
-
 tool_table = data.setdefault("tool", {})
+
+# Add the other build requirements.
+data["build-system"]["requires"] = data["build-system"]["requires"].extend(requires)
 
 # Remove old check-manifest config.
 if "check-manifest" in tool_table:
