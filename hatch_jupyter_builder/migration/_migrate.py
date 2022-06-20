@@ -3,7 +3,11 @@ import os
 import re
 import subprocess
 import sys
-from importlib.metadata import metadata
+
+try:
+    from importlib.metadata import metadata
+except ImportError:
+    from importlib_metadata import metadata  # type:ignore[no-redef]
 from pathlib import Path
 
 import tomli
