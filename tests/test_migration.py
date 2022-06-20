@@ -32,10 +32,10 @@ def test_migration():
         target_data = tomli.loads(target_toml)
         for key, value in source_data["tool"]["hatch"].items():
             if isinstance(value, dict):
-                TestCase().assertDictEqual(value, target_data[key])
+                TestCase().assertDictEqual(value, target_data["tool"]["hatch"][key])
         for key, value in target_data["tool"]["hatch"].items():
             if isinstance(value, dict):
-                TestCase().assertDictEqual(value, source_data[key])
+                TestCase().assertDictEqual(value, source_data["tool"]["hatch"][key])
 
         # Compare the produced wheel and sdist for the migrated and unmigrated
         # extensions.
