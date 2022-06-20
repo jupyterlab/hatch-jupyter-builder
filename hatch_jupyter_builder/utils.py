@@ -113,7 +113,7 @@ def npm_builder(
 
     if should_build:
         log.info("Installing build dependencies with npm.  This may take a while...")
-        run(npm_cmd + ["install"], cwd=str(abs_path))
+        run(npm_cmd + ["install"], cwd=str(abs_path), check=True)
         if build_cmd:
             run(npm_cmd + ["run", build_cmd], cwd=str(abs_path), check=True)
 
