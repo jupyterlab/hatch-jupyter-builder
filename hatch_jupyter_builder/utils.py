@@ -67,7 +67,6 @@ def npm_builder(
 
     # Check if we are building a wheel from an sdist.
     abs_path = Path(path).resolve()
-    here = Path(os.getcwd()).resolve()
     log = _get_log()
 
     if "--skip-npm" in sys.argv or os.environ.get("HATCH_JUPYTER_BUILDER_SKIP_NPM") == "1":
@@ -77,13 +76,6 @@ def npm_builder(
             sys.argv.remove("--skip-npm")
     else:
         skip_npm = False
-
-    # Use heuristics to check for whether to automatically
-    # skip npm build.
-    is_git_checkout = (here / ".git").exists()
-    if target_name == "wheel" and not is_git_checkout and not force:
-        if not source_dir or not Path(source_dir).exists():
-            skip_npm = True
 
     if skip_npm:
         log.info("Skipping npm-installation")
