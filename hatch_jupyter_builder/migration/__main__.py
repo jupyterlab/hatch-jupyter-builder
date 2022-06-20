@@ -7,7 +7,7 @@ import venv
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from hatch_jupyter_builder import __path__ as builder_path
+from hatch_jupyter_builder import __version__ as builder_version
 
 parser = argparse.ArgumentParser()
 parser.add_argument(dest="target_dir", help="Target Directory")
@@ -27,7 +27,6 @@ with TemporaryDirectory() as td:
 
     # Create a virtual environment and use it to run the migration.
     runner = subprocess.check_output
-    runner([python, "-m", "pip", "install", "."], cwd=builder_path[0])
     runner([python, "-m", "pip", "install", "build"])
     runner([python, "-m", "pip", "install", "jupyter_packaging"])
     runner([python, "-m", "pip", "install", "tomli_w"])
@@ -36,4 +35,4 @@ with TemporaryDirectory() as td:
     runner([python, "-m", "build", args.target_dir, "--sdist"])
 
     migrator = Path(__file__).parent / "_migrate.py"
-    runner([python, migrator], cwd=args.target_dir)
+    runner([python, migrator, builder_version], cwd=args.target_dir)

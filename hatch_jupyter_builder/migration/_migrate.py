@@ -8,7 +8,7 @@ from pathlib import Path
 import tomli
 import tomli_w
 
-from hatch_jupyter_builder import __version__
+builder_version = sys.argv[1]
 
 print("Starting pyproject.toml migration")
 
@@ -87,7 +87,7 @@ targets_table["sdist"] = dict(exclude=[".github"])
 hooks_table = build_table.setdefault("hooks", {})
 hooks_table["jupyter-builder"] = {}
 builder_table: dict = hooks_table["jupyter-builder"]
-builder_table["dependencies"] = [f"hatch-jupyter-builder>={__version__}"]
+builder_table["dependencies"] = [f"hatch-jupyter-builder>={builder_version}"]
 
 # Migrate the jupyter-packaging static data.
 if "jupyter-packaging" in tool_table:
