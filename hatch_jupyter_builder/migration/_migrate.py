@@ -79,7 +79,7 @@ data = tomli.loads(text)
 tool_table = data.setdefault("tool", {})
 
 # Add the other build requirements.
-data["build-system"]["requires"] = data["build-system"]["requires"].extend(requires)
+data["build-system"]["requires"].extend(requires)
 
 # Remove old check-manifest config.
 if "check-manifest" in tool_table:
