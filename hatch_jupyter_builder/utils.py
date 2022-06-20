@@ -108,9 +108,9 @@ def npm_builder(
 
     if should_build:
         log.info("Installing build dependencies with npm.  This may take a while...")
-        run(npm_cmd + ["install"], cwd=str(abs_path), check=True)
+        run(npm_cmd + ["install"], cwd=str(abs_path))
         if build_cmd:
-            run(npm_cmd + ["run", build_cmd], cwd=str(abs_path), check=True)
+            run(npm_cmd + ["run", build_cmd], cwd=str(abs_path))
 
 
 def is_stale(target: Union[str, Path], source: Union[str, Path]) -> bool:
