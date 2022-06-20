@@ -7,6 +7,15 @@ from pathlib import Path
 
 import tomli
 import tomli_w
+from packaging import version
+
+# Handle the version.
+# If it is a dev version, use the previous minor version.
+builder_version = version.parse(sys.argv[1])
+if builder_version.is_devrelease:
+    assert isinstance(builder_version, version.Version)
+    builder_version = f"{builder_version.major}.{builder_version.minor - 1}.0"
+
 
 print("Starting pyproject.toml migration")
 
@@ -85,7 +94,7 @@ targets_table["sdist"] = dict(exclude=[".github"])
 hooks_table = build_table.setdefault("hooks", {})
 hooks_table["jupyter-builder"] = {}
 builder_table: dict = hooks_table["jupyter-builder"]
-builder_table["dependencies"] = ["hatch-jupyter-builder>=0.3.3"]
+builder_table["dependencies"] = [f"hatch-jupyter-builder>={builder_version}"]
 
 # Migrate the jupyter-packaging static data.
 if "jupyter-packaging" in tool_table:
@@ -202,6 +211,8 @@ print("Writing pyproject.toml")
 pyproject.write_text(tomli_w.dumps(data), "utf-8")
 
 if warnings:
+    print("\n\nWarning!! Not everything could be migrated automatically.")
     print("Please address the following concerns:")
     for warning in warnings:
         print(f"  - {warning}")
+    print("\n\n")

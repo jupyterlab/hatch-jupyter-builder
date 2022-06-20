@@ -7,11 +7,14 @@ import venv
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+from hatch_jupyter_builder import __version__ as builder_version
+
 parser = argparse.ArgumentParser()
 parser.add_argument(dest="target_dir", help="Target Directory")
 
 # Parse and print the results
 args = parser.parse_args()
+
 
 with TemporaryDirectory() as td:
     venv.create(td, with_pip=True)
@@ -23,12 +26,14 @@ with TemporaryDirectory() as td:
     print("Installing in temporary virtual environment...")
 
     # Create a virtual environment and use it to run the migration.
-    subprocess.run([python, "-m", "pip", "install", "build"])
-    subprocess.run([python, "-m", "pip", "install", "jupyter_packaging"])
-    subprocess.run([python, "-m", "pip", "install", "tomli_w"])
-    subprocess.run([python, "-m", "pip", "install", "tomli"])
-    subprocess.run([python, "-m", "pip", "install", "hatch"])
-    subprocess.run([python, "-m", "build", args.target_dir, "--sdist"])
+    runner = subprocess.check_call
+    runner([python, "-m", "pip", "install", "build"])
+    runner([python, "-m", "pip", "install", "packaging"])
+    runner([python, "-m", "pip", "install", "jupyter_packaging"])
+    runner([python, "-m", "pip", "install", "tomli_w"])
+    runner([python, "-m", "pip", "install", "tomli"])
+    runner([python, "-m", "pip", "install", "hatch"])
+    runner([python, "-m", "build", args.target_dir, "--sdist"])
 
     migrator = Path(__file__).parent / "_migrate.py"
-    subprocess.run([python, migrator], cwd=args.target_dir)
+    runner([python, migrator, builder_version], cwd=args.target_dir)
