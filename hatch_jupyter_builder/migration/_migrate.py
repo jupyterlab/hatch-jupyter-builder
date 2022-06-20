@@ -71,6 +71,10 @@ hatch_table = tool_table.setdefault("hatch", {})
 build_table = hatch_table.setdefault("build", {})
 targets_table = build_table.setdefault("targets", {})
 
+# Remove the dynamic version.
+if current_version:
+    del hatch_table["version"]
+
 # Remove any auto-generated sdist config.
 if "sdist" in targets_table:
     del targets_table["sdist"]
