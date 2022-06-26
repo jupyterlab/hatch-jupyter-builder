@@ -42,7 +42,7 @@ def get_zip_names(dirname):
 def filter_file(path, root):
     if "egg-info" in path:
         return True
-    full_path = os.path.join(path, root)
+    full_path = os.path.join(root, path)
     if os.path.isdir(full_path):
         return True
     if os.path.basename(path) in [path, "setup.py", "setup.cfg", "MANIFEST.in"]:
