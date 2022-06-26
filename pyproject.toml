@@ -52,6 +52,12 @@ filterwarnings = [
   "error"
 ]
 
+
+[tool.coverage.run]
+omit = [
+   "hatch_jupyter_builder/migration/*"
+]
+
 [tool.jupyter-releaser]
 skip = ["check-links"]
 
