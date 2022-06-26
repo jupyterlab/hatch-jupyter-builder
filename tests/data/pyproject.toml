@@ -52,7 +52,7 @@ artifacts = [
 
 [tool.hatch.build.targets.sdist]
 exclude = [
-    ".github",
+    ".github"
 ]
 
 [tool.hatch.build.hooks.jupyter-builder]

@@ -13,17 +13,13 @@ parser.add_argument(dest="source_dir", help="Source Directory")
 parser.add_argument(dest="target_dir", help="Target Directory")
 parser.add_argument(dest="dist_name", help="Dist name")
 
-args = parser.parse_args()
 
-subprocess.check_call([sys.executable, "-m", "pip", "install", "build"])
-
-
-def build_file(dirname):
+def build_file(dirname, dist_name):
     orig_dir = os.getcwd()
     os.chdir(dirname)
     if os.path.exists("dist"):
         shutil.rmtree("dist")
-    subprocess.check_call([sys.executable, "-m", "build", f"--{args.dist_name}"])
+    subprocess.check_call([sys.executable, "-m", "build", f"--{dist_name}"])
     os.chdir(orig_dir)
 
 
@@ -39,40 +35,47 @@ def get_zip_names(dirname):
         return set(f.namelist())
 
 
-def filter_file(path, root):
+def filter_file(path):
     if "egg-info" in path:
         return True
-    full_path = os.path.join(path, root)
-    if os.path.isdir(full_path):
+    _, ext = os.path.splitext(path)
+    if not ext:
         return True
     if os.path.basename(path) in [path, "setup.py", "setup.cfg", "MANIFEST.in"]:
         return True
     return False
 
 
-build_file(args.source_dir)
-build_file(args.target_dir)
+def main(source_dir, target_dir, dist_name):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "build"])
 
-if args.dist_name == "sdist":
-    source_names = get_tar_names(args.source_dir)
-    target_names = get_tar_names(args.target_dir)
-else:
-    source_names = get_zip_names(args.source_dir)
-    target_names = get_zip_names(args.target_dir)
+    build_file(source_dir, dist_name)
+    build_file(target_dir, dist_name)
 
-removed = source_names - target_names
-removed = [r for r in removed if not filter_file(r, args.source_dir)]
-if removed:
-    print("\nRemoved_files:")
-    [print(f) for f in removed]
+    if dist_name == "sdist":
+        source_names = get_tar_names(source_dir)
+        target_names = get_tar_names(target_dir)
+    else:
+        source_names = get_zip_names(source_dir)
+        target_names = get_zip_names(target_dir)
 
-added = target_names - source_names
-added = [a for a in added if not filter_file(a, args.target_dir)]
-if added:
-    print("\nAdded files:")
-    [print(f) for f in added]
+    removed = source_names - target_names
+    removed = [r for r in removed if not filter_file(r)]
+    if removed:
+        print("\nRemoved_files:")
+        [print(f) for f in removed]
 
-print()
+    added = target_names - source_names
+    added = [a for a in added if not filter_file(a)]
+    if added:
+        print("\nAdded files:")
+        [print(f) for f in added]
 
-if added or removed:
-    sys.exit(1)
+    print()
+
+    return dict(added=added, removed=removed)
+
+
+if __name__ == "__main__":
+    args = parser.parse_args()
+    main(args.source_dir, args.target_dir, args.dist_name)

@@ -17,7 +17,7 @@ if builder_version.is_devrelease:
     builder_version = f"{builder_version.major}.{builder_version.minor - 1}.0"
 
 
-print("Starting pyproject.toml migration")
+print("\n\nStarting pyproject.toml migration")
 
 warnings = []
 
@@ -39,7 +39,12 @@ text = pyproject.read_text("utf-8")
 data = tomli.loads(text)
 requires = data["build-system"]["requires"]
 requires = [
-    r for r in requires if not r.startswith("jupyter-packaging") and not r.startswith("setuptools")
+    r
+    for r in requires
+    if not r.startswith("jupyter-packaging")
+    and not r.startswith("setuptools")
+    and not r.startswith("jupyter_packaging")
+    and not r.startswith("wheel")
 ]
 
 # Automatic migration from hatch.
@@ -145,19 +150,24 @@ if setup_py.exists():
     build_kwargs = builder_table.setdefault("build-kwargs", {})
     editable_build_command = None
     if "build_cmd" in text:
-        match = re.search('build_cmd="(.*?)"', text, re.MULTILINE)
-        assert match is not None
-        editable_build_command = match.groups()[0]
+        match = re.search("build_cmd=['\"](.*?)['\"]", text, re.MULTILINE)
+        if match:
+            editable_build_command = match.groups()[0]
 
-    if "source_dir" in text or "build_dir" in text:
+    if "source_dir" in text or "build_dir" in text and editable_build_command:
         builder_table["editable-build-kwargs"] = {}
         editable_build_kwargs: dict = builder_table["editable-build-kwargs"]
+        if not editable_build_command:
+            editable_build_command = "!!! needs manual input !!!"
+            warnings.append(
+                "Fill in [tool.hatch.build.hooks.jupyter-builder.editable-build-kwargs][build_cmd]' in 'pyproject.toml', which was the 'build_cmd' argument to 'npm_builder' in 'setup.py'"
+            )
         editable_build_kwargs["build_cmd"] = editable_build_command
 
         for name in ["source_dir", "build_dir"]:
             if name not in text:
                 continue
-            match = re.search(f'{name}="(.*?)"', text, re.MULTILINE)
+            match = re.search(f"{name}=['\"](.*?)['\"]", text, re.MULTILINE)
             if match is not None:
                 editable_build_kwargs[name] = match.groups()[0]
             else:
@@ -166,7 +176,12 @@ if setup_py.exists():
                 )
                 editable_build_kwargs[name] = "!!! needs manual input !!!"
 
-    elif editable_build_command:
+    elif editable_build_command or "build_cmd" in text:
+        if not editable_build_command:
+            editable_build_command = "!!! needs manual input !!!"
+            warnings.append(
+                "Fill in [tool.hatch.build.hooks.jupyter-builder.editable_build_cmd]' in 'pyproject.toml', which was the 'build_cmd' argument to 'npm_builder' in 'setup.py'"
+            )
         build_kwargs["editable_build_cmd"] = editable_build_command
 
     # Handle versioning with tbump - allows for static versioning and makes
@@ -217,7 +232,7 @@ for fname in ["MANIFEST.in", "setup.cfg"]:
         os.remove(fname)
 
 # Write out the new config.
-print("Writing pyproject.toml")
+print("\n\nWriting pyproject.toml")
 pyproject.write_text(tomli_w.dumps(data), "utf-8")
 
 if warnings:
@@ -225,4 +240,5 @@ if warnings:
     print("Please address the following concerns:")
     for warning in warnings:
         print(f"  - {warning}")
-    print("\n\n")
+
+print("\n\nMigration complete!")
