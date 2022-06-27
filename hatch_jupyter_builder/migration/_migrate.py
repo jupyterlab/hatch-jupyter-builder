@@ -95,6 +95,12 @@ print("Migrating static data")
 data = tomli.loads(pyproject.read_text("utf-8"))
 tool_table = data.setdefault("tool", {})
 
+# Handle license file.
+for lic_name in ["LICENSE", "COPYING.md", "LICENSE.txt"]:
+    for fname in os.listdir("."):
+        if fname.lower() == lic_name.lower():
+            data["project"]["license"] = dict(file=fname)
+
 # Add the other build requirements.
 data["build-system"]["requires"].extend(requires)
 
