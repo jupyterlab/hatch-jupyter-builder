@@ -51,7 +51,8 @@ else:
 print("Running hatch migration")
 subprocess.run([sys.executable, "-m", "hatch", "new", "--init"])
 
-# Run the jupyter-packaging migration script - must be done after.
+# Run the jupyter-packaging migration script - must be done after
+# hatch migration to avoid conflicts.
 print("Running jupyter-packaging migration")
 here = os.path.abspath(os.path.dirname(__file__))
 prev_pythonpath = os.environ.get("PYTHONPATH", "")
