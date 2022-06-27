@@ -9,7 +9,7 @@ build-backend = "hatchling.build"
 name = "myextension"
 description = "A JupyterLab extension."
 readme = "README.md"
-license = "BSD-3-Clause"
+license = { file = "LICENSE" }
 requires-python = ">=3.7"
 authors = [
     { name = "me", email = "me@me.com" },
