@@ -77,7 +77,7 @@ npm = [
 [tool.hatch.build.hooks.jupyter-builder.editable-build-kwargs]
 build_cmd = "install:extension"
 source_dir = "src"
-build_dir = "!!! needs manual input !!!"
+build_dir = "myextension/labextension"
 
 [tool.tbump]
 field = [
