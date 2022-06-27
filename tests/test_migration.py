@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 import tomli
 
-from hatch_jupyter_builder.migration.compare import main
+from hatch_jupyter_builder.compare_migrated.__main__ import main
 
 HERE = Path(__file__).parent.absolute()
 
@@ -26,7 +26,7 @@ def test_migration():
 
         # Migrate the first extension and compare its migrated pyproject.toml
         # to the expected one.
-        subprocess.check_call([python, "-m", "hatch_jupyter_builder.migration", target1])
+        subprocess.check_call([python, "-m", "hatch_jupyter_builder.migrate", target1])
         source_toml = source.joinpath("pyproject.toml").read_text(encoding="utf-8")
         target_toml = target1.joinpath("pyproject.toml").read_text(encoding="utf-8")
         source_data = tomli.loads(source_toml)

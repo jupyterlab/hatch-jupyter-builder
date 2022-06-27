@@ -55,7 +55,8 @@ filterwarnings = [
 
 [tool.coverage.run]
 omit = [
-   "hatch_jupyter_builder/migration/*"
+   "hatch_jupyter_builder/migrate/*",
+   "hatch_jupyter_builder/compare_migrated/*"
 ]
 
 [tool.jupyter-releaser]
