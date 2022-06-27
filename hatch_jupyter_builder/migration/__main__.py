@@ -29,7 +29,6 @@ with TemporaryDirectory() as td:
     runner = subprocess.check_call
     runner([python, "-m", "pip", "install", "build"])
     runner([python, "-m", "pip", "install", "packaging"])
-    runner([python, "-m", "pip", "install", "jupyter_packaging"])
     runner([python, "-m", "pip", "install", "tomli_w"])
     runner([python, "-m", "pip", "install", "tomli"])
     runner([python, "-m", "pip", "install", "hatch"])

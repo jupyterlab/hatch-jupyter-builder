@@ -20,6 +20,21 @@ print("\n\nStarting pyproject.toml migration")
 
 warnings = []
 
+# Read pyproject before migration to get old build requirements.
+pyproject = Path("pyproject.toml")
+data = tomli.loads(pyproject.read_text("utf-8"))
+requires = data["build-system"]["requires"]
+# Install the old build reqs into this venv.
+subprocess.run([sys.executable, "-m", "pip", "install"] + requires)
+requires = [
+    r
+    for r in requires
+    if not r.startswith("jupyter-packaging")
+    and not r.startswith("setuptools")
+    and not r.startswith("jupyter_packaging")
+    and not r.startswith("wheel")
+]
+
 # Extract the current version before beginning any migration.
 setup_py = Path("setup.py")
 if setup_py.exists():
@@ -32,23 +47,12 @@ else:
     warnings.append("Fill in '[project][version]' in 'pyproject.toml'")
     current_version = "!!UNKONWN!!"
 
-# Read pyproject before migration to get old build requirements.
-pyproject = Path("pyproject.toml")
-data = tomli.loads(pyproject.read_text("utf-8"))
-requires = data["build-system"]["requires"]
-requires = [
-    r
-    for r in requires
-    if not r.startswith("jupyter-packaging")
-    and not r.startswith("setuptools")
-    and not r.startswith("jupyter_packaging")
-    and not r.startswith("wheel")
-]
-
 # Run the hatch migration script.
+print("Running hatch migration")
 subprocess.run([sys.executable, "-m", "hatch", "new", "--init"])
 
 # Run the jupyter-packaging migration script - must be done after.
+print("Running jupyter-packaging migration")
 here = os.path.abspath(os.path.dirname(__file__))
 prev_pythonpath = os.environ.get("PYTHONPATH", "")
 if prev_pythonpath:
@@ -86,6 +90,7 @@ if setup_cfg.exists():
 
 # Migrate and remove unused config.
 # Read in the project.toml after auto migration.
+print("Migrating static data")
 data = tomli.loads(pyproject.read_text("utf-8"))
 tool_table = data.setdefault("tool", {})
 
