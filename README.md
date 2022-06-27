@@ -86,7 +86,7 @@ config as well, if present.
 To migrate, run the following:
 
 ```bash
-python -m hatch_jupyter_builder.migration .
+python -m hatch_jupyter_builder.migrate .
 ```
 
 The migration script will do most of the migration automatically, but
@@ -95,7 +95,7 @@ will prompt you for anything it cannot do itself.
 To compare dist files with a reference checkout, run the following:
 
 ```bash
-python -m hatch_jupyter_builder.migration.compare <source_dir> <target_dir> sdist
+python -m hatch_jupyter_builder.compare_migration <source_dir> <target_dir> sdist
 ```
 
 Use `wheel` to compare wheel file contents.
