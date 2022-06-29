@@ -50,7 +50,7 @@ cmdclass = create_cmdclass(
     "jsdeps", package_data_spec=package_data_spec, data_files_spec=data_files_spec
 )
 npm_install = combine_commands(
-    install_npm(HERE, build_cmd="build:prod"),
+    install_npm(HERE, build_cmd="build:prod", npm="jlpm"),
     ensure_targets(jstargets),
 )
 cmdclass["jsdeps"] = skip_if_exists(jstargets, npm_install)
