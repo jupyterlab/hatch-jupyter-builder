@@ -35,6 +35,7 @@ jobs:
       - name: Run Migration Tests
         run: |
           pip install pytest-xdist[psutil]
+          npm config set loglevel silly
           python -m pytest -n auto -vv -s --migration-tests True
 
   pre-commit:
