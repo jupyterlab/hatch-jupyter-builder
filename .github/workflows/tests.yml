@@ -34,6 +34,7 @@ jobs:
         run: python -m pytest -vv --cov hatch_jupyter_builder --cov-branch --cov-report term-missing:skip-covered --cov-fail-under 90
       - name: Debug
         run: |
+          cd tests/data/create_cmdclass/myproject
           npm install
           npm run build:lib
           exit 1
