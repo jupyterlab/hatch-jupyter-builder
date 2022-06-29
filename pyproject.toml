@@ -102,3 +102,4 @@ strict_equality = true
 warn_unused_configs = true
 warn_unused_ignores = true
 warn_redundant_casts = true
+exclude = ["tests/data/**/*.*"]
