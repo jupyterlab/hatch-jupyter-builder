@@ -33,7 +33,7 @@
     "build:prod": "npm run build:lib && npm run build:nbextension && npm run build:labextension",
     "build:labextension": "jupyter labextension build .",
     "build:labextension:dev": "jupyter labextension build --development True .",
-    "build:lib": "tsc",
+    "build:lib": "tsc --verbose",
     "build:nbextension": "webpack",
     "clean": "npm run clean:lib && npm run clean:nbextension && npm run clean:labextension",
     "clean:lib": "rimraf lib",
