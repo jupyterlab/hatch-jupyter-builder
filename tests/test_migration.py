@@ -42,23 +42,23 @@ def test_npm_builder_migration():
         # Compare the produced wheel and sdist for the migrated and unmigrated
         # extensions.
         for asset in ["sdist", "wheel"]:
-            results = main(target1, target2, asset)
+            results = main(target2, target1, asset)
 
             if asset == "sdist":
-                assert len(results["added"]) == 1
-                assert "static/remoteEntry." in results["added"][0]
+                assert len(results["removed"]) == 1
+                assert "static/remoteEntry." in results["removed"][0]
 
-                assert len(results["removed"]) == 2
-                for item in results["removed"]:
+                assert len(results["added"]) == 2
+                for item in results["added"]:
                     assert ".eslintrc.js" in item or "static/remoteEntry." in item
 
             else:
-                assert len(results["added"]) == 3
-                for item in results["added"]:
-                    assert "static/remoteEntry." in item or "top_level.txt" in item
-
                 assert len(results["removed"]) == 3
                 for item in results["removed"]:
+                    assert "static/remoteEntry." in item or "top_level.txt" in item
+
+                assert len(results["added"]) == 3
+                for item in results["added"]:
                     assert "entry_points.txt" in item or "static/remoteEntry." in item
 
             # Check the produced dist file in strict mode.
@@ -96,24 +96,13 @@ def test_create_cmdclass_migration():
         # Compare the produced wheel and sdist for the migrated and unmigrated
         # extensions.
         for asset in ["sdist", "wheel"]:
-            results = main(target1, target2, asset)
+            results = main(target2, target1, asset)
 
-            if asset == "sdist":
-                assert len(results["added"]) == 1
-                assert "static/remoteEntry." in results["added"][0]
+            assert len(results["removed"]) == 3
+            for item in results["removed"]:
+                assert "remoteEntry." in item or "embed-bundle.js" in item
 
-                assert len(results["removed"]) == 2
-                for item in results["removed"]:
-                    assert ".eslintrc.js" in item or "static/remoteEntry." in item
-
-            else:
-                assert len(results["added"]) == 3
-                for item in results["added"]:
-                    assert "static/remoteEntry." in item or "top_level.txt" in item
-
-                assert len(results["removed"]) == 3
-                for item in results["removed"]:
-                    assert "entry_points.txt" in item or "static/remoteEntry." in item
+            assert len(results["added"]) == 8
 
             # Check the produced dist file in strict mode.
             dist_files = glob.glob(str(target1 / "dist/*.*"))

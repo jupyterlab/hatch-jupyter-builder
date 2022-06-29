@@ -10,7 +10,7 @@ name = "myproject"
 description = "A Custom Jupyter Widget Library"
 readme = "README.md"
 license = { file = "LICENSE.txt" }
-requires-python = ">=3.7"
+requires-python = ">=3.6"
 authors = [
     { name = "me", email = "me@me.com" },
 ]
@@ -26,10 +26,10 @@ classifiers = [
     "License :: OSI Approved :: BSD License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.4",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
 ]
 dependencies = [
     "ipywidgets>=7.0.0",
@@ -51,7 +51,7 @@ examples = []
 test = [
     "nbval",
     "pytest-cov",
-    "pytest>=6.0",
+    "pytest>=4.6",
 ]
 
 [project.urls]
