@@ -73,10 +73,10 @@ def test_create_cmdclass_migration():
     # Copy the source cookiecutter extension into two temporary directories.
     with tempfile.TemporaryDirectory() as td1, tempfile.TemporaryDirectory() as td2:
         source = HERE / "data" / "create_cmdclass"
-        shutil.copytree(source / "myextension", Path(td1) / "myextension")
-        shutil.copytree(source / "myextension", Path(td2) / "myextension")
-        target1 = Path(td1) / "myextension"
-        target2 = Path(td2) / "myextension"
+        shutil.copytree(source / "myproject", Path(td1) / "myproject")
+        shutil.copytree(source / "myproject", Path(td2) / "myproject")
+        target1 = Path(td1) / "myproject"
+        target2 = Path(td2) / "myproject"
 
         # Migrate the first extension and compare its migrated pyproject.toml
         # to the expected one.
