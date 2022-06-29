@@ -5,7 +5,8 @@ exclude =
     .cache,
     .github,
     docs,
-    setup.py
+    setup.py,
+    tests/data
 enable-extensions = G
 extend-ignore =
     G001, G002, G004, G200, G201, G202,
