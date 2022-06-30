@@ -98,7 +98,6 @@ def test_create_cmdclass_migration():
         for asset in ["sdist", "wheel"]:
             results = main(target2, target1, asset)
 
-            assert len(results["removed"]) == 4
             for item in results["removed"]:
                 assert (
                     "remoteEntry." in item
