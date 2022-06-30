@@ -106,7 +106,10 @@ def test_create_cmdclass_migration():
                     or "dist-info/top_level.txt" in item
                 )
 
-            assert len(results["added"]) == 4, results["added"]
+            if asset == "sdist":
+                assert len(results["added"]) == 8
+            else:
+                assert len(results["added"]) == 8, results["added"]
 
             # Check the produced dist file in strict mode.
             dist_files = glob.glob(str(target1 / "dist/*.*"))
