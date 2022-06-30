@@ -32,18 +32,11 @@ jobs:
         run: pip install -e ".[test]"
       - name: Run tests
         run: python -m pytest -vv --cov hatch_jupyter_builder --cov-branch --cov-report term-missing:skip-covered --cov-fail-under 90
-      - name: Debug
+      - name: Run Migration Tests
         run: |
-          cd tests/data/create_cmdclass/myproject
-          npm install
-          npm run build:lib
-          exit 1
-
-      # - name: Run Migration Tests
-      #   run: |
-      #     pip install pytest-xdist[psutil]
-      #     npm config set loglevel silly
-      #     python -m pytest -n auto -vv -s --migration-tests True
+          pip install pytest-xdist[psutil]
+          npm config set loglevel silly
+          python -m pytest -n auto -vv -s --migration-tests True
 
   pre-commit:
     name: pre-commit
