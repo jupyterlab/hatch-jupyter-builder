@@ -33,7 +33,9 @@ jobs:
       - name: Run tests
         run: python -m pytest -vv --cov hatch_jupyter_builder --cov-branch --cov-report term-missing:skip-covered --cov-fail-under 90
       - name: Run Migration Tests
-        run: python -m pytest -vv -s --migration-tests True
+        run: |
+          pip install pytest-xdist[psutil]
+          python -m pytest -n auto -vv --migration-tests True
 
   pre-commit:
     name: pre-commit

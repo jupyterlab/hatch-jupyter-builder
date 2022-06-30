@@ -127,6 +127,7 @@ targets_table["sdist"] = dict(exclude=[".github"])
 hooks_table = build_table.setdefault("hooks", {})
 builder_table = hooks_table.setdefault("jupyter-builder", {})
 builder_table["dependencies"] = [f"hatch-jupyter-builder>={builder_version}"]
+builder_table["build-function"] = "hatch_jupyter_builder.npm_builder"
 
 # Migrate the jupyter-packaging static data.
 if "jupyter-packaging" in tool_table:
@@ -135,7 +136,6 @@ if "jupyter-packaging" in tool_table:
 
     options_table = packaging_table.setdefault("options", {})
     build_args_table = packaging_table.setdefault("build-args", {})
-    builder_table["build-function"] = "hatch_jupyter_builder.npm_builder"
 
     for option in ["ensured-targets", "skip-if-exists"]:
         if option in options_table:

@@ -108,7 +108,12 @@ def create_cmdclass(
     shared_data = {}
     if data_files_spec is not None:
         for (path, dname, pattern) in data_files_spec:
-            shared_data[f"{dname}/{pattern}"] = path
+            if pattern == "**":
+                shared_data[dname] = path
+            else:
+                shared_data[f"{dname}/{pattern}"] = f"{path}/{pattern}"
+
+    print(shared_data)
 
     _write_config("tool.hatch.build.targets.wheel.shared-data", shared_data)
 
