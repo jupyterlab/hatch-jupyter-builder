@@ -109,7 +109,12 @@ def test_create_cmdclass_migration():
             if asset == "sdist":
                 assert len(results["added"]) == 8
             else:
-                assert len(results["added"]) == 8, results["added"]
+                for item in results["added"]:
+                    assert (
+                        "remoteEntry." in item
+                        or "license_files/LICENSE.txt" in item
+                        or "dist-info/entry_points.txt" in item
+                    )
 
             # Check the produced dist file in strict mode.
             dist_files = glob.glob(str(target1 / "dist/*.*"))
