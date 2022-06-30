@@ -103,6 +103,7 @@ def test_create_cmdclass_migration():
                     "remoteEntry." in item
                     or "embed-bundle.js" in item
                     or "dist-info/LICENSE.txt" in item
+                    or "dist-info/top_level.txt" in item
                 )
 
             assert len(results["added"]) == 8
