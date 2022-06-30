@@ -35,7 +35,7 @@ jobs:
       - name: Run Migration Tests
         run: |
           pip install pytest-xdist[psutil]
-          python -m pytest -n auto -vv -s --migration-tests True
+          python -m pytest -n auto -vv --migration-tests True
 
   pre-commit:
     name: pre-commit
