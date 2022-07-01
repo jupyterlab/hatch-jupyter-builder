@@ -78,6 +78,9 @@ npm = [
 build_cmd = "install:extension"
 source_dir = "src"
 build_dir = "myextension/labextension"
+npm = [
+    "jlpm",
+]
 
 [tool.tbump]
 field = [
