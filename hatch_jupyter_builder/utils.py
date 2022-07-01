@@ -111,6 +111,8 @@ def npm_builder(
         run(npm_cmd + ["install"], cwd=str(abs_path))
         if build_cmd:
             run(npm_cmd + ["run", build_cmd], cwd=str(abs_path))
+    else:
+        log.info("No build required")
 
 
 def is_stale(target: Union[str, Path], source: Union[str, Path]) -> bool:
@@ -226,6 +228,7 @@ def ensure_targets(ensured_targets: List[str]) -> None:
     for target in ensured_targets:
         if not Path(target).exists():
             raise ValueError(f'Ensured target "{target}" does not exist')
+    _get_log().info("Ensured target(s) exist!")
 
 
 def should_skip(skip_if_exists):

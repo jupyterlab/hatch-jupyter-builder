@@ -144,6 +144,10 @@ if "jupyter-packaging" in tool_table:
     if build_args_table:
         builder_table["build-kwargs"] = build_args_table.copy()
 
+    if build_args_table.get("npm"):
+        if "editable-build-kwargs" in builder_table:
+            builder_table["editable-build-kwargs"]["npm"] = build_args_table["npm"]
+
 # Add artifacts config for package data that would be ignored.
 project_name = data.get("project", {}).get("name", "")
 gitignore = Path(".gitignore")
