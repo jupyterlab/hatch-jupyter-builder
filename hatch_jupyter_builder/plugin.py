@@ -37,7 +37,7 @@ class JupyterBuildHook(BuildHookInterface):
 
         should_skip_build = False
         if not build_function:
-            log.warn("No build function found")
+            log.warning("No build function found")
             should_skip_build = True
 
         elif skip_if_exists and version == "standard":
