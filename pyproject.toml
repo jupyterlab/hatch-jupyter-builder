@@ -32,7 +32,7 @@ Source = "https://github.com/jupyterlab/hatch-jupyter-builder"
 
 [project.optional-dependencies]
 test = ["pytest", "pytest-mock", "pre-commit", "hatchling", "pytest-cov", "tomli", "twine"]
-docs = ["pydata-sphinx-theme"]
+docs = ["pydata-sphinx-theme", "sphinx>=5.0"]
 
 [project.entry-points.hatch]
 jupyter = "hatch_jupyter_builder.hooks"
