@@ -45,6 +45,7 @@ jobs:
       - name: Install dependencies
         run: pip install -e ".[docs]"
       - name: Build docs
+        working-directory: docs
         run: make html SPHINXOPTS="-W"
 
   pre-commit:
