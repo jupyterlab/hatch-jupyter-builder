@@ -37,6 +37,16 @@ jobs:
           pip install pytest-xdist[psutil]
           python -m pytest -n auto -vv --migration-tests True
 
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      - name: Install dependencies
+        run: pip install -e ".[docs]"
+      - name: Build docs
+        run: make html SPHINXOPTS="-W"
+
   pre-commit:
     name: pre-commit
     runs-on: ubuntu-latest
