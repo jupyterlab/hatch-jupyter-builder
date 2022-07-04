@@ -45,21 +45,18 @@ def test_npm_builder_migration():
             results = main(target2, target1, asset)
 
             if asset == "sdist":
-                assert len(results["removed"]) == 1
-                assert "static/remoteEntry." in results["removed"][0]
+                for item in results["removed"]:
+                    assert "static/remoteEntry." in item
 
-                assert len(results["added"]) == 2
                 for item in results["added"]:
                     assert ".eslintrc.js" in item or "static/remoteEntry." in item
 
             else:
-                assert len(results["removed"]) == 3
                 for item in results["removed"]:
                     assert "static/remoteEntry." in item or "top_level.txt" in item
 
-                assert len(results["added"]) == 3
                 for item in results["added"]:
-                    assert "entry_points.txt" in item or "static/remoteEntry." in item
+                    assert "static/remoteEntry." in item
 
             # Check the produced dist file in strict mode.
             dist_files = glob.glob(str(target1 / "dist/*.*"))

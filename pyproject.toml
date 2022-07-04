@@ -32,6 +32,7 @@ Source = "https://github.com/jupyterlab/hatch-jupyter-builder"
 
 [project.optional-dependencies]
 test = ["pytest", "pytest-mock", "pre-commit", "hatchling", "pytest-cov", "tomli", "twine"]
+docs = ["pydata-sphinx-theme", "sphinx>=5.0"]
 
 [project.entry-points.hatch]
 jupyter = "hatch_jupyter_builder.hooks"
@@ -82,6 +83,9 @@ src = "hatch_jupyter_builder/__init__.py"
 
 [[tool.tbump.file]]
 src = "pyproject.toml"
+
+[[tool.tbump.file]]
+src = "docs/conf.py"
 
 [[tool.tbump.field]]
 name = "channel"

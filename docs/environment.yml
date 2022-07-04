@@ -1,0 +1,6 @@
+name: hatch-jupyter-builder-docs
+dependencies:
+  - python
+  - pip
+  - pip:
+      - "..[docs]"
