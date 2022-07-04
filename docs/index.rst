@@ -10,7 +10,10 @@ Welcome to hatch-jupyter-builder's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   source/background/index
+   source/get_started/index
+   source/how_to_guides/index
+   source/reference/index
 
 Indices and tables
 ==================

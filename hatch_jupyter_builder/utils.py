@@ -41,8 +41,6 @@ def npm_builder(
     editable_build_cmd: Optional[str] = None,
 ) -> None:
     """Build function for managing an npm installation.
-    Note: The function is a no-op if the `--skip-npm` cli flag is used
-        or HATCH_JUPYTER_BUILDER_SKIP_NPM env is set.
 
     Parameters
     ----------
@@ -63,6 +61,11 @@ def npm_builder(
         The npm command to build assets to the build_dir when building in editable mode.
     npm: str or list, optional.
         The npm executable name, or a tuple of ['node', executable].
+
+    Notes
+    -----
+    The function is a no-op if the `--skip-npm` cli flag is used
+        or HATCH_JUPYTER_BUILDER_SKIP_NPM env is set.
     """
 
     # Check if we are building a wheel from an sdist.
