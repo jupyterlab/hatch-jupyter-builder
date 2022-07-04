@@ -190,6 +190,8 @@ def get_build_func(build_func_str: str) -> Callable[..., None]:
 
 
 def normalize_cmd(cmd: Union[str, list]) -> List[str]:
+    if isinstance(cmd, str):
+        cmd = [cmd]
     if not isinstance(cmd, (list, tuple)):
         cmd = shlex.split(cmd, posix=os.name != "nt")
     if not Path(cmd[0]).is_absolute():
