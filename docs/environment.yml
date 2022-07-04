@@ -3,4 +3,4 @@ dependencies:
   - python
   - pip
   - pip:
-      - ".[docs]"
+      - "..[docs]"
