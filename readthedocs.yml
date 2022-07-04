@@ -4,9 +4,3 @@ sphinx:
   fail_on_warning: true
 conda:
   environment: docs/environment.yml
-python:
-  version: 3.8
-  install:
-    # install itself with pip install .
-    - method: pip
-      path: ".[docs]"
