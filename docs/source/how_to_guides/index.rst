@@ -7,4 +7,4 @@ Step-by-step guides. Covers key tasks and operations and common problems
    :caption: Contents:
 
    migrating_javascript_projects
-   migration_data_files_projects
+   migrating_data_files_projects
