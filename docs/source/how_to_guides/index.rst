@@ -6,4 +6,5 @@ Step-by-step guides. Covers key tasks and operations and common problems
    :maxdepth: 1
    :caption: Contents:
 
-Coming soon!
+   migrating_javascript_projects
+   migrating_data_files_projects
