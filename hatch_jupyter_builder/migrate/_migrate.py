@@ -181,7 +181,12 @@ tbump_table["version"] = dict(
 )
 tbump_table["git"] = dict(message_template=r"Bump to {new_version}", tag_template=r"v{new_version}")
 tbump_table["field"] = [dict(name="channel", default=""), dict(name="release", default="")]
-tbump_table["file"] = [dict(src="pyproject.toml")]
+tbump_table["file"] = [
+    dict(
+        src="pyproject.toml",
+        version_template='version = "{major}.{minor}.{patch}{channel}{release}"',
+    )
+]
 
 # Add entry for _version.py if it exists.
 version_py = Path(project_name) / "_version.py"
