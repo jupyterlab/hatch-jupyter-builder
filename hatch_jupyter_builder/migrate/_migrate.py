@@ -207,7 +207,7 @@ if package_json.exists():
         tbump_table["file"].append(
             dict(
                 src="package.json",
-                version_template='"version": "{major}.{minor}.{patch}"',
+                version_template='"version": "{major}.{minor}.{patch}{channel}{release}"',
             )
         )
 
