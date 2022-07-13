@@ -204,7 +204,12 @@ if package_json.exists():
     text = package_json.read_text(encoding="utf-8")
     npm_version = json.loads(text)["version"]
     if npm_version == current_version:
-        tbump_table["file"].append(dict(src="package.json"))
+        tbump_table["file"].append(
+            dict(
+                src="package.json",
+                version_template='"version": "{major}.{minor}.{patch}"',
+            )
+        )
 
 # Add a setup.py shim.
 shim_text = """# setup.py shim for use with applications that require it.
