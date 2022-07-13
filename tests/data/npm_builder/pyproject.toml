@@ -90,7 +90,7 @@ field = [
 file = [
     { src = "pyproject.toml", version_template = "version = \"{major}.{minor}.{patch}{channel}{release}\"" },
     { src = "myextension/_version.py" },
-    { src = "package.json" },
+    { src = "package.json", version_template = '"version": "{major}.{minor}.{patch}"' },
 ]
 
 [tool.tbump.version]
