@@ -247,7 +247,7 @@ INSTALL_PYTHON={sys.executable}
 ARGS=(hook-impl --config=.pre-commit-config.yaml --hook-type=pre-commit)
 HERE="$(cd "$(dirname "$0")" && pwd)"
 ARGS+=(--hook-dir "$HERE" -- "$@")
-exec "$INSTALL_PYTHON" -mpre_commit "${{ARGS[@]}}"
+exec "$INSTALL_PYTHON" -m pre_commit "${{ARGS[@]}}"
 """
     if not os.path.exists(".git"):
         log = _get_log()
