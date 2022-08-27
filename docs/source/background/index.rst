@@ -8,9 +8,9 @@ as part of their Python packages.
 
 Typical use cases are Jupyter Lab Extensions and Jupyter Widgets.
 
-The ``hatchling`` build backend is part of the ``hatch`` project,
+The ``hatchling`` build backend is part of the `hatch <https://hatch.pypa.io/latest/intro/>`_ project,
 a member of the Python Packaging Authority.  It provides a simple
 build backend that is compliant with the relevant Python Enhancement
 Proposals, but also provides many useful features such as
-``shared-data``, which can be used to provide Jupyter configuration
+`shared-data <https://hatch.pypa.io/latest/plugins/builder/wheel/#options>`_, which can be used to provide Jupyter configuration
 and runtime files.
