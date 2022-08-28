@@ -214,6 +214,8 @@ def normalize_kwargs(kwargs: Mapping[str, str]) -> Mapping[str, str]:
     for key in kwargs:
         if "-" in key:
             result[key.replace("-", "_")] = kwargs[key]
+        else:
+            result[key] = kwargs[key]
     return result
 
 
