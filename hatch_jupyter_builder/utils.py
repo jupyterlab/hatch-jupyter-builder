@@ -6,7 +6,7 @@ import subprocess
 import sys
 from pathlib import Path
 from shutil import which
-from typing import Any, Callable, Dict, List, Mapping, Optional, Union
+from typing import Any, Callable, List, Mapping, Optional, Union
 
 if sys.platform == "win32":  # pragma: no cover
     from subprocess import list2cmdline
