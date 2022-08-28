@@ -2,6 +2,7 @@
 
 [![PyPI - Version](https://img.shields.io/pypi/v/hatch-jupyter-builder.svg)](https://pypi.org/project/hatch-jupyter-builder)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/hatch-jupyter-builder.svg)](https://pypi.org/project/hatch-jupyter-builder)
+[![Hatch project](https://img.shields.io/badge/%F0%9F%A5%9A-Hatch-4051b5.svg)](https://github.com/pypa/hatch)
 
 ---
 
@@ -9,10 +10,15 @@ This provides a [build hook](https://hatch.pypa.io/latest/config/build/#build-ho
 
 **Table of Contents**
 
+- [Documentation](#documentation)
 - [Installation](#installation)
 - [License](#license)
 - [Usage and Configuration](#usage_and_configuration)
 - [Local Development](#local_development)
+
+## Documentation
+
+The full documenation is available on [Read The Docs](https://hatch-jupyter-builder.readthedocs.io/en/latest/).
 
 ## Installation
 
@@ -52,7 +58,7 @@ python -m hatch_jupyter_builder.compare_migration <source_dir> <target_dir> sdis
 
 Use `wheel` to compare wheel file contents.
 
-See the [documentation for more information on migration](https://hatch-jupyter-builder.readthedocs.io/en/latest/source/how_to_guides/index.html).
+See the [documentation for more information on migration](https://hatch-jupyter-builder.readthedocs.io/en/latest/source/how_to_guides/index.html) for more details.
 
 ## License
 
