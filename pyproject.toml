@@ -65,6 +65,7 @@ skip = ["check-links"]
 
 [tool.jupyter-releaser.options]
 ignore-glob = ["tests/data/**/README.md"]
+ignore-links = ["npm_builder_function"]
 
 [tool.tbump.version]
 current = "0.5.3"

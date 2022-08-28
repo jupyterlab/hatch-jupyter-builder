@@ -1,6 +1,7 @@
 API Docs
 ========
 
+.. _npm_builder_function:
 
 NPM Builder Function
 --------------------
