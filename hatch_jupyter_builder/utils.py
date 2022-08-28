@@ -211,10 +211,10 @@ def normalize_cmd(cmd: Union[str, list]) -> List[str]:
 def normalize_kwargs(kwargs: Mapping[str, str]) -> Mapping[str, str]:
     """Normalize the key names in a kwargs input dictionary"""
     result = {}
-    for key in list(kwargs):
+    for key in kwargs:
         if "-" in key:
             result[key.replace("-", "_")] = kwargs[key]
-    return kwargs
+    return result
 
 
 def run(cmd: Union[str, list], **kwargs: Any) -> int:
