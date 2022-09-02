@@ -1,4 +1,4 @@
-# Migrating Python Projects that used JavaScript
+# Migrating Python Projects that used Data Files
 
 For existing projects that used `setuptools` and optionally the
 `get_data_files()` function from `jupyter_packaging`, we offer a migration
