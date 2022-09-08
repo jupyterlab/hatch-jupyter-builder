@@ -34,6 +34,9 @@ Source = "https://github.com/jupyterlab/hatch-jupyter-builder"
 test = ["pytest", "pytest-mock", "pre-commit", "hatchling", "pytest-cov", "tomli", "twine"]
 docs = ["pydata-sphinx-theme", "myst-parser"]
 
+[project.scripts]
+hatch-jupyter-builder = 'hatch_jupyter_builder.cli:run'
+
 [project.entry-points.hatch]
 jupyter = "hatch_jupyter_builder.hooks"
 
