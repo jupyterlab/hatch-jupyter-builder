@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 import tomli
 
-from hatch_jupyter_builder.compare_migrated.__main__ import main
+from hatch_jupyter_builder.compare_migrated.cli import main
 
 HERE = Path(__file__).parent.absolute()
 
