@@ -39,13 +39,8 @@ jobs:
       - name: Run cli checks
         run: |
           hatch-jupyter-builder -h
-          python -m hatch_jupyter_builder -h
           hatch-jupyter-builder migrate -h
-          python -m hatch_jupyter_builder migrate -h
-          python -m hatch_jupyter_builder.migrate -h
           hatch-jupyter-builder compare_migrated -h
-          python -m hatch_jupyter_builder compare_migrated -h
-          python -m hatch_jupyter_builder.compare_migrated -h
 
   docs:
     runs-on: ubuntu-latest
