@@ -56,7 +56,7 @@ To compare dist files with a reference checkout, run the following:
 python -m hatch_jupyter_builder.compare_migration <source_dir> <target_dir> sdist
 ```
 
-The migration scripts can also be used without installation, using ``pipx``, e.g.:
+The migration scripts can also be used without installation, using `pipx`, e.g.:
 
 ```bash
 pipx hatch_jupyter_builder migrate .
