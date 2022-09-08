@@ -2,6 +2,37 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.6.0
+
+([Full Changelog](https://github.com/jupyterlab/hatch-jupyter-builder/compare/v0.5.3...fc91c954d1ba9fff579436fc2efe6bea0a68fff9))
+
+### Enhancements made
+
+- feature: CLI dispatcher [#63](https://github.com/jupyterlab/hatch-jupyter-builder/pull/63) ([@flying-sheep](https://github.com/flying-sheep))
+
+### Bugs fixed
+
+- Use version_template for package.json [#49](https://github.com/jupyterlab/hatch-jupyter-builder/pull/49) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- [pre-commit.ci] pre-commit autoupdate [#61](https://github.com/jupyterlab/hatch-jupyter-builder/pull/61) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- [pre-commit.ci] pre-commit autoupdate [#59](https://github.com/jupyterlab/hatch-jupyter-builder/pull/59) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- [pre-commit.ci] pre-commit autoupdate [#57](https://github.com/jupyterlab/hatch-jupyter-builder/pull/57) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+
+### Documentation improvements
+
+- Fix page title [#60](https://github.com/jupyterlab/hatch-jupyter-builder/pull/60) ([@blink1073](https://github.com/blink1073))
+- More documentation cleanup [#58](https://github.com/jupyterlab/hatch-jupyter-builder/pull/58) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/hatch-jupyter-builder/graphs/contributors?from=2022-08-19&to=2022-09-08&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Ablink1073+updated%3A2022-08-19..2022-09-08&type=Issues) | [@flying-sheep](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Aflying-sheep+updated%3A2022-08-19..2022-09-08&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Apre-commit-ci+updated%3A2022-08-19..2022-09-08&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Awelcome+updated%3A2022-08-19..2022-09-08&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.5.3
 
 ([Full Changelog](https://github.com/jupyterlab/hatch-jupyter-builder/compare/v0.5.2...c73212c3e88c7fe203df94b8d07100219baa8d89))
@@ -43,8 +74,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/hatch-jupyter-builder/graphs/contributors?from=2022-06-21&to=2022-08-19&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Ablink1073+updated%3A2022-06-21..2022-08-19&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Ajtpio+updated%3A2022-06-21..2022-08-19&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Apre-commit-ci+updated%3A2022-06-21..2022-08-19&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Awelcome+updated%3A2022-06-21..2022-08-19&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.5.2
 
