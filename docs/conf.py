@@ -22,7 +22,7 @@ copyright = "2022, Project Jupyter"
 author = "Project Jupyter"
 
 # The full version, including alpha/beta/rc tags
-release = "0.5.3"
+release = "0.6.0"
 
 
 # -- General configuration ---------------------------------------------------
