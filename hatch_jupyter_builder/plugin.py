@@ -1,5 +1,5 @@
 import typing as t
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, fields
 
 from hatchling.builders.hooks.plugin.interface import BuildHookInterface
 
@@ -35,7 +35,12 @@ class JupyterBuildHook(BuildHookInterface):
             log.info(f"ignoring target name {self.target_name}")
             return
 
-        config = JupyterBuildConfig(**normalize_kwargs(self.config))  # type: ignore[arg-type]
+        kwargs = normalize_kwargs(self.config)
+        available_fields = [f.name for f in fields(JupyterBuildConfig)]
+        for key in list(kwargs):
+            if key not in available_fields:
+                del kwargs[key]
+        config = JupyterBuildConfig(**kwargs)  # type: ignore[arg-type]
 
         should_install_hook = config.install_pre_commit_hook
 

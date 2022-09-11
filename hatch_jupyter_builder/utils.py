@@ -6,7 +6,7 @@ import subprocess
 import sys
 from pathlib import Path
 from shutil import which
-from typing import Any, Callable, List, Mapping, Optional, Union
+from typing import Any, Callable, Dict, List, Mapping, Optional, Union
 
 if sys.platform == "win32":  # pragma: no cover
     from subprocess import list2cmdline
@@ -208,7 +208,7 @@ def normalize_cmd(cmd: Union[str, list]) -> List[str]:
     return cmd
 
 
-def normalize_kwargs(kwargs: Mapping[str, str]) -> Mapping[str, str]:
+def normalize_kwargs(kwargs: Mapping[str, str]) -> Dict[str, str]:
     """Normalize the key names in a kwargs input dictionary"""
     result = {}
     for key in kwargs:
