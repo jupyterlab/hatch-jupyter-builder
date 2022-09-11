@@ -14,7 +14,9 @@ builder_version = version.parse(sys.argv[1])
 if builder_version.is_devrelease:
     assert isinstance(builder_version, version.Version)
     builder_version = f"{builder_version.major}.{builder_version.minor - 1}.0"
-
+builder_version = f">={builder_version}"
+if "BUILDER_VERSION_SPEC" in os.environ:
+    builder_version = os.environ["BUILDER_VERSION_SPEC"]
 
 print("\n\nStarting pyproject.toml migration")
 
@@ -126,7 +128,7 @@ targets_table["sdist"] = dict(exclude=[".github"])
 
 hooks_table = build_table.setdefault("hooks", {})
 builder_table = hooks_table.setdefault("jupyter-builder", {})
-builder_table["dependencies"] = [f"hatch-jupyter-builder>={builder_version}"]
+builder_table["dependencies"] = [f"hatch-jupyter-builder{builder_version}"]
 builder_table["build-function"] = "hatch_jupyter_builder.npm_builder"
 
 # Migrate the jupyter-packaging static data.
