@@ -47,7 +47,7 @@ jobs:
         run: pip install -e ".[test]"
       - name: Run Migration Tests
         run: |
-          python -m pytest -n auto -vv --migration-tests True
+          python -m pytest -vv --migration-tests True
 
   docs:
     runs-on: ubuntu-latest
