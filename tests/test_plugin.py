@@ -1,4 +1,7 @@
 import os
+import subprocess
+import sys
+import venv
 from pathlib import Path
 
 from hatch_jupyter_builder.plugin import JupyterBuildHook
@@ -39,3 +42,33 @@ def foo(target_name, version, foo_bar=None, fizz_buzz=None):
 
     hook = JupyterBuildHook(tmp_path, config, {}, {}, tmp_path, "foo")
     hook.initialize("standard", {})
+
+
+HERE = Path(__file__).parent
+REPO_ROOT = str(HERE.parent).replace(os.sep, "/")
+TOML_CONTENT = f"""
+[build-system]
+requires = ["hatchling>=1.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "test"
+version = "0.6.0"
+
+[tool.hatch.build.hooks.jupyter-builder]
+dependencies = ["hatch-jupyter-builder@file://{REPO_ROOT}"]
+"""
+
+
+def test_hatch_build(tmp_path):
+    venv.create(tmp_path, with_pip=True)
+    if os.name == "nt":
+        python = Path(tmp_path) / "Scripts/python.exe"
+    else:
+        python = Path(tmp_path) / "bin/python"
+    pyproject = Path(tmp_path) / "pyproject.toml"
+    pyproject.write_text(TOML_CONTENT, "utf-8")
+    test = Path(tmp_path) / "test.py"
+    test.write_text("print('hello')", "utf-8")
+    subprocess.check_call([python, "-m", "pip", "install", "build"], cwd=tmp_path)
+    subprocess.check_call([python, "-m", "build", "--sdist", "."], cwd=tmp_path)
