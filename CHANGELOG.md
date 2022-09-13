@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.6.2
+
+([Full Changelog](https://github.com/jupyterlab/hatch-jupyter-builder/compare/0.6.1...53dc001dacfdb82109466f9428210fb76bb0f008))
+
+### Bugs fixed
+
+- Fix editable build kwargs [#68](https://github.com/jupyterlab/hatch-jupyter-builder/pull/68) ([@fcollonval](https://github.com/fcollonval))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/hatch-jupyter-builder/graphs/contributors?from=2022-09-12&to=2022-09-13&type=c))
+
+[@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Afcollonval+updated%3A2022-09-12..2022-09-13&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Awelcome+updated%3A2022-09-12..2022-09-13&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.6.1
 
 ([Full Changelog](https://github.com/jupyterlab/hatch-jupyter-builder/compare/v0.6.0...f63bd99da493aff214e7bacdd574d24d11c41b20))
@@ -15,8 +31,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/hatch-jupyter-builder/graphs/contributors?from=2022-09-08&to=2022-09-12&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Ablink1073+updated%3A2022-09-08..2022-09-12&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.6.0
 
