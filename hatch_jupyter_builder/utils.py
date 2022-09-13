@@ -211,11 +211,8 @@ def normalize_cmd(cmd: Union[str, list]) -> List[str]:
 def normalize_kwargs(kwargs: Mapping[str, str]) -> Dict[str, str]:
     """Normalize the key names in a kwargs input dictionary"""
     result = {}
-    for key in kwargs:
-        if "-" in key:
-            result[key.replace("-", "_")] = kwargs[key]
-        else:
-            result[key] = kwargs[key]
+    for key, value in kwargs.items():
+        result[key.replace("-", "_")] = value
     return result
 
 

@@ -47,8 +47,9 @@ class JupyterBuildHook(BuildHookInterface):
         if version == "editable" and should_install_hook:
             install_pre_commit_hook()
 
+        build_kwargs = config.build_kwargs
         if version == "editable":
-            build_kwargs = config.editable_build_kwargs or config.build_kwargs
+            build_kwargs = config.editable_build_kwargs or build_kwargs
 
         should_skip_build = False
         if not config.build_function:
@@ -63,7 +64,7 @@ class JupyterBuildHook(BuildHookInterface):
         # Get build function and call it with normalized parameter names.
         if not should_skip_build and config.build_function:
             build_func = get_build_func(config.build_function)
-            build_kwargs = normalize_kwargs(config.build_kwargs)
+            build_kwargs = normalize_kwargs(build_kwargs)
             log.info(f"Building with {config.build_function}")
             log.info(f"With kwargs: {build_kwargs}")
             build_func(self.target_name, version, **build_kwargs)
