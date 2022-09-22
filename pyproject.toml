@@ -1,10 +1,10 @@
 [build-system]
-requires = ["hatchling>=1.0"]
+requires = ["hatchling>=1.5"]
 build-backend = "hatchling.build"
 
 [project]
 name = "hatch-jupyter-builder"
-version = "0.6.2"
+dynamic = ["version"]
 description = 'A hatch plugin to help build Jupyter packages'
 readme = "README.md"
 requires-python = ">=3.7"
@@ -40,6 +40,9 @@ hatch-jupyter-builder = 'hatch_jupyter_builder.cli:run'
 [project.entry-points.hatch]
 jupyter = "hatch_jupyter_builder.hooks"
 
+[tool.hatch.version]
+path = "hatch_jupyter_builder/__init__.py"
+
 [tool.black]
 line_length = 100
 
@@ -56,7 +59,6 @@ filterwarnings = [
   "error"
 ]
 
-
 [tool.coverage.run]
 omit = [
    "hatch_jupyter_builder/cli.py",
@@ -70,35 +72,6 @@ skip = ["check-links"]
 [tool.jupyter-releaser.options]
 ignore-glob = ["tests/data/**/README.md"]
 ignore-links = ["npm_builder_function"]
-
-[tool.tbump.version]
-current = "0.6.2"
-regex = '''
-  (?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)
-  ((?P<channel>a|b|rc|.dev)(?P<release>\d+))?
-'''
-
-[tool.tbump.git]
-message_template = "Bump to {new_version}"
-tag_template = "v{new_version}"
-
-[[tool.tbump.file]]
-src = "hatch_jupyter_builder/__init__.py"
-
-[[tool.tbump.file]]
-src = "pyproject.toml"
-version_template = "version = \"{major}.{minor}.{patch}{channel}{release}\""
-
-[[tool.tbump.file]]
-src = "docs/conf.py"
-
-[[tool.tbump.field]]
-name = "channel"
-default = ""
-
-[[tool.tbump.field]]
-name = "release"
-default = ""
 
 [tool.mypy]
 check_untyped_defs = true
