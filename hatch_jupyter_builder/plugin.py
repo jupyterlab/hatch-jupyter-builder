@@ -1,3 +1,4 @@
+import os
 import typing as t
 from dataclasses import dataclass, field, fields
 
@@ -33,7 +34,11 @@ class JupyterBuildHook(BuildHookInterface):
         log.info("Running jupyter-builder")
         if self.target_name not in ["wheel", "sdist"]:
             log.info(f"ignoring target name {self.target_name}")
-            return
+            return False
+
+        if os.getenv("SKIP_JUPYTER_BUILDER"):
+            log.info("Skipping the build hook since SKIP_JUPYTER_BUILDER was set")
+            return False
 
         kwargs = normalize_kwargs(self.config)
         available_fields = [f.name for f in fields(JupyterBuildConfig)]
@@ -76,3 +81,4 @@ class JupyterBuildHook(BuildHookInterface):
             ensure_targets(config.ensured_targets)
 
         log.info("Finished running jupyter-builder")
+        return True

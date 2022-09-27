@@ -35,6 +35,11 @@ To test this package locally with another package, use the following:
 dependencies = ["hatch-jupyter-builder@file://<path_to_this_repo>"]
 ```
 
+## Skipping the Build
+
+You can skip the build by setting the `SKIP_JUPYTER_BUILDER` environment
+variable.
+
 ## Migration
 
 This library can be used to migrate from a `setuptools` based package to

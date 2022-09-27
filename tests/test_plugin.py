@@ -7,6 +7,9 @@ from hatch_jupyter_builder.plugin import JupyterBuildHook
 
 
 def test_build_hook(tmp_path):
+    if "SKIP_JUPYTER_BUILD" in os.environ:
+        del os.environ["SKIP_JUPYTER_BUILD"]
+
     config = {
         "build-function": "test.foo",
         "ensured-targets": ["test.py"],
@@ -23,24 +26,28 @@ def foo(target_name, version, foo_bar=None, fizz_buzz=None):
     os.makedirs(".git/hooks")
 
     hook = JupyterBuildHook(tmp_path, config, {}, {}, tmp_path, "wheel")
-    hook.initialize("standard", {})
-    hook.initialize("editable", {})
+    assert hook.initialize("standard", {})
+    assert hook.initialize("editable", {})
 
     hook = JupyterBuildHook(tmp_path, config, {}, {}, tmp_path, "sdist")
-    hook.initialize("standard", {})
+    assert hook.initialize("standard", {})
 
     hook = JupyterBuildHook(tmp_path, {}, {}, {}, tmp_path, "wheel")
-    hook.initialize("standard", {})
-    hook.initialize("editable", {})
+    assert hook.initialize("standard", {})
+    assert hook.initialize("editable", {})
 
     config["skip-if-exists"] = ["foo", "bar"]
-    hook.initialize("standard", {})
+    assert hook.initialize("standard", {})
 
     config["editable-build-kwargs"] = {"foo-bar": "2", "fizz_buzz": "3"}
-    hook.initialize("editable", {})
+    assert hook.initialize("editable", {})
 
     hook = JupyterBuildHook(tmp_path, config, {}, {}, tmp_path, "foo")
-    hook.initialize("standard", {})
+    assert not hook.initialize("standard", {})
+
+    os.environ["SKIP_JUPYTER_BUILD"] = "1"
+    assert not hook.initialize("standard", {})
+    del os.environ["SKIP_JUPYTER_BUILD"]
 
 
 HERE = Path(__file__).parent
