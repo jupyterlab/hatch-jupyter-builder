@@ -2,6 +2,26 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.7.0
+
+([Full Changelog](https://github.com/jupyterlab/hatch-jupyter-builder/compare/v0.6.2...0a59d72aabb3aa5153f50a5d10303e3d03befeed))
+
+### Enhancements made
+
+- Allow skipping the build plugin [#74](https://github.com/jupyterlab/hatch-jupyter-builder/pull/74) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- Use hatch for version [#71](https://github.com/jupyterlab/hatch-jupyter-builder/pull/71) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/hatch-jupyter-builder/graphs/contributors?from=2022-09-13&to=2022-09-28&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Ablink1073+updated%3A2022-09-13..2022-09-28&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Apre-commit-ci+updated%3A2022-09-13..2022-09-28&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.6.2
 
 ([Full Changelog](https://github.com/jupyterlab/hatch-jupyter-builder/compare/0.6.1...53dc001dacfdb82109466f9428210fb76bb0f008))
@@ -15,8 +35,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/hatch-jupyter-builder/graphs/contributors?from=2022-09-12&to=2022-09-13&type=c))
 
 [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Afcollonval+updated%3A2022-09-12..2022-09-13&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Awelcome+updated%3A2022-09-12..2022-09-13&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.6.1
 
