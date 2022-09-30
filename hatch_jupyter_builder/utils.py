@@ -253,9 +253,10 @@ exec "$INSTALL_PYTHON" -m pre_commit "${{ARGS[@]}}"
         log.warning("Refusing to install pre-commit hook since this is not a git repository")
         return
 
-    path = ".git/hooks/pre-commit"
-    with open(path, "w") as fid:
-        fid.write(data)
+    path = Path(".git/hooks/pre-commit")
+    if not path.exists():
+        with open(path, "w") as fid:
+            fid.write(data)
 
     mode = os.stat(path).st_mode
     mode |= (mode & 0o444) >> 2  # copy R bits to X
