@@ -254,7 +254,7 @@ exec "$INSTALL_PYTHON" -m pre_commit "${{ARGS[@]}}"
         return
 
     path = Path(".git/hooks/pre-commit")
-    if not path.exists:
+    if not path.exists():
         with open(path, "w") as fid:
             fid.write(data)
 
