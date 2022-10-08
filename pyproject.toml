@@ -43,6 +43,32 @@ jupyter = "hatch_jupyter_builder.hooks"
 [tool.hatch.version]
 path = "hatch_jupyter_builder/__init__.py"
 
+[tool.hatch.envs.docs]
+features = ["docs"]
+[tool.hatch.envs.docs.scripts]
+build = "make -C docs html SPHINXOPTS='-W'"
+
+[tool.hatch.envs.test]
+features = ["test"]
+[tool.hatch.envs.test.scripts]
+test = "python -m pytest -vv {args}"
+nowarn = "python -m pytest -vv -W default {args}"
+
+[tool.hatch.envs.cov]
+features = ["test"]
+dependencies = ["coverage", "pytest-cov"]
+[tool.hatch.envs.cov.env-vars]
+ARGS = "-vv --cov hatch_jupyter_builder --cov-branch --cov-report term-missing:skip-covered"
+[tool.hatch.envs.cov.scripts]
+test = "python -m pytest $ARGS --cov-fail-under 90 {args}"
+
+[tool.hatch.envs.migration]
+features = ["test"]
+dependencies = ["pytest-xdist[psutil]"]
+[tool.hatch.envs.migration.scripts]
+test = "python -m pytest -n auto -vv --migration-tests True"
+
+
 [tool.black]
 line_length = 100
 
