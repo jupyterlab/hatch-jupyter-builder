@@ -1,7 +1,10 @@
 import os
+import platform
 import subprocess
 import venv
 from pathlib import Path
+
+import pytest
 
 from hatch_jupyter_builder.plugin import JupyterBuildHook
 
@@ -66,6 +69,7 @@ dependencies = ["hatch-jupyter-builder@file://{REPO_ROOT}"]
 """
 
 
+@pytest.mark.skipif(platform.python_implementation() == "PyPy", reason="Does not work on PyPy")
 def test_hatch_build(tmp_path):
     venv.create(tmp_path, with_pip=True)
     if os.name == "nt":
