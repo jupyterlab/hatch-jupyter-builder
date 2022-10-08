@@ -32,6 +32,7 @@ jobs:
         run: hatch run cov:test
       - name: Run cli checks
         run: |
+          pip install -e .
           hatch-jupyter-builder -h
           hatch-jupyter-builder migrate -h
           hatch-jupyter-builder compare-migrated -h
