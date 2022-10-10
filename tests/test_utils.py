@@ -53,6 +53,8 @@ def test_get_build_func(tmp_path):
     with pytest.raises(AttributeError):
         utils.get_build_func("test.bar")
 
+    del sys.modules["test"]
+
 
 def test_should_skip(tmp_path):
     assert not utils.should_skip("a")

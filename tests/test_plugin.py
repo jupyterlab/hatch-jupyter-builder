@@ -73,6 +73,8 @@ def foo(target_name, version, foo_bar=None, fizz_buzz=None):
         warnings.simplefilter("ignore")
         assert hook.initialize("editable", {})
 
+    del sys.modules["test"]
+
 
 HERE = Path(__file__).parent
 REPO_ROOT = str(HERE.parent).replace(os.sep, "/")
