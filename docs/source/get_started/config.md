@@ -21,6 +21,7 @@ Or with all options given:
     ensured-targets = ["foo/generated.txt"]
     skip-if-exists = ["foo/generated.txt"]
     install-pre-commit-hook = true
+    optional-editable-build = true
 
     [tool.hatch.build.hooks.jupyter-builder.build-kwargs]
     build_cmd = "build:src"
@@ -66,6 +67,12 @@ function.
 You can also use `editable-build-kwargs` if the parameters should differ
 in editable mode. If only the build command is different, you can use
 `editable_build_cmd` in `build-kwargs` instead.
+
+### optional-editable-build
+
+The optional `optional-editable-build` parameter can be set to `true` to
+show a warning instead of erroring if the build fails in editable mode.
+This can be used when build artifacts are optional for local development.
 
 ### install-pre-commit-hook
 

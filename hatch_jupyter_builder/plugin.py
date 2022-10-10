@@ -1,5 +1,6 @@
 import os
 import typing as t
+import warnings
 from dataclasses import dataclass, field, fields
 
 from hatchling.builders.hooks.plugin.interface import BuildHookInterface
@@ -24,6 +25,7 @@ class JupyterBuildConfig:
     editable_build_kwargs: t.Mapping[str, str] = field(default_factory=dict)
     ensured_targets: t.List[str] = field(default_factory=list)
     skip_if_exists: t.List[str] = field(default_factory=list)
+    optional_editable_build: str = ""
 
 
 class JupyterBuildHook(BuildHookInterface):
@@ -72,7 +74,13 @@ class JupyterBuildHook(BuildHookInterface):
             build_kwargs = normalize_kwargs(build_kwargs)
             log.info(f"Building with {config.build_function}")
             log.info(f"With kwargs: {build_kwargs}")
-            build_func(self.target_name, version, **build_kwargs)
+            try:
+                build_func(self.target_name, version, **build_kwargs)
+            except Exception as e:
+                if version == "editable" and config.optional_editable_build.lower() == "true":
+                    warnings.warn(f"Encountered build error:\n{e}")
+                else:
+                    raise e
         else:
             log.info("Skipping build")
 

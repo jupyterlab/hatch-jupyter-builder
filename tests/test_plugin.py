@@ -1,7 +1,9 @@
 import os
 import platform
 import subprocess
+import sys
 import venv
+import warnings
 from pathlib import Path
 
 import pytest
@@ -41,6 +43,7 @@ def foo(target_name, version, foo_bar=None, fizz_buzz=None):
 
     config["skip-if-exists"] = ["foo", "bar"]
     assert hook.initialize("standard", {})
+    del config["skip-if-exists"]
 
     config["editable-build-kwargs"] = {"foo-bar": "2", "fizz_buzz": "3"}
     assert hook.initialize("editable", {})
@@ -48,9 +51,29 @@ def foo(target_name, version, foo_bar=None, fizz_buzz=None):
     hook = JupyterBuildHook(tmp_path, config, {}, {}, tmp_path, "foo")
     assert not hook.initialize("standard", {})
 
-    os.environ["SKIP_JUPYTER_BUILD"] = "1"
+    text = """
+def foo(target_name, version, foo_bar=None, fizz_buzz=None):
+    raise RuntimeError('trigger error')
+"""
+    test.write_text(text, encoding="utf-8")
+    # Force a re-import
+    del sys.modules["test"]
+
+    hook = JupyterBuildHook(tmp_path, config, {}, {}, tmp_path, "wheel")
+    with pytest.raises(RuntimeError):
+        hook.initialize("editable", {})
+
+    os.environ["SKIP_JUPYTER_BUILDER"] = "1"
     assert not hook.initialize("standard", {})
-    del os.environ["SKIP_JUPYTER_BUILD"]
+    del os.environ["SKIP_JUPYTER_BUILDER"]
+
+    config["optional-editable-build"] = "true"
+    hook = JupyterBuildHook(tmp_path, config, {}, {}, tmp_path, "wheel")
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        assert hook.initialize("editable", {})
+
+    del sys.modules["test"]
 
 
 HERE = Path(__file__).parent
