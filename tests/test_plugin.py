@@ -1,6 +1,7 @@
 import os
 import platform
 import subprocess
+import sys
 import venv
 import warnings
 from pathlib import Path
@@ -50,13 +51,13 @@ def foo(target_name, version, foo_bar=None, fizz_buzz=None):
     hook = JupyterBuildHook(tmp_path, config, {}, {}, tmp_path, "foo")
     assert not hook.initialize("standard", {})
 
-    config["build-function"] = "test2.foo"
     text = """
 def foo(target_name, version, foo_bar=None, fizz_buzz=None):
     raise RuntimeError('trigger error')
 """
-    test2 = Path("test2.py")
-    test2.write_text(text, encoding="utf-8")
+    test.write_text(text, encoding="utf-8")
+    # Force a re-import
+    del sys.modules["test"]
 
     hook = JupyterBuildHook(tmp_path, config, {}, {}, tmp_path, "wheel")
     with pytest.raises(RuntimeError):
