@@ -73,6 +73,12 @@ def foo(target_name, version, foo_bar=None, fizz_buzz=None):
         warnings.simplefilter("ignore")
         assert hook.initialize("editable", {})
 
+    config["optional-editable-build"] = True
+    hook = JupyterBuildHook(tmp_path, config, {}, {}, tmp_path, "wheel")
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        assert hook.initialize("editable", {})
+
     del sys.modules["test"]
 
 
