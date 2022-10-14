@@ -47,9 +47,9 @@ class JupyterBuildHook(BuildHookInterface):
         for key in list(kwargs):
             if key not in available_fields:
                 del kwargs[key]
-        config = JupyterBuildConfig(**kwargs)  # type: ignore[arg-type]
+        config = JupyterBuildConfig(**kwargs)
 
-        should_install_hook = config.install_pre_commit_hook
+        should_install_hook = config.install_pre_commit_hook.lower() == "true"
 
         if version == "editable" and should_install_hook:
             install_pre_commit_hook()
