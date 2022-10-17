@@ -68,7 +68,6 @@ dependencies = ["pytest-xdist[psutil]"]
 [tool.hatch.envs.migration.scripts]
 test = "python -m pytest -n auto -vv --migration-tests True"
 
-
 [tool.black]
 line_length = 100
 
@@ -91,9 +90,6 @@ omit = [
    "hatch_jupyter_builder/migrate/*",
    "hatch_jupyter_builder/compare_migrated/*"
 ]
-
-[tool.jupyter-releaser]
-skip = ["check-links"]
 
 [tool.jupyter-releaser.options]
 ignore-glob = ["tests/data/**/README.md"]

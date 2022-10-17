@@ -37,6 +37,22 @@ jobs:
           hatch-jupyter-builder migrate -h
           hatch-jupyter-builder compare-migrated -h
 
+  check_release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      - uses: jupyter-server/jupyter_releaser/.github/actions/check-release@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  check_links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      - uses: jupyterlab/maintainer-tools/.github/actions/check-links@v1
+
   migration:
     runs-on: ubuntu-latest
     steps:
@@ -59,20 +75,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-      - uses: pre-commit/action@v2.0.0
-        with:
-          extra_args: --all-files --hook-stage=manual
-      - name: Help message if pre-commit fail
-        if: ${{ failure() }}
-        run: |
-          echo "You can install pre-commit hooks to automatically run formatting"
-          echo "on each commit with:"
-          echo "    pre-commit install"
-          echo "or you can run by hand on staged files with"
-          echo "    pre-commit run"
-          echo "or after-the-fact on already committed files with"
-          echo "    pre-commit run --all-files --hook-stage=manual"
+      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      - uses: jupyterlab/maintainer-tools/.github/actions/pre-commit@v1
 
   test_prereleases:
     name: Test Prereleases
