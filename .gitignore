@@ -24,7 +24,7 @@ __pycache__
 *.map
 Read the Docs
 config.rst
-docs/source/changelog.md
+docs/source/reference/changelog.md
 
 /.project
 /.pydevproject
