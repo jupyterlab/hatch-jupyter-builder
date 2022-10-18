@@ -91,10 +91,6 @@ omit = [
    "hatch_jupyter_builder/compare_migrated/*"
 ]
 
-[tool.jupyter-releaser.options]
-ignore-glob = ["tests/data/**/README.md"]
-ignore-links = ["npm_builder_function"]
-
 [tool.mypy]
 check_untyped_defs = true
 disallow_incomplete_defs = true
