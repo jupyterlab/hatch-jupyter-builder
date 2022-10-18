@@ -13,7 +13,7 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
-
+from importlib.metadata import version as package_version
 
 # -- Project information -----------------------------------------------------
 
@@ -22,7 +22,10 @@ copyright = "2022, Project Jupyter"
 author = "Project Jupyter"
 
 # The full version, including alpha/beta/rc tags
-release = "0.6.2"
+__version__ = package_version("hatch_jupyter_builder")
+# The short X.Y version.
+version_parsed = tuple(__version__.split("."))
+version = ".".join(version_parsed[:2])
 
 
 # -- General configuration ---------------------------------------------------

@@ -32,7 +32,7 @@ Source = "https://github.com/jupyterlab/hatch-jupyter-builder"
 
 [project.optional-dependencies]
 test = ["pytest", "pytest-mock", "pre-commit", "hatchling", "pytest-cov", "tomli", "twine"]
-docs = ["pydata-sphinx-theme", "myst-parser"]
+docs = ["pydata-sphinx-theme", "myst-parser", "hatch_jupyter_builder"]
 
 [project.scripts]
 hatch-jupyter-builder = 'hatch_jupyter_builder.cli:run'
@@ -68,7 +68,6 @@ dependencies = ["pytest-xdist[psutil]"]
 [tool.hatch.envs.migration.scripts]
 test = "python -m pytest -n auto -vv --migration-tests True"
 
-
 [tool.black]
 line_length = 100
 
@@ -91,13 +90,6 @@ omit = [
    "hatch_jupyter_builder/migrate/*",
    "hatch_jupyter_builder/compare_migrated/*"
 ]
-
-[tool.jupyter-releaser]
-skip = ["check-links"]
-
-[tool.jupyter-releaser.options]
-ignore-glob = ["tests/data/**/README.md"]
-ignore-links = ["npm_builder_function"]
 
 [tool.mypy]
 check_untyped_defs = true

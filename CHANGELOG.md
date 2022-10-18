@@ -112,9 +112,9 @@
 
 ### Maintenance and upkeep improvements
 
-- [pre-commit.ci] pre-commit autoupdate [#61](https://github.com/jupyterlab/hatch-jupyter-builder/pull/61) ([@pre-commit-ci](https://github.com/pre-commit-ci))
-- [pre-commit.ci] pre-commit autoupdate [#59](https://github.com/jupyterlab/hatch-jupyter-builder/pull/59) ([@pre-commit-ci](https://github.com/pre-commit-ci))
-- [pre-commit.ci] pre-commit autoupdate [#57](https://github.com/jupyterlab/hatch-jupyter-builder/pull/57) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#61](https://github.com/jupyterlab/hatch-jupyter-builder/pull/61) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#59](https://github.com/jupyterlab/hatch-jupyter-builder/pull/59) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#57](https://github.com/jupyterlab/hatch-jupyter-builder/pull/57) ([@pre-commit-ci](https://github.com/pre-commit-ci))
 
 ### Documentation improvements
 
@@ -146,15 +146,15 @@
 
 ### Maintenance and upkeep improvements
 
-- [pre-commit.ci] pre-commit autoupdate [#53](https://github.com/jupyterlab/hatch-jupyter-builder/pull/53) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#53](https://github.com/jupyterlab/hatch-jupyter-builder/pull/53) ([@pre-commit-ci](https://github.com/pre-commit-ci))
 - Fix flake8 v5 compat [#52](https://github.com/jupyterlab/hatch-jupyter-builder/pull/52) ([@blink1073](https://github.com/blink1073))
-- [pre-commit.ci] pre-commit autoupdate [#51](https://github.com/jupyterlab/hatch-jupyter-builder/pull/51) ([@pre-commit-ci](https://github.com/pre-commit-ci))
-- [pre-commit.ci] pre-commit autoupdate [#50](https://github.com/jupyterlab/hatch-jupyter-builder/pull/50) ([@pre-commit-ci](https://github.com/pre-commit-ci))
-- [pre-commit.ci] pre-commit autoupdate [#47](https://github.com/jupyterlab/hatch-jupyter-builder/pull/47) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#51](https://github.com/jupyterlab/hatch-jupyter-builder/pull/51) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#50](https://github.com/jupyterlab/hatch-jupyter-builder/pull/50) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#47](https://github.com/jupyterlab/hatch-jupyter-builder/pull/47) ([@pre-commit-ci](https://github.com/pre-commit-ci))
 - Do not use dev version yet [#46](https://github.com/jupyterlab/hatch-jupyter-builder/pull/46) ([@blink1073](https://github.com/blink1073))
-- [pre-commit.ci] pre-commit autoupdate [#44](https://github.com/jupyterlab/hatch-jupyter-builder/pull/44) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#44](https://github.com/jupyterlab/hatch-jupyter-builder/pull/44) ([@pre-commit-ci](https://github.com/pre-commit-ci))
 - Add sphinx docs stub [#42](https://github.com/jupyterlab/hatch-jupyter-builder/pull/42) ([@blink1073](https://github.com/blink1073))
-- [pre-commit.ci] pre-commit autoupdate [#39](https://github.com/jupyterlab/hatch-jupyter-builder/pull/39) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#39](https://github.com/jupyterlab/hatch-jupyter-builder/pull/39) ([@pre-commit-ci](https://github.com/pre-commit-ci))
 - Rename migration scripts [#38](https://github.com/jupyterlab/hatch-jupyter-builder/pull/38) ([@blink1073](https://github.com/blink1073))
 
 ### Documentation improvements
@@ -189,7 +189,7 @@
 
 ### Maintenance and upkeep improvements
 
-- [pre-commit.ci] pre-commit autoupdate [#31](https://github.com/jupyterlab/hatch-jupyter-builder/pull/31) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#31](https://github.com/jupyterlab/hatch-jupyter-builder/pull/31) ([@pre-commit-ci](https://github.com/pre-commit-ci))
 - Migration cleanup [#29](https://github.com/jupyterlab/hatch-jupyter-builder/pull/29) ([@blink1073](https://github.com/blink1073))
 
 ### Contributors to this release
@@ -214,9 +214,9 @@
 
 ### Maintenance and upkeep improvements
 
-- [pre-commit.ci] pre-commit autoupdate [#26](https://github.com/jupyterlab/hatch-jupyter-builder/pull/26) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#26](https://github.com/jupyterlab/hatch-jupyter-builder/pull/26) ([@pre-commit-ci](https://github.com/pre-commit-ci))
 - Chore: fix metadata for Source in pyproject.toml [#23](https://github.com/jupyterlab/hatch-jupyter-builder/pull/23) ([@agoose77](https://github.com/agoose77))
-- [pre-commit.ci] pre-commit autoupdate [#22](https://github.com/jupyterlab/hatch-jupyter-builder/pull/22) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#22](https://github.com/jupyterlab/hatch-jupyter-builder/pull/22) ([@pre-commit-ci](https://github.com/pre-commit-ci))
 
 ### Contributors to this release
 
@@ -234,7 +234,7 @@
 
 ### Maintenance and upkeep improvements
 
-- [pre-commit.ci] pre-commit autoupdate [#17](https://github.com/jupyterlab/hatch_jupyter_builder/pull/17) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#17](https://github.com/jupyterlab/hatch_jupyter_builder/pull/17) ([@pre-commit-ci](https://github.com/pre-commit-ci))
 
 ### Contributors to this release
 
@@ -266,7 +266,7 @@
 
 ### Maintenance and upkeep improvements
 
-- [pre-commit.ci] pre-commit autoupdate [#12](https://github.com/jupyterlab/hatch_jupyter_builder/pull/12) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- \[pre-commit.ci\] pre-commit autoupdate [#12](https://github.com/jupyterlab/hatch_jupyter_builder/pull/12) ([@pre-commit-ci](https://github.com/pre-commit-ci))
 - Update project metadata [#11](https://github.com/jupyterlab/hatch_jupyter_builder/pull/11) ([@blink1073](https://github.com/blink1073))
 
 ### Contributors to this release
