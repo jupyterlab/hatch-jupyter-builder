@@ -109,5 +109,10 @@ def test_hatch_build(tmp_path):
     pyproject.write_text(TOML_CONTENT, "utf-8")
     test = Path(tmp_path) / "test.py"
     test.write_text("print('hello')", "utf-8")
-    subprocess.check_call([python, "-m", "pip", "install", "build"], cwd=tmp_path)
-    subprocess.check_call([python, "-m", "build", "--sdist", "."], cwd=tmp_path)
+    env = os.environ.copy()
+    # Handle running min version test.
+    if "PIP_CONSTRAINT" in env:
+        del env["PIP_CONSTRAINT"]
+    subprocess.check_call([python, "-m", "pip", "install", "build"], cwd=tmp_path, env=env)
+
+    subprocess.check_call([python, "-m", "build", "--sdist", "."], cwd=tmp_path, env=env)

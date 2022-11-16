@@ -23,7 +23,7 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = ["hatchling"]
+dependencies = ["hatchling>=1.5"]
 
 [project.urls]
 Documentation = "https://github.com/jupyterlab/hatch-jupyter-builder#readme"
