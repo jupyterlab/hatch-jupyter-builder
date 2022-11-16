@@ -60,19 +60,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
-      - name: Install dependencies
-        run: pip install -e ".[test]"
       - name: Run Migration Tests
         run: hatch run migration:test
 
-  docs:
+  test_docs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
       - run: hatch run docs:build
 
-  pre-commit:
+  pre_commit:
     name: pre-commit
     runs-on: ubuntu-latest
     steps:
@@ -86,34 +84,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Base Setup
-        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
         with:
           python_version: "3.8"
-      - name: Install miniumum versions
-        uses: jupyterlab/maintainer-tools/.github/actions/install-minimums@v1
+      - uses: jupyterlab/maintainer-tools/.github/actions/install-minimums@v1
+        with:
+          only_create_file: 1
       - name: Run the unit tests
-        run: hatch run test:nowarn || hatch run test:nowarn --lf
+        run: |
+          export PIP_CONSTRAINT="./contraints_file.txt"
+          hatch run test:test
 
   test_prereleases:
     name: Test Prereleases
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Base Setup
-        uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
-      - name: Install the Python dependencies
-        run: |
-          pip install --no-deps -e .
-          pip install --pre --upgrade "hatch_jupyter_builder[test]"
-      - name: List installed packages
-        run: |
-          pip freeze
-          pip check
+      - uses: actions/checkout@v2
+      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
       - name: Run the tests
-        run: pytest -vv
+        run: |
+          export PIP_PRE=1
+          hatch run test:test
 
   make_sdist:
     name: Make SDist
@@ -134,3 +126,21 @@ jobs:
       - uses: jupyterlab/maintainer-tools/.github/actions/test-sdist@v1
         with:
           test_command: hatch run test:test
+
+  tests_check: # This job does nothing and is only used for the branch protection
+    if: always()
+    needs:
+      - build
+      - pre_commit
+      - test_docs
+      - test_minimum_versions
+      - test_prereleases
+      - check_links
+      - check_release
+      - test_sdist
+    runs-on: ubuntu-latest
+    steps:
+      - name: Decide whether the needed jobs succeeded or failed
+        uses: re-actors/alls-green@release/v1
+        with:
+          jobs: ${{ toJSON(needs) }}
