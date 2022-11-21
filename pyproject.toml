@@ -57,10 +57,8 @@ nowarn = "python -m pytest -vv -W default {args}"
 [tool.hatch.envs.cov]
 features = ["test"]
 dependencies = ["coverage", "pytest-cov"]
-[tool.hatch.envs.cov.env-vars]
-ARGS = "-vv --cov hatch_jupyter_builder --cov-branch --cov-report term-missing:skip-covered"
 [tool.hatch.envs.cov.scripts]
-test = "python -m pytest $ARGS --cov-fail-under 90 {args}"
+test = "python -m pytest -vv --cov hatch_jupyter_builder --cov-branch --cov-report term-missing:skip-covered {args}"
 
 [tool.hatch.envs.migration]
 features = ["test"]

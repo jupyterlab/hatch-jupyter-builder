@@ -36,6 +36,10 @@ jobs:
           hatch-jupyter-builder -h
           hatch-jupyter-builder migrate -h
           hatch-jupyter-builder compare-migrated -h
+      - name: Code coverage
+        run: |
+          pip install codecov
+          codecov
 
   check_release:
     runs-on: ubuntu-latest
@@ -92,7 +96,6 @@ jobs:
           only_create_file: 1
       - name: Run the unit tests
         run: |
-          export PIP_CONSTRAINT="./contraints_file.txt"
           hatch run test:test
 
   test_prereleases:
@@ -104,8 +107,7 @@ jobs:
       - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
       - name: Run the tests
         run: |
-          export PIP_PRE=1
-          hatch run test:test
+          PIP_PRE=1 hatch run test:test
 
   make_sdist:
     name: Make SDist
