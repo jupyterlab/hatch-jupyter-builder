@@ -1,6 +1,7 @@
 """Compare the dist file created by a migrated package to one created by the original."""
 import argparse
 import glob
+import logging
 import os
 import shutil
 import subprocess
@@ -45,6 +46,9 @@ def filter_file(path):
 def main(source_dir, target_dir, dist_name):
     subprocess.check_call([sys.executable, "-m", "pip", "install", "build"])
 
+    logger = logging.getLogger(__name__)
+    logging.basicConfig()
+
     build_file(source_dir, dist_name)
     build_file(target_dir, dist_name)
 
@@ -58,18 +62,18 @@ def main(source_dir, target_dir, dist_name):
     removed = source_names - target_names
     removed = [r for r in removed if not filter_file(r)]
     if removed:
-        print("\nRemoved_files:")
-        [print(f) for f in removed]
+        logger.info("\nRemoved_files:")
+        [logger.info(f) for f in removed]
 
     added = target_names - source_names
     added = [a for a in added if not filter_file(a)]
     if added:
-        print("\nAdded files:")
-        [print(f) for f in added]
+        logger.info("\nAdded files:")
+        [logger.info(f) for f in added]
 
-    print()
+    logger.info("")
 
-    return dict(added=added, removed=removed)
+    return {"added": added, "removed": removed}
 
 
 def make_parser(

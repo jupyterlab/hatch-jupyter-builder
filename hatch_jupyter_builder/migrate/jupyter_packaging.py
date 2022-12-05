@@ -113,8 +113,6 @@ def create_cmdclass(
             else:
                 shared_data[f"{dname}/{pattern}"] = f"{path}/{pattern}"
 
-    print(shared_data)
-
     _write_config("tool.hatch.build.targets.wheel.shared-data", shared_data)
 
     return __real_jupyter_packaging.create_cmdclass(

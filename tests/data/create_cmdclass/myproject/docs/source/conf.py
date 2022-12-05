@@ -78,7 +78,7 @@ repo = os.path.join(here, "..", "..")
 _version_py = os.path.join(repo, "myproject", "_version.py")
 version_ns = {}
 with open(_version_py) as f:
-    exec(f.read(), version_ns)
+    exec(f.read(), version_ns)  # noqa
 
 # The short X.Y version.
 version = "%i.%i" % version_ns["version_info"][:2]

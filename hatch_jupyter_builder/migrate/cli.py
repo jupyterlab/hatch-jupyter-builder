@@ -1,6 +1,7 @@
 """Migrate a Jupyter project from setuptools/jupyter-packaging to hatch and
 hatch_jupyter_builder."""
 import argparse
+import logging
 import os
 import subprocess
 import sys
@@ -13,13 +14,15 @@ from hatch_jupyter_builder import __version__ as builder_version
 
 
 def main(td, target_dir):
+    logger = logging.getLogger(__name__)
+    logging.basicConfig()
     venv.create(td, with_pip=True)
     if os.name == "nt":
         python = Path(td) / "Scripts/python.exe"
     else:
         python = Path(td) / "bin/python"
 
-    print("Installing in temporary virtual environment...")
+    logger.info("Installing in temporary virtual environment...")
 
     # Create a virtual environment and use it to run the migration.
     runner = subprocess.check_call

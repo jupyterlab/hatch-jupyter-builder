@@ -3,8 +3,6 @@
 # Copyright (c) me.
 # Distributed under the terms of the Modified BSD License.
 
-import pytest
-
 from ..example import ExampleWidget
 
 

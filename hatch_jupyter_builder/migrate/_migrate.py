@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import subprocess
 import sys
@@ -7,6 +8,9 @@ from pathlib import Path
 import tomli
 import tomli_w
 from packaging import version
+
+logger = logging.getLogger(__name__)
+logging.basicConfig()
 
 # Handle the version.
 # If it is a dev version, use the previous minor version.
@@ -18,7 +22,7 @@ builder_version = f">={builder_version}"
 if "BUILDER_VERSION_SPEC" in os.environ:
     builder_version = os.environ["BUILDER_VERSION_SPEC"]
 
-print("\n\nStarting pyproject.toml migration")
+logger.info("\n\nStarting pyproject.toml migration")
 
 warnings = []
 
@@ -50,12 +54,12 @@ else:
     current_version = "!!UNKONWN!!"
 
 # Run the hatch migration script.
-print("Running hatch migration")
+logger.info("Running hatch migration")
 subprocess.run([sys.executable, "-m", "hatch", "new", "--init"])
 
 # Run the jupyter-packaging migration script - must be done after
 # hatch migration to avoid conflicts.
-print("Running jupyter-packaging migration")
+logger.info("Running jupyter-packaging migration")
 here = os.path.abspath(os.path.dirname(__file__))
 prev_pythonpath = os.environ.get("PYTHONPATH", "")
 if prev_pythonpath:
@@ -93,7 +97,7 @@ if setup_cfg.exists():
 
 # Migrate and remove unused config.
 # Read in the project.toml after auto migration.
-print("Migrating static data")
+logger.info("Migrating static data")
 data = tomli.loads(pyproject.read_text("utf-8"))
 tool_table = data.setdefault("tool", {})
 
@@ -101,7 +105,7 @@ tool_table = data.setdefault("tool", {})
 for lic_name in ["LICENSE", "COPYING.md", "LICENSE.txt"]:
     for fname in os.listdir("."):
         if fname.lower() == lic_name.lower():
-            data["project"]["license"] = dict(file=fname)
+            data["project"]["license"] = {"file": fname}
 
 # Add the other build requirements.
 data["build-system"]["requires"].extend(requires)
@@ -124,7 +128,7 @@ if "sdist" in targets_table:
     del targets_table["sdist"]
 
 # Exclude the .github folder by default.
-targets_table["sdist"] = dict(exclude=[".github"])
+targets_table["sdist"] = {"exclude": [".github"]}
 
 hooks_table = build_table.setdefault("hooks", {})
 builder_table = hooks_table.setdefault("jupyter-builder", {})
@@ -175,25 +179,28 @@ data["project"]["version"] = current_version
 data["project"].pop("dynamic", None)
 
 tbump_table = tool_table.setdefault("tbump", {})
-tbump_table["version"] = dict(
-    current=current_version,
-    regex=r"""
+tbump_table["version"] = {
+    "current": current_version,
+    "regex": r"""
       (?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)((?P<channel>a|b|rc|.dev)(?P<release>\d+))?
     """.strip(),
-)
-tbump_table["git"] = dict(message_template=r"Bump to {new_version}", tag_template=r"v{new_version}")
-tbump_table["field"] = [dict(name="channel", default=""), dict(name="release", default="")]
+}
+tbump_table["git"] = {
+    "message_template": r"Bump to {new_version}",
+    "tag_template": r"v{new_version}",
+}
+tbump_table["field"] = [{"name": "channel", "default": ""}, {"name": "release", "default": ""}]
 tbump_table["file"] = [
-    dict(
-        src="pyproject.toml",
-        version_template='version = "{major}.{minor}.{patch}{channel}{release}"',
-    )
+    {
+        "src": "pyproject.toml",
+        "version_template": 'version = "{major}.{minor}.{patch}{channel}{release}"',
+    }
 ]
 
 # Add entry for _version.py if it exists.
 version_py = Path(project_name) / "_version.py"
 if version_py.exists():
-    tbump_table["file"].append(dict(src=str(version_py)))
+    tbump_table["file"].append({"src": str(version_py)})
     text = version_py.read_text(encoding="utf-8")
     if current_version not in text:
         warnings.append(
@@ -207,10 +214,10 @@ if package_json.exists():
     npm_version = json.loads(text)["version"]
     if npm_version == current_version:
         tbump_table["file"].append(
-            dict(
-                src="package.json",
-                version_template='"version": "{major}.{minor}.{patch}{channel}{release}"',
-            )
+            {
+                "src": "package.json",
+                "version_template": '"version": "{major}.{minor}.{patch}{channel}{release}"',
+            }
         )
 
 # Add a setup.py shim.
@@ -225,13 +232,13 @@ for fname in ["MANIFEST.in", "setup.cfg"]:
         os.remove(fname)
 
 # Write out the new config.
-print("\n\nWriting pyproject.toml")
+logger.info("\n\nWriting pyproject.toml")
 pyproject.write_text(tomli_w.dumps(data), "utf-8")
 
 if warnings:
-    print("\n\nWarning!! Not everything could be migrated automatically.")
-    print("Please address the following concerns:")
+    logger.info("\n\nWarning!! Not everything could be migrated automatically.")
+    logger.info("Please address the following concerns:")
     for warning in warnings:
-        print(f"  - {warning}")
+        logger.info(f"  - {warning}")
 
-print("\n\nMigration complete!")
+logger.info("\n\nMigration complete!")

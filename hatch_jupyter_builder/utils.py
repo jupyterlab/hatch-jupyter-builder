@@ -242,6 +242,25 @@ def should_skip(skip_if_exists):
     return all(os.path.exists(p) for p in skip_if_exists)
 
 
+def _write_pre_commit_hook(data):
+    log = _get_log()
+    if not os.path.exists(".git"):
+        log.warning("Refusing to install pre-commit hook since this is not a git repository")
+        return
+
+    path = Path(".git/hooks/pre-commit")
+    if not path.exists():
+        log.info("Writing pre-commit hook")
+        with open(path, "w") as fid:
+            fid.write(data)
+    else:
+        log.warning("Refusing to overwrite pre-commit hook")
+
+    mode = os.stat(path).st_mode
+    mode |= (mode & 0o444) >> 2  # copy R bits to X
+    os.chmod(path, mode)
+
+
 def install_pre_commit_hook():
     data = f"""#!/usr/bin/env bash
 INSTALL_PYTHON={sys.executable}
@@ -250,16 +269,11 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 ARGS+=(--hook-dir "$HERE" -- "$@")
 exec "$INSTALL_PYTHON" -m pre_commit "${{ARGS[@]}}"
 """
-    if not os.path.exists(".git"):
-        log = _get_log()
-        log.warning("Refusing to install pre-commit hook since this is not a git repository")
-        return
+    _write_pre_commit_hook(data)
 
-    path = Path(".git/hooks/pre-commit")
-    if not path.exists():
-        with open(path, "w") as fid:
-            fid.write(data)
 
-    mode = os.stat(path).st_mode
-    mode |= (mode & 0o444) >> 2  # copy R bits to X
-    os.chmod(path, mode)
+def install_pre_commit_hatch_script(hatch_script):
+    data = f"""#!/usr/bin/env bash
+{sys.executable} -m hatch run {hatch_script}
+"""
+    _write_pre_commit_hook(data)

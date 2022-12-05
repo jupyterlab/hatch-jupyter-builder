@@ -43,9 +43,8 @@ jupyter = "hatch_jupyter_builder.hooks"
 [tool.hatch.version]
 path = "hatch_jupyter_builder/__init__.py"
 
-[tool.hatch.build.hooks.jupyter-builder]
-dependencies = ["hatch-jupyter-builder"]
-pre-commit-hatch-script = "lint:fmt"
+# Used to call hatch_build.py
+[tool.hatch.build.hooks.custom]
 
 [tool.hatch.envs.docs]
 features = ["docs"]
@@ -88,6 +87,9 @@ style = [
   "ruff {args:.}",
   "black --check --diff {args:.}",
   "mdformat --check {args:docs *.md}"
+]
+mdfmt = [
+  "mdformat {args:docs *.md}"
 ]
 fmt = [
   "black {args:.}",
