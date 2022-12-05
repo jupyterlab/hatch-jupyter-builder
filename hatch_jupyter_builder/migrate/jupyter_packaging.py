@@ -8,7 +8,7 @@ import tomli_w
 __this_shim = sys.modules.pop("jupyter_packaging")
 __current_directory = sys.path.pop(0)
 
-import jupyter_packaging as __real_jupyter_packaging
+import jupyter_packaging as __real_jupyter_packaging  # type:ignore
 
 sys.path.insert(0, __current_directory)
 sys.modules["jupyter_packaging"] = __this_shim

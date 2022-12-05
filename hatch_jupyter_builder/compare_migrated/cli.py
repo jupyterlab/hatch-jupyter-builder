@@ -63,13 +63,13 @@ def main(source_dir, target_dir, dist_name):
     removed = [r for r in removed if not filter_file(r)]
     if removed:
         logger.info("\nRemoved_files:")
-        [logger.info(f) for f in removed]
+        [logger.info(f) for f in removed]  # type:ignore
 
     added = target_names - source_names
     added = [a for a in added if not filter_file(a)]
     if added:
         logger.info("\nAdded files:")
-        [logger.info(f) for f in added]
+        [logger.info(f) for f in added]  # type:ignore
 
     logger.info("")
 
