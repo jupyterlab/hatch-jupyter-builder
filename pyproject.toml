@@ -51,9 +51,6 @@ jupyter = "hatch_jupyter_builder.hooks"
 [tool.hatch.version]
 path = "hatch_jupyter_builder/__init__.py"
 
-# Used to call hatch_build.py
-[tool.hatch.build.hooks.custom]
-
 [tool.hatch.envs.docs]
 features = ["docs"]
 [tool.hatch.envs.docs.scripts]
