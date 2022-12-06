@@ -3,8 +3,8 @@
 # Copyright (c) me.
 # Distributed under the terms of the Modified BSD License.
 
-from ._version import __version__, version_info
-from .example import ExampleWidget
+from ._version import __version__, version_info  # noqa
+from .example import ExampleWidget  # noqa
 
 
 def _jupyter_labextension_paths():
