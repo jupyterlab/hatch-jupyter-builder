@@ -242,7 +242,14 @@ def should_skip(skip_if_exists):
     return all(os.path.exists(p) for p in skip_if_exists)
 
 
-def _write_pre_commit_hook(data):
+def install_pre_commit_hook():
+    data = f"""#!/usr/bin/env bash
+INSTALL_PYTHON={sys.executable}
+ARGS=(hook-impl --config=.pre-commit-config.yaml --hook-type=pre-commit)
+HERE="$(cd "$(dirname "$0")" && pwd)"
+ARGS+=(--hook-dir "$HERE" -- "$@")
+exec "$INSTALL_PYTHON" -m pre_commit "${{ARGS[@]}}"
+"""
     log = _get_log()
     if not os.path.exists(".git"):
         log.warning("Refusing to install pre-commit hook since this is not a git repository")
@@ -259,21 +266,3 @@ def _write_pre_commit_hook(data):
     mode = os.stat(path).st_mode
     mode |= (mode & 0o444) >> 2  # copy R bits to X
     os.chmod(path, mode)
-
-
-def install_pre_commit_hook():
-    data = f"""#!/usr/bin/env bash
-INSTALL_PYTHON={sys.executable}
-ARGS=(hook-impl --config=.pre-commit-config.yaml --hook-type=pre-commit)
-HERE="$(cd "$(dirname "$0")" && pwd)"
-ARGS+=(--hook-dir "$HERE" -- "$@")
-exec "$INSTALL_PYTHON" -m pre_commit "${{ARGS[@]}}"
-"""
-    _write_pre_commit_hook(data)
-
-
-def install_pre_commit_hatch_script(hatch_script):
-    data = f"""#!/usr/bin/env bash
-{sys.executable} -m hatch run {hatch_script}
-"""
-    _write_pre_commit_hook(data)

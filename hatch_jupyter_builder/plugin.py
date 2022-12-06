@@ -9,7 +9,6 @@ from .utils import (
     _get_log,
     ensure_targets,
     get_build_func,
-    install_pre_commit_hatch_script,
     install_pre_commit_hook,
     normalize_kwargs,
     should_skip,
@@ -21,7 +20,6 @@ class JupyterBuildConfig:
     """Build config values for Hatch Jupyter Builder."""
 
     install_pre_commit_hook: str = ""
-    pre_commit_hatch_script: str = ""
     build_function: t.Optional[str] = None
     build_kwargs: t.Mapping[str, str] = field(default_factory=dict)
     editable_build_kwargs: t.Mapping[str, str] = field(default_factory=dict)
@@ -55,10 +53,6 @@ class JupyterBuildHook(BuildHookInterface):
 
         if version == "editable" and should_install_hook:
             install_pre_commit_hook()
-
-        pre_commit_hatch_script = config.pre_commit_hatch_script.lower()
-        if version == "editable" and pre_commit_hatch_script:
-            install_pre_commit_hatch_script(pre_commit_hatch_script)
 
         build_kwargs = config.build_kwargs
         if version == "editable":
