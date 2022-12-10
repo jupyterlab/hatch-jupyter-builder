@@ -29,18 +29,22 @@ warnings = []
 
 # Read pyproject before migration to get old build requirements.
 pyproject = Path("pyproject.toml")
-data = tomli.loads(pyproject.read_text("utf-8"))
-requires = data["build-system"]["requires"]
-# Install the old build reqs into this venv.
-subprocess.run([sys.executable, "-m", "pip", "install"] + requires)
-requires = [
-    r
-    for r in requires
-    if not r.startswith("jupyter-packaging")
-    and not r.startswith("setuptools")
-    and not r.startswith("jupyter_packaging")
-    and not r.startswith("wheel")
-]
+if pyproject.exists():
+    data = tomli.loads(pyproject.read_text("utf-8"))
+    requires = data["build-system"]["requires"]
+    # Install the old build reqs into this venv.
+    subprocess.run([sys.executable, "-m", "pip", "install"] + requires)
+    requires = [
+        r
+        for r in requires
+        if not r.startswith("jupyter-packaging")
+        and not r.startswith("setuptools")
+        and not r.startswith("jupyter_packaging")
+        and not r.startswith("wheel")
+    ]
+else:
+    requires = []
+
 
 # Extract the current version before beginning any migration.
 setup_py = Path("setup.py")
