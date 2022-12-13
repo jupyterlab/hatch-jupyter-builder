@@ -2,6 +2,37 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.8.2
+
+([Full Changelog](https://github.com/jupyterlab/hatch-jupyter-builder/compare/v0.8.1...dacbd9ba0115b0991870bf2b7d741ada0d1d4ffd))
+
+### Enhancements made
+
+- Adopt ruff and reduce pre-commit usage [#97](https://github.com/jupyterlab/hatch-jupyter-builder/pull/97) ([@blink1073](https://github.com/blink1073))
+
+### Bugs fixed
+
+- Fix shared data path handling in migration [#101](https://github.com/jupyterlab/hatch-jupyter-builder/pull/101) ([@blink1073](https://github.com/blink1073))
+- Handle no pyproject file in migration [#100](https://github.com/jupyterlab/hatch-jupyter-builder/pull/100) ([@blink1073](https://github.com/blink1073))
+
+### Maintenance and upkeep improvements
+
+- Allow releasing from repo [#99](https://github.com/jupyterlab/hatch-jupyter-builder/pull/99) ([@blink1073](https://github.com/blink1073))
+- Use base setup dependency type [#95](https://github.com/jupyterlab/hatch-jupyter-builder/pull/95) ([@blink1073](https://github.com/blink1073))
+- More CI Cleanup [#93](https://github.com/jupyterlab/hatch-jupyter-builder/pull/93) ([@blink1073](https://github.com/blink1073))
+- Cleanup workflows [#92](https://github.com/jupyterlab/hatch-jupyter-builder/pull/92) ([@blink1073](https://github.com/blink1073))
+- Bump Python Version Support to 3.8-3.11 [#89](https://github.com/jupyterlab/hatch-jupyter-builder/pull/89) ([@blink1073](https://github.com/blink1073))
+- Maintenance updates [#85](https://github.com/jupyterlab/hatch-jupyter-builder/pull/85) ([@blink1073](https://github.com/blink1073))
+- Remove flake8 file [#83](https://github.com/jupyterlab/hatch-jupyter-builder/pull/83) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/hatch-jupyter-builder/graphs/contributors?from=2022-10-14&to=2022-12-13&type=c))
+
+[@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Ablink1073+updated%3A2022-10-14..2022-12-13&type=Issues) | [@codecov](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Acodecov+updated%3A2022-10-14..2022-12-13&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Apre-commit-ci+updated%3A2022-10-14..2022-12-13&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.8.1
 
 ([Full Changelog](https://github.com/jupyterlab/hatch-jupyter-builder/compare/v0.8.0...8257c8561d946def6193ad63afa446e0b261cb39))
@@ -17,8 +48,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/hatch-jupyter-builder/graphs/contributors?from=2022-10-10&to=2022-10-14&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Ablink1073+updated%3A2022-10-10..2022-10-14&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Apre-commit-ci+updated%3A2022-10-10..2022-10-14&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.8.0
 
