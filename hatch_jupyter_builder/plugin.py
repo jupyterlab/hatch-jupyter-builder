@@ -1,3 +1,4 @@
+"""The main plugin for hatch_jupyter_builder."""
 import os
 import typing as t
 import warnings
@@ -29,9 +30,12 @@ class JupyterBuildConfig:
 
 
 class JupyterBuildHook(BuildHookInterface):
+    """The hatch jupyter builder build hook."""
+
     PLUGIN_NAME = "jupyter-builder"
 
     def initialize(self, version, build_data):
+        """Initialize the plugin."""
         log = _get_log()
         log.info("Running jupyter-builder")
         if self.target_name not in ["wheel", "sdist"]:
