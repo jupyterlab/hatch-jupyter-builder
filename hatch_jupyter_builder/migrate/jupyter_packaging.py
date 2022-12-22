@@ -1,3 +1,4 @@
+"""Shim for jupyter packaging migration."""
 import os
 import sys
 from pathlib import Path
@@ -57,6 +58,7 @@ def _get_build_kwargs(**kwargs):
 
 
 def skip_if_exists(paths, *args):
+    """Shim for skip if exists"""
     if paths:
         data = {"skip-if-exists": [_normalize_path(p) for p in paths]}
         _write_config("tool.hatch.build.hooks.jupyter-builder", data)
@@ -64,6 +66,7 @@ def skip_if_exists(paths, *args):
 
 
 def ensure_targets(targets):
+    """Shim for ensure targets"""
     if targets:
         data = {"ensured-targets": [_normalize_path(t) for t in targets]}
         _write_config("tool.hatch.build.hooks.jupyter-builder", data)
@@ -78,6 +81,7 @@ def wrap_installers(
     ensured_targets=None,
     skip_if_exists=None,
 ):
+    """Shim for wrap_installers."""
     if pre_develop or post_develop:
         func = pre_develop or post_develop
         build_kwargs = _get_build_kwargs(**func.__kwargs)
@@ -105,6 +109,7 @@ def wrap_installers(
 def create_cmdclass(
     prerelease_cmd=None, package_data_spec=None, data_files_spec=None, exclude=None
 ):
+    """Shim for create_cmdclass."""
     shared_data = {}
     if data_files_spec is not None:
         for (path, dname, pattern) in data_files_spec:
@@ -128,6 +133,7 @@ def create_cmdclass(
 def install_npm(
     path=None, build_dir=None, source_dir=None, build_cmd="build", force=False, npm=None
 ):
+    """Shim for install_npm."""
     build_kwargs = _get_build_kwargs(**locals())
     if build_kwargs:
         _write_config("tool.hatch.build.hooks.jupyter-builder.build-kwargs", build_kwargs)
@@ -145,6 +151,7 @@ def install_npm(
 def npm_builder(
     path=None, build_dir=None, source_dir=None, build_cmd="build", force=False, npm=None
 ):
+    """Shim for npm_builder."""
     func = __real_jupyter_packaging.npm_builder(
         path=path,
         build_dir=build_dir,
@@ -160,6 +167,7 @@ def npm_builder(
 
 
 def __getattr__(name):
+    """Defer to the original for all others."""
     return getattr(__real_jupyter_packaging, name)
 
 

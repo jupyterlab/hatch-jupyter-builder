@@ -12,6 +12,7 @@ from typing import Optional
 
 
 def build_file(dirname, dist_name):
+    """Build a dist file in a directory."""
     orig_dir = os.getcwd()
     os.chdir(dirname)
     if os.path.exists("dist"):
@@ -21,18 +22,21 @@ def build_file(dirname, dist_name):
 
 
 def get_tar_names(dirname):
+    """Get the tarball names in a directory."""
     dist_file = glob.glob(f"{dirname}/dist/*.tar.gz")[0]
     tarf = tarfile.open(dist_file, "r:gz")
     return set(tarf.getnames())
 
 
 def get_zip_names(dirname):
+    """Get the zip (wheel) file names in a directory."""
     wheel_file = glob.glob(f"{dirname}/dist/*.whl")[0]
     with zipfile.ZipFile(wheel_file, "r") as f:
         return set(f.namelist())
 
 
 def filter_file(path):
+    """Filter a file path for interesting files."""
     if "egg-info" in path:
         return True
     _, ext = os.path.splitext(path)
@@ -44,6 +48,7 @@ def filter_file(path):
 
 
 def main(source_dir, target_dir, dist_name):
+    """The main script."""
     subprocess.check_call([sys.executable, "-m", "pip", "install", "build"])
 
     logger = logging.getLogger(__name__)
@@ -79,6 +84,7 @@ def main(source_dir, target_dir, dist_name):
 def make_parser(
     parser: Optional[argparse.ArgumentParser] = None, prog: Optional[str] = None
 ) -> argparse.ArgumentParser:
+    """Make an arg parser."""
     if parser is None:
         parser = argparse.ArgumentParser(prog=prog)
     parser.add_argument(dest="source_dir", help="Source Directory")
@@ -88,6 +94,7 @@ def make_parser(
 
 
 def run(args: Optional[argparse.Namespace] = None) -> None:
+    """Run the cli."""
     if args is None:
         parser = make_parser(prog=f"{sys.executable} -m hatch_jupyter_builder.compare_migrated")
         args = parser.parse_args()

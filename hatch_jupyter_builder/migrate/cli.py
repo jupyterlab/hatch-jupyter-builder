@@ -14,6 +14,7 @@ from hatch_jupyter_builder import __version__ as builder_version
 
 
 def main(td, target_dir):
+    """Main script."""
     logger = logging.getLogger(__name__)
     logging.basicConfig()
     venv.create(td, with_pip=True)
@@ -40,6 +41,7 @@ def main(td, target_dir):
 def make_parser(
     parser: Optional[argparse.ArgumentParser] = None, prog: Optional[str] = None
 ) -> argparse.ArgumentParser:
+    """Make a parser object."""
     if parser is None:
         parser = argparse.ArgumentParser(prog=prog)
     parser.add_argument(dest="target_dir", help="Target Directory")
@@ -47,6 +49,7 @@ def make_parser(
 
 
 def run(args: Optional[argparse.Namespace] = None) -> None:
+    """Run the migration."""
     if args is None:
         parser = make_parser(prog=f"{sys.executable} -m hatch_jupyter_builder.migrate")
         args = parser.parse_args()

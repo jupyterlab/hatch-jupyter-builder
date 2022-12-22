@@ -1,3 +1,4 @@
+"""Utilities for hatch_jupyter_builder."""
 import importlib
 import logging
 import os
@@ -13,6 +14,7 @@ if sys.platform == "win32":  # pragma: no cover
 else:
 
     def list2cmdline(cmd_list):
+        """Implementation of list2cmdline for posix systems."""
         return " ".join(map(shlex.quote, cmd_list))
 
 
@@ -179,6 +181,7 @@ def mtime(path: Union[str, Path]) -> float:
 
 
 def get_build_func(build_func_str: str) -> Callable[..., None]:
+    """Get a build function by name."""
     # Get the build function by importing it.
     mod_name, _, func_name = build_func_str.rpartition(".")
 
@@ -193,6 +196,7 @@ def get_build_func(build_func_str: str) -> Callable[..., None]:
 
 
 def normalize_cmd(cmd: Union[str, list]) -> List[str]:
+    """Normalize a subprocess command."""
     if not isinstance(cmd, (list, tuple)):
         cmd = shlex.split(cmd, posix=os.name != "nt")
     if not Path(cmd[0]).is_absolute():
@@ -243,6 +247,7 @@ def should_skip(skip_if_exists):
 
 
 def install_pre_commit_hook():
+    """Install a pre-commit hook."""
     data = f"""#!/usr/bin/env bash
 INSTALL_PYTHON={sys.executable}
 ARGS=(hook-impl --config=.pre-commit-config.yaml --hook-type=pre-commit)
