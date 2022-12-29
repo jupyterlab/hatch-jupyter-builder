@@ -33,7 +33,12 @@ version = ".".join(version_parsed[:2])
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinx.ext.napoleon", "sphinx.ext.autodoc", "myst_parser"]
+extensions = [
+    "sphinx.ext.napoleon",
+    "sphinx.ext.autodoc",
+    "myst_parser",
+    "sphinx_autodoc_typehints",
+]
 
 try:
     import enchant  # type:ignore  # noqa
@@ -59,6 +64,9 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # a list of builtin themes.
 #
 html_theme = "pydata_sphinx_theme"
+
+# Example configuration for intersphinx: refer to the Python standard library.
+intersphinx_mapping = {"python": {"https://docs.python.org/3/": None}}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

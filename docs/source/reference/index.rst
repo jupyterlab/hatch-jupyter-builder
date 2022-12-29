@@ -6,5 +6,5 @@ Technical reference. Covers tools, components, commands and resources.
    :maxdepth: 1
    :caption: Contents:
 
-   api_docs
+   API Docs <api/modules>
    changelog
