@@ -32,7 +32,7 @@ Source = "https://github.com/jupyterlab/hatch-jupyter-builder"
 
 [project.optional-dependencies]
 test = ["pytest", "pytest-mock", "hatch", "pytest-cov", "tomli", "twine"]
-docs = ["pydata-sphinx-theme", "myst-parser", "hatch_jupyter_builder", "sphinxcontrib-spelling"]
+docs = ["pydata-sphinx-theme", "myst-parser", "hatch_jupyter_builder", "sphinxcontrib-spelling", "sphinx-autodoc-typehints"]
 
 [project.scripts]
 hatch-jupyter-builder = 'hatch_jupyter_builder.cli:run'
@@ -45,8 +45,11 @@ path = "hatch_jupyter_builder/__init__.py"
 
 [tool.hatch.envs.docs]
 features = ["docs"]
+[tool.hatch.envs.docs.env-vars]
+SPHINXOPTS = "-W"
 [tool.hatch.envs.docs.scripts]
-build = "make -C docs html SPHINXOPTS='-W'"
+build = "make -C docs html"
+api = "sphinx-apidoc -o docs/source/reference/api -f -E hatch_jupyter_builder hatch_jupyter_builder/migrate/jupyter_packaging.py"
 
 [tool.hatch.envs.test]
 features = ["test"]
