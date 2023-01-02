@@ -7,11 +7,17 @@ import warnings
 from pathlib import Path
 
 import pytest
+from hatchling.metadata.core import ProjectMetadata
+from hatchling.plugin.manager import PluginManager
 
 from hatch_jupyter_builder.plugin import JupyterBuildHook
 
 
 def test_build_hook(tmp_path):
+
+    manager = PluginManager()
+    meta = ProjectMetadata(".", manager, {})
+
     if "SKIP_JUPYTER_BUILD" in os.environ:
         del os.environ["SKIP_JUPYTER_BUILD"]
 
@@ -30,14 +36,14 @@ def foo(target_name, version, foo_bar=None, fizz_buzz=None):
     test.write_text(text, encoding="utf-8")
     os.makedirs(".git/hooks")
 
-    hook = JupyterBuildHook(tmp_path, config, {}, {}, tmp_path, "wheel")
+    hook = JupyterBuildHook(tmp_path, config, {}, meta, tmp_path, "wheel")
     assert hook.initialize("standard", {})
     assert hook.initialize("editable", {})
 
-    hook = JupyterBuildHook(tmp_path, config, {}, {}, tmp_path, "sdist")
+    hook = JupyterBuildHook(tmp_path, config, {}, meta, tmp_path, "sdist")
     assert hook.initialize("standard", {})
 
-    hook = JupyterBuildHook(tmp_path, {}, {}, {}, tmp_path, "wheel")
+    hook = JupyterBuildHook(tmp_path, {}, {}, meta, tmp_path, "wheel")
     assert hook.initialize("standard", {})
     assert hook.initialize("editable", {})
 
@@ -48,7 +54,7 @@ def foo(target_name, version, foo_bar=None, fizz_buzz=None):
     config["editable-build-kwargs"] = {"foo-bar": "2", "fizz_buzz": "3"}
     assert hook.initialize("editable", {})
 
-    hook = JupyterBuildHook(tmp_path, config, {}, {}, tmp_path, "foo")
+    hook = JupyterBuildHook(tmp_path, config, {}, meta, tmp_path, "foo")
     assert not hook.initialize("standard", {})
 
     text = """
@@ -59,7 +65,7 @@ def foo(target_name, version, foo_bar=None, fizz_buzz=None):
     # Force a re-import
     del sys.modules["test"]
 
-    hook = JupyterBuildHook(tmp_path, config, {}, {}, tmp_path, "wheel")
+    hook = JupyterBuildHook(tmp_path, config, {}, meta, tmp_path, "wheel")
     with pytest.raises(RuntimeError):
         hook.initialize("editable", {})
 
@@ -68,13 +74,13 @@ def foo(target_name, version, foo_bar=None, fizz_buzz=None):
     del os.environ["SKIP_JUPYTER_BUILDER"]
 
     config["optional-editable-build"] = "true"
-    hook = JupyterBuildHook(tmp_path, config, {}, {}, tmp_path, "wheel")
+    hook = JupyterBuildHook(tmp_path, config, {}, meta, tmp_path, "wheel")
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         assert hook.initialize("editable", {})
 
     config["optional-editable-build"] = True
-    hook = JupyterBuildHook(tmp_path, config, {}, {}, tmp_path, "wheel")
+    hook = JupyterBuildHook(tmp_path, config, {}, meta, tmp_path, "wheel")
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         assert hook.initialize("editable", {})
