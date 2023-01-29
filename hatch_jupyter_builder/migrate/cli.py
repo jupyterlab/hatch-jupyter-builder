@@ -18,10 +18,7 @@ def main(td, target_dir):
     logger = logging.getLogger(__name__)
     logging.basicConfig()
     venv.create(td, with_pip=True)
-    if os.name == "nt":
-        python = Path(td) / "Scripts/python.exe"
-    else:
-        python = Path(td) / "bin/python"
+    python = Path(td) / "Scripts/python.exe" if os.name == "nt" else Path(td) / "bin/python"
 
     logger.info("Installing in temporary virtual environment...")
 

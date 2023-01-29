@@ -161,7 +161,7 @@ def npm_builder(
         npm=npm,
     )
     func.__kwargs = {}
-    for name in _npm_kwargs + ["force"]:
+    for name in [*_npm_kwargs, "force"]:
         func.__kwargs[name] = locals()[name]
     return func
 

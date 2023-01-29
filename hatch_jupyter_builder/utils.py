@@ -99,10 +99,7 @@ def npm_builder(
             log.warning("yarn not found, ignoring yarn.lock file")
             is_yarn = False
 
-        if is_yarn:
-            npm = ["yarn"]
-        else:
-            npm = ["npm"]
+        npm = ["yarn"] if is_yarn else ["npm"]
 
     npm_cmd = normalize_cmd(npm)
 
@@ -113,9 +110,9 @@ def npm_builder(
 
     if should_build:
         log.info("Installing build dependencies with npm.  This may take a while...")
-        run(npm_cmd + ["install"], cwd=str(abs_path))
+        run([*npm_cmd, "install"], cwd=str(abs_path))
         if build_cmd:
-            run(npm_cmd + ["run", build_cmd], cwd=str(abs_path))
+            run([*npm_cmd, "run", build_cmd], cwd=str(abs_path))
     else:
         log.info("No build required")
 
@@ -203,11 +200,12 @@ def normalize_cmd(cmd: Union[str, list]) -> List[str]:
         # If a command is not an absolute path find it first.
         cmd_path = which(cmd[0])
         if not cmd_path:
-            raise ValueError(
+            msg = (
                 f"Aborting. Could not find cmd ({cmd[0]}) in path. "
                 "If command is not expected to be in user's path, "
                 "use an absolute path."
             )
+            raise ValueError(msg)
         cmd[0] = cmd_path
     return cmd
 
@@ -235,7 +233,8 @@ def ensure_targets(ensured_targets: List[str]) -> None:
     """Ensure that target files are available"""
     for target in ensured_targets:
         if not Path(target).exists():
-            raise ValueError(f'Ensured target "{target}" does not exist')
+            msg = f'Ensured target "{target}" does not exist'
+            raise ValueError(msg)
     _get_log().info("Ensured target(s) exist!")
 
 

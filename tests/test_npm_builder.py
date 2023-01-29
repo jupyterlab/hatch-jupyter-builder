@@ -36,7 +36,7 @@ def test_npm_build_skip(mocker, repo):
     run.assert_not_called()
     del os.environ["HATCH_JUPYTER_BUILDER_SKIP_NPM"]
 
-    sys.argv = sys.argv + ["--skip-npm"]
+    sys.argv = [*sys.argv, "--skip-npm"]
     npm_builder("wheel", "standard", path=repo)
     run.assert_not_called()
 

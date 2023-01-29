@@ -79,7 +79,7 @@ test = "mypy --install-types --non-interactive {args:hatch_jupyter_builder/**/*.
 dependencies = [
   "black[jupyter]==22.10.0",
   "mdformat>0.7",
-  "ruff==0.0.206",
+  "ruff==0.0.237",
 ]
 [tool.hatch.envs.lint.scripts]
 style = [
@@ -131,8 +131,9 @@ target-version = ["py38"]
 target-version = "py38"
 line-length = 100
 select = [
-  "A", "B", "C", "E", "F", "FBT", "I", "N", "Q", "RUF", "S", "T",
-  "UP", "W", "YTT",
+  "A", "B", "C", "DTZ", "E", "EM", "F", "FBT", "I", "ICN", "ISC", "N",
+  "PLC", "PLE", "PLR", "PLW", "Q", "RUF", "S", "SIM", "T", "TID", "UP",
+  "W", "YTT",
 ]
 ignore = [
   # Allow non-abstract empty methods in abstract base classes
@@ -163,6 +164,8 @@ ignore = [
   "N806",
   # Exception name `KernelSessionRecordConflict` should be named with an Error suffix
   "N818",
+  # SIM105 Use `contextlib.suppress(...)`
+  "SIM105",
 ]
 unfixable = [
   # Don't touch print statements
@@ -179,7 +182,9 @@ unfixable = [
 # C408 Unnecessary `dict` call
 # E402 Module level import not at top of file
 # T201 `print` found
-"tests/*" = ["B011", "F841", "C408", "E402", "T201"]
+# EM101 Exception must not use a string literal
+# PLR2004 Magic value used in comparison
+"tests/*" = ["B011", "F841", "C408", "E402", "T201", "EM101", "EM102", "EM103", "PLR2004"]
 
 [tool.interrogate]
 ignore-init-module=true
