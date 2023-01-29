@@ -34,7 +34,7 @@ if pyproject.exists():
     data = tomli.loads(pyproject.read_text("utf-8"))
     requires = data["build-system"]["requires"]
     # Install the old build reqs into this venv.
-    subprocess.run([sys.executable, "-m", "pip", "install"] + requires)
+    subprocess.run([sys.executable, "-m", "pip", "install", *requires])
     requires = [
         r
         for r in requires
@@ -156,9 +156,8 @@ if "jupyter-packaging" in tool_table:
     if build_args_table:
         builder_table["build-kwargs"] = build_args_table.copy()
 
-    if build_args_table.get("npm"):
-        if "editable-build-kwargs" in builder_table:
-            builder_table["editable-build-kwargs"]["npm"] = build_args_table["npm"]
+    if build_args_table.get("npm") and "editable-build-kwargs" in builder_table:
+        builder_table["editable-build-kwargs"]["npm"] = build_args_table["npm"]
 
 # Add artifacts config for package data that would be ignored.
 project_name = data.get("project", {}).get("name", "")
