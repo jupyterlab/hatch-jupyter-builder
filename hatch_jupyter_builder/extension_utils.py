@@ -1,5 +1,5 @@
-
 import itertools
+
 from .semver import Range, gt, gte, lt, lte
 
 
@@ -108,5 +108,3 @@ def _compare_ranges(spec1, spec2, drop_prerelease1=False, drop_prerelease2=False
     if return_value is False:
         return_value = None
     return return_value
-
-

@@ -8,9 +8,8 @@ import sys
 from copy import copy
 
 from jupyter_core.application import JupyterApp, base_aliases, base_flags
-from traitlets import Bool, List, Unicode, default
-
 from jupyterlab.labapp import LabApp
+from traitlets import Bool, List, Unicode, default
 
 from .debuglog import DebugLogFileMixin
 from .extension_utils import (
