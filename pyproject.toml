@@ -36,6 +36,8 @@ docs = ["pydata-sphinx-theme", "myst-parser", "hatch_jupyter_builder", "sphinxco
 
 [project.scripts]
 hatch-jupyter-builder = 'hatch_jupyter_builder.cli:run'
+jlpm = "hatch_jupyter_builder.jlpmapp:main"
+jupyter-labextension = "hatch_jupyter_builder.labextensions:main"
 
 [project.entry-points.hatch]
 jupyter = "hatch_jupyter_builder.hooks"
