@@ -6,8 +6,12 @@ import sys
 from pathlib import Path
 from typing import Any
 
-import tomli
 import tomli_w  # type:ignore[import-not-found]
+
+try:
+    import tomllib
+except ImportError:
+    import tomli as tomllib
 
 __this_shim = sys.modules.pop("jupyter_packaging")
 __current_directory = sys.path.pop(0)
@@ -20,7 +24,7 @@ sys.modules["jupyter_packaging"] = __this_shim
 
 def _write_config(path: Any, data: Any) -> None:
     pyproject = Path("pyproject.toml")
-    top = tomli.loads(pyproject.read_text(encoding="utf-8"))
+    top = tomllib.loads(pyproject.read_text(encoding="utf-8"))
     current = top
     parts = path.split(".")
     for part in parts[:-1]:

@@ -7,7 +7,11 @@ import tempfile
 from pathlib import Path
 
 import pytest
-import tomli
+
+try:
+    import tomllib
+except ImportError:
+    import tomli as tomllib
 
 from hatch_jupyter_builder.compare_migrated.cli import main
 
@@ -32,8 +36,8 @@ def test_npm_builder_migration():
         subprocess.check_call([python, "-m", "hatch_jupyter_builder.migrate", target1])
         source_toml = source.joinpath("pyproject.toml").read_text(encoding="utf-8")
         target_toml = target1.joinpath("pyproject.toml").read_text(encoding="utf-8")
-        source_data = tomli.loads(source_toml)
-        target_data = tomli.loads(target_toml)
+        source_data = tomllib.loads(source_toml)
+        target_data = tomllib.loads(target_toml)
 
         # The hatchling and hatch_jupyter_builder versions might differ.
         source_data["build-system"]["requires"] = target_data["build-system"]["requires"]
@@ -87,8 +91,8 @@ def test_create_cmdclass_migration():
         subprocess.check_call([python, "-m", "hatch_jupyter_builder.migrate", target1])
         source_toml = source.joinpath("pyproject.toml").read_text(encoding="utf-8")
         target_toml = target1.joinpath("pyproject.toml").read_text(encoding="utf-8")
-        source_data = tomli.loads(source_toml)
-        target_data = tomli.loads(target_toml)
+        source_data = tomllib.loads(source_toml)
+        target_data = tomllib.loads(target_toml)
 
         # The hatchling and hatch_jupyter_builder versions might differ.
         source_data["build-system"]["requires"] = target_data["build-system"]["requires"]

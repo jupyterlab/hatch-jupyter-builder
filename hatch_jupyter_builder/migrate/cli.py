@@ -27,7 +27,7 @@ def main(td: str, target_dir: str) -> None:
     runner([python, "-m", "pip", "install", "build"])
     runner([python, "-m", "pip", "install", "packaging"])
     runner([python, "-m", "pip", "install", "tomli_w"])
-    runner([python, "-m", "pip", "install", "tomli"])
+    runner([python, "-m", "pip", "install", "tomli;python_version<'3.11'"])
     runner([python, "-m", "pip", "install", "hatch"])
     runner([python, "-m", "build", target_dir, "--sdist"])
 
