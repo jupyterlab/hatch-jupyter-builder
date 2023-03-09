@@ -114,7 +114,7 @@ def create_cmdclass(
     if data_files_spec is not None:
         for path, dname, pattern in data_files_spec:
             if os.path.isabs(dname):
-                dname = os.path.relpath(dname, os.getcwd())
+                dname = os.path.relpath(dname, os.getcwd())  # noqa
             if pattern == "**":
                 shared_data[dname] = path
             else:

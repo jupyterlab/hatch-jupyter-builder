@@ -22,7 +22,7 @@ _logger = None
 
 
 def _get_log() -> logging.Logger:
-    global _logger
+    global _logger  # noqa
     if _logger:
         return _logger
     _logger = logging.getLogger(__name__)
@@ -215,7 +215,7 @@ def normalize_kwargs(kwargs: Mapping[str, str]) -> Dict[str, Any]:
     result = {}
     for key, value in kwargs.items():
         if isinstance(value, bool):
-            value = str(value)
+            value = str(value)  # noqa
         result[key.replace("-", "_")] = value
     return result
 
