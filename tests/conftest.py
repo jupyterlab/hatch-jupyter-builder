@@ -21,8 +21,7 @@ def pytest_runtest_setup(item):
     if item.config.getoption("--migration-tests") is True:
         if not is_migration_test:
             pytest.skip("Only running tests marked as 'migration_test'.")
-    else:
-        if is_migration_test:
-            pytest.skip(
-                "Skipping this test because it's marked 'migration_test'. Run integration tests using the `--migration-tests` flag."
-            )
+    elif is_migration_test:
+        pytest.skip(
+            "Skipping this test because it's marked 'migration_test'. Run integration tests using the `--migration-tests` flag."
+        )
