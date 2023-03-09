@@ -9,9 +9,9 @@ from pathlib import Path
 import tomli_w  # type:ignore[import-not-found]
 from packaging import version
 
-try:
+if sys.version_info >= (3, 11):
     import tomllib
-except ImportError:
+else:
     import tomli as tomllib
 
 logger = logging.getLogger(__name__)

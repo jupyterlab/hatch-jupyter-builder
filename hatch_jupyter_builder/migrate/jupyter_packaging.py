@@ -8,9 +8,9 @@ from typing import Any
 
 import tomli_w  # type:ignore[import-not-found]
 
-try:
+if sys.version_info >= (3, 11):
     import tomllib
-except ImportError:
+else:
     import tomli as tomllib
 
 __this_shim = sys.modules.pop("jupyter_packaging")

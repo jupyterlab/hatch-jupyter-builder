@@ -8,9 +8,9 @@ from pathlib import Path
 
 import pytest
 
-try:
+if sys.version_info >= (3, 11):
     import tomllib
-except ImportError:
+else:
     import tomli as tomllib
 
 from hatch_jupyter_builder.compare_migrated.cli import main
