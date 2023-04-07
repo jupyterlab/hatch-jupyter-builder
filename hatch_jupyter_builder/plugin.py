@@ -82,7 +82,7 @@ class JupyterBuildHook(BuildHookInterface):
                 build_func(self.target_name, version, **build_kwargs)
             except Exception as e:
                 if version == "editable" and config.optional_editable_build.lower() == "true":
-                    warnings.warn(f"Encountered build error:\n{e}")
+                    warnings.warn(f"Encountered build error:\n{e}")  # noqa B028
                 else:
                     raise e
         else:
