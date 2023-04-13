@@ -110,6 +110,8 @@ omit = [
    "hatch_jupyter_builder/migrate/*",
    "hatch_jupyter_builder/compare_migrated/*"
 ]
+relative_files = true
+source = ["hatch_jupyter_builder"]
 
 [tool.mypy]
 check_untyped_defs = true

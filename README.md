@@ -1,7 +1,6 @@
 # hatch-jupyter-builder
 
 [![PyPI - Version](https://img.shields.io/pypi/v/hatch-jupyter-builder.svg)](https://pypi.org/project/hatch-jupyter-builder)
-[![codecov](https://codecov.io/gh/jupyterlab/hatch-jupyter-builder/branch/master/graph/badge.svg?token=DrOulNuIzL)](https://codecov.io/gh/jupyterlab/hatch-jupyter-builder)
 [![Hatch project](https://img.shields.io/badge/%F0%9F%A5%9A-Hatch-4051b5.svg)](https://github.com/pypa/hatch)
 
 ______________________________________________________________________
