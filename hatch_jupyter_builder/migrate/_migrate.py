@@ -98,7 +98,7 @@ if setup_cfg.exists():
 
     if matches:
         Path(".flake8").write_text("\n".join(flake8) + "\n", "utf-8")
-        subprocess.run(["git", "add", ".flake"])
+        subprocess.run(["git", "add", ".flake"])  # noqa
 
 
 # Migrate and remove unused config.
