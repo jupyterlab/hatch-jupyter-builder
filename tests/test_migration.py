@@ -19,7 +19,6 @@ REPO_ROOT = str(HERE.parent).replace(os.sep, "/")
 def test_npm_builder_migration():
     python = sys.executable
     os.environ["BUILDER_VERSION_SPEC"] = f"@file://{REPO_ROOT}"
-    os.environ["YARN_ENABLE_IMMUTABLE_INSTALLS"] = "1"
     # Copy the source cookiecutter extension into two temporary directories.
     with tempfile.TemporaryDirectory() as td1, tempfile.TemporaryDirectory() as td2:
         source = HERE / "data" / "npm_builder"
