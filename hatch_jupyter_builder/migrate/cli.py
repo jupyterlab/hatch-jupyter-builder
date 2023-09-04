@@ -29,9 +29,8 @@ def main(td, target_dir):
     runner([python, "-m", "pip", "install", "tomli_w"])
     runner([python, "-m", "pip", "install", "tomli"])
     runner([python, "-m", "pip", "install", "hatch"])
-    os.environ["YARN_ENABLE_IMMUTABLE_INSTALLS"] = "1"
+    os.environ["YARN_ENABLE_IMMUTABLE_INSTALLS"] = "false"
     runner([python, "-m", "build", target_dir, "--sdist"])
-
     migrator = Path(__file__).parent / "_migrate.py"
     runner([python, migrator, builder_version], cwd=target_dir)
 
