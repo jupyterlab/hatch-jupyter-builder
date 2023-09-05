@@ -72,7 +72,7 @@ if prev_pythonpath:
     os.environ["PYTHONPATH"] = f"{here}{os.pathsep}{prev_pythonpath}"
 else:
     os.environ["PYTHONPATH"] = here
-subprocess.run([sys.executable, "setup.py", "--version"], capture_output=True, check=True)
+subprocess.run([sys.executable, "setup.py", "--version"], capture_output=True, check=False)
 os.environ["PYTHONPATH"] = prev_pythonpath
 
 # Handle setup.cfg
