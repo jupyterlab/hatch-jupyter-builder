@@ -34,7 +34,7 @@ if pyproject.exists():
     data = tomli.loads(pyproject.read_text("utf-8"))
     requires = data["build-system"]["requires"]
     # Install the old build reqs into this venv.
-    subprocess.run([sys.executable, "-m", "pip", "install", *requires])
+    subprocess.run([sys.executable, "-m", "pip", "install", *requires], check=True)
     requires = [
         r
         for r in requires
@@ -61,7 +61,7 @@ else:
 
 # Run the hatch migration script.
 logger.info("Running hatch migration")
-subprocess.run([sys.executable, "-m", "hatch", "new", "--init"])
+subprocess.run([sys.executable, "-m", "hatch", "new", "--init"], check=True)
 
 # Run the jupyter-packaging migration script - must be done after
 # hatch migration to avoid conflicts.
@@ -72,7 +72,7 @@ if prev_pythonpath:
     os.environ["PYTHONPATH"] = f"{here}{os.pathsep}{prev_pythonpath}"
 else:
     os.environ["PYTHONPATH"] = here
-subprocess.run([sys.executable, "setup.py", "--version"], capture_output=True)
+subprocess.run([sys.executable, "setup.py", "--version"], capture_output=True, check=True)
 os.environ["PYTHONPATH"] = prev_pythonpath
 
 # Handle setup.cfg
@@ -98,7 +98,7 @@ if setup_cfg.exists():
 
     if matches:
         Path(".flake8").write_text("\n".join(flake8) + "\n", "utf-8")
-        subprocess.run(["git", "add", ".flake"])  # noqa
+        subprocess.run(["git", "add", ".flake"], check=True)  # noqa
 
 
 # Migrate and remove unused config.
