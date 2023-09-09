@@ -13,7 +13,7 @@ from typing import Optional
 from hatch_jupyter_builder import __version__ as builder_version
 
 
-def main(td, target_dir):
+def main(td: str, target_dir: str) -> None:
     """Main script."""
     logger = logging.getLogger(__name__)
     logging.basicConfig()

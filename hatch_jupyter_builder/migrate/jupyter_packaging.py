@@ -1,7 +1,10 @@
 """Shim for jupyter packaging migration."""
+from __future__ import annotations
+
 import os
 import sys
 from pathlib import Path
+from typing import Any
 
 import tomli
 import tomli_w
@@ -9,13 +12,13 @@ import tomli_w
 __this_shim = sys.modules.pop("jupyter_packaging")
 __current_directory = sys.path.pop(0)
 
-import jupyter_packaging as __real_jupyter_packaging  # type:ignore
+import jupyter_packaging as __real_jupyter_packaging  # type:ignore[import]
 
 sys.path.insert(0, __current_directory)
 sys.modules["jupyter_packaging"] = __this_shim
 
 
-def _write_config(path, data):
+def _write_config(path: Any, data: Any) -> None:
     pyproject = Path("pyproject.toml")
     top = tomli.loads(pyproject.read_text(encoding="utf-8"))
     current = top
@@ -36,7 +39,7 @@ def _write_config(path, data):
 _npm_kwargs = ["path", "build_dir", "source_dir", "build_cmd", "npm"]
 
 
-def _normalize_path(path):
+def _normalize_path(path: str) -> str:
     path = str(path)
     cwd = os.getcwd()
     if path.startswith(cwd):
@@ -44,7 +47,7 @@ def _normalize_path(path):
     return path
 
 
-def _get_build_kwargs(**kwargs):
+def _get_build_kwargs(**kwargs: Any) -> dict[str, Any]:
     build_kwargs = {}
     for name in _npm_kwargs:
         value = kwargs[name]
@@ -57,7 +60,7 @@ def _get_build_kwargs(**kwargs):
     return build_kwargs
 
 
-def skip_if_exists(paths, *args):
+def skip_if_exists(paths: list[str], *args: str) -> Any:
     """Shim for skip if exists"""
     if paths:
         data = {"skip-if-exists": [_normalize_path(p) for p in paths]}
@@ -65,7 +68,7 @@ def skip_if_exists(paths, *args):
     return __real_jupyter_packaging.skip_if_exists(paths, *args)
 
 
-def ensure_targets(targets):
+def ensure_targets(targets: list[str]) -> Any:
     """Shim for ensure targets"""
     if targets:
         data = {"ensured-targets": [_normalize_path(t) for t in targets]}
@@ -74,13 +77,13 @@ def ensure_targets(targets):
 
 
 def wrap_installers(
-    pre_develop=None,
-    pre_dist=None,
-    post_develop=None,
-    post_dist=None,
-    ensured_targets=None,
-    skip_if_exists=None,
-):
+    pre_develop: Any = None,
+    pre_dist: Any = None,
+    post_develop: Any = None,
+    post_dist: Any = None,
+    ensured_targets: Any = None,
+    skip_if_exists: Any = None,
+) -> Any:
     """Shim for wrap_installers."""
     if pre_develop or post_develop:
         func = pre_develop or post_develop
@@ -107,8 +110,11 @@ def wrap_installers(
 
 
 def create_cmdclass(
-    prerelease_cmd=None, package_data_spec=None, data_files_spec=None, exclude=None
-):
+    prerelease_cmd: Any = None,
+    package_data_spec: Any = None,
+    data_files_spec: Any = None,
+    exclude: Any = None,
+) -> Any:
     """Shim for create_cmdclass."""
     shared_data = {}
     if data_files_spec is not None:
@@ -131,8 +137,13 @@ def create_cmdclass(
 
 
 def install_npm(
-    path=None, build_dir=None, source_dir=None, build_cmd="build", force=False, npm=None
-):
+    path: Any = None,
+    build_dir: Any = None,
+    source_dir: Any = None,
+    build_cmd: str = "build",
+    force: bool = False,
+    npm: Any = None,
+) -> Any:
     """Shim for install_npm."""
     build_kwargs = _get_build_kwargs(**locals())
     if build_kwargs:
@@ -149,8 +160,13 @@ def install_npm(
 
 
 def npm_builder(
-    path=None, build_dir=None, source_dir=None, build_cmd="build", force=False, npm=None
-):
+    path: Any = None,
+    build_dir: Any = None,
+    source_dir: Any = None,
+    build_cmd: str = "build",
+    force: bool = False,
+    npm: Any = None,
+) -> Any:
     """Shim for npm_builder."""
     func = __real_jupyter_packaging.npm_builder(
         path=path,
@@ -166,7 +182,7 @@ def npm_builder(
     return func
 
 
-def __getattr__(name):
+def __getattr__(name: str) -> Any:
     """Defer to the original for all others."""
     return getattr(__real_jupyter_packaging, name)
 

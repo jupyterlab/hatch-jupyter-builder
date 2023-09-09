@@ -2,7 +2,7 @@ Background
 ==========
 Explanation. Clarification and discussion of key topics.
 
-Hatch Jupyter Builder is a plugin for the `hatchling` Python build backend.
+Hatch Jupyter Builder is a plugin for the ``hatchling`` Python build backend.
 It is primarily targeted for package authors who are providing JavaScript
 as part of their Python packages.
 

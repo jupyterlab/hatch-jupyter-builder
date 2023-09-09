@@ -1,9 +1,12 @@
 """The main plugin for hatch_jupyter_builder."""
+from __future__ import annotations
+
 import os
 import typing as t
 import warnings
 from dataclasses import dataclass, field, fields
 
+from hatchling.builders.config import BuilderConfig
 from hatchling.builders.hooks.plugin.interface import BuildHookInterface
 
 from .utils import (
@@ -17,34 +20,38 @@ from .utils import (
 
 
 @dataclass
-class JupyterBuildConfig:
+class JupyterBuildConfig(BuilderConfig):
     """Build config values for Hatch Jupyter Builder."""
 
     install_pre_commit_hook: str = ""
-    build_function: t.Optional[str] = None
+    build_function: str | None = None
     build_kwargs: t.Mapping[str, str] = field(default_factory=dict)
     editable_build_kwargs: t.Mapping[str, str] = field(default_factory=dict)
-    ensured_targets: t.List[str] = field(default_factory=list)
-    skip_if_exists: t.List[str] = field(default_factory=list)
+    ensured_targets: list[str] = field(default_factory=list)
+    skip_if_exists: list[str] = field(default_factory=list)
     optional_editable_build: str = ""
 
 
-class JupyterBuildHook(BuildHookInterface):
+class JupyterBuildHook(BuildHookInterface[JupyterBuildConfig]):
     """The hatch jupyter builder build hook."""
 
     PLUGIN_NAME = "jupyter-builder"
+    _skipped = False
 
-    def initialize(self, version, build_data):
+    def initialize(self, version: str, build_data: dict[str, t.Any]) -> None:
         """Initialize the plugin."""
+        self._skipped = False
         log = _get_log()
         log.info("Running jupyter-builder")
         if self.target_name not in ["wheel", "sdist"]:
             log.info(f"ignoring target name {self.target_name}")
-            return False
+            self._skipped = True
+            return
 
         if os.getenv("SKIP_JUPYTER_BUILDER"):
             log.info("Skipping the build hook since SKIP_JUPYTER_BUILDER was set")
-            return False
+            self._skipped = True
+            return
 
         kwargs = normalize_kwargs(self.config)
         available_fields = [f.name for f in fields(JupyterBuildConfig)]
@@ -93,4 +100,4 @@ class JupyterBuildHook(BuildHookInterface):
             ensure_targets(config.ensured_targets)
 
         log.info("Finished running jupyter-builder")
-        return True
+        return

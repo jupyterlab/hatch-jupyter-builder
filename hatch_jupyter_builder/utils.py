@@ -1,4 +1,6 @@
 """Utilities for hatch_jupyter_builder."""
+from __future__ import annotations
+
 import importlib
 import logging
 import os
@@ -7,13 +9,13 @@ import subprocess
 import sys
 from pathlib import Path
 from shutil import which
-from typing import Any, Callable, Dict, List, Mapping, Optional, Union
+from typing import Any, Callable, Mapping, cast
 
 if sys.platform == "win32":  # pragma: no cover
     from subprocess import list2cmdline
 else:
 
-    def list2cmdline(cmd_list):
+    def list2cmdline(cmd_list: Any) -> str:
         """Implementation of list2cmdline for posix systems."""
         return " ".join(map(shlex.quote, cmd_list))
 
@@ -24,7 +26,7 @@ _logger = None
 def _get_log() -> logging.Logger:
     global _logger  # noqa
     if _logger:
-        return _logger
+        return _logger  # type:ignore[unreachable]
     _logger = logging.getLogger(__name__)
     _logger.setLevel(logging.INFO)
     logging.basicConfig(level=logging.INFO)
@@ -35,12 +37,12 @@ def npm_builder(
     target_name: str,
     version: str,
     path: str = ".",
-    build_dir: Optional[str] = None,
-    source_dir: Optional[str] = None,
-    build_cmd: Optional[str] = "build",
+    build_dir: str | None = None,
+    source_dir: str | None = None,
+    build_cmd: str | None = "build",
     force: bool = False,
-    npm: Optional[Union[str, List]] = None,
-    editable_build_cmd: Optional[str] = None,
+    npm: str | list[Any] | None = None,
+    editable_build_cmd: str | None = None,
 ) -> None:
     """Build function for managing an npm installation.
 
@@ -117,7 +119,7 @@ def npm_builder(
         log.info("No build required")
 
 
-def is_stale(target: Union[str, Path], source: Union[str, Path]) -> bool:
+def is_stale(target: str | Path, source: str | Path) -> bool:
     """Test whether the target file/directory is stale based on the source
     file/directory.
     """
@@ -129,7 +131,7 @@ def is_stale(target: Union[str, Path], source: Union[str, Path]) -> bool:
     return compare_recursive_mtime(source, cutoff=target_mtime)
 
 
-def compare_recursive_mtime(path: Union[str, Path], cutoff: float, newest: bool = True) -> bool:
+def compare_recursive_mtime(path: str | Path, cutoff: float, newest: bool = True) -> bool:
     """Compare the newest/oldest mtime for all files in a directory.
     Cutoff should be another mtime to be compared against. If an mtime that is
     newer/older than the cutoff is found it will return True.
@@ -155,7 +157,7 @@ def compare_recursive_mtime(path: Union[str, Path], cutoff: float, newest: bool 
     return False
 
 
-def recursive_mtime(path: Union[str, Path], newest: bool = True) -> float:
+def recursive_mtime(path: str | Path, newest: bool = True) -> float:
     """Gets the newest/oldest mtime for all files in a directory."""
     path = Path(path)
     if path.is_file():
@@ -172,7 +174,7 @@ def recursive_mtime(path: Union[str, Path], newest: bool = True) -> float:
     return current_extreme
 
 
-def mtime(path: Union[str, Path]) -> float:
+def mtime(path: str | Path) -> float:
     """shorthand for mtime"""
     return Path(path).stat().st_mtime
 
@@ -189,10 +191,10 @@ def get_build_func(build_func_str: str) -> Callable[..., None]:
     finally:
         sys.path.pop(0)
 
-    return getattr(mod, func_name)
+    return cast(Callable[..., None], getattr(mod, func_name))
 
 
-def normalize_cmd(cmd: Union[str, list]) -> List[str]:
+def normalize_cmd(cmd: str | list[Any]) -> list[str]:
     """Normalize a subprocess command."""
     if not isinstance(cmd, (list, tuple)):
         cmd = shlex.split(cmd, posix=os.name != "nt")
@@ -210,7 +212,7 @@ def normalize_cmd(cmd: Union[str, list]) -> List[str]:
     return cmd
 
 
-def normalize_kwargs(kwargs: Mapping[str, str]) -> Dict[str, Any]:
+def normalize_kwargs(kwargs: Mapping[str, Any]) -> dict[str, Any]:
     """Normalize the key names in a kwargs input dictionary"""
     result = {}
     for key, value in kwargs.items():
@@ -220,7 +222,7 @@ def normalize_kwargs(kwargs: Mapping[str, str]) -> Dict[str, Any]:
     return result
 
 
-def run(cmd: Union[str, list], **kwargs: Any) -> int:
+def run(cmd: str | list[Any], **kwargs: Any) -> int:
     """Echo a command before running it."""
     kwargs.setdefault("shell", os.name == "nt")
     cmd = normalize_cmd(cmd)
@@ -229,7 +231,7 @@ def run(cmd: Union[str, list], **kwargs: Any) -> int:
     return subprocess.check_call(cmd, **kwargs)
 
 
-def ensure_targets(ensured_targets: List[str]) -> None:
+def ensure_targets(ensured_targets: list[str]) -> None:
     """Ensure that target files are available"""
     for target in ensured_targets:
         if not Path(target).exists():
@@ -238,14 +240,14 @@ def ensure_targets(ensured_targets: List[str]) -> None:
     _get_log().info("Ensured target(s) exist!")
 
 
-def should_skip(skip_if_exists):
+def should_skip(skip_if_exists: Any) -> bool:
     """Detect whether all the paths in skip_if_exists exist"""
     if not isinstance(skip_if_exists, list) or not len(skip_if_exists):
         return False
     return all(os.path.exists(p) for p in skip_if_exists)
 
 
-def install_pre_commit_hook():
+def install_pre_commit_hook() -> None:
     """Install a pre-commit hook."""
     data = f"""#!/usr/bin/env bash
 INSTALL_PYTHON={sys.executable}
