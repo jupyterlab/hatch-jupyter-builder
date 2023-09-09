@@ -57,7 +57,7 @@ if setup_py.exists():
     )
 else:
     warnings.append("Fill in '[project][version]' in 'pyproject.toml'")
-    current_version = "!!UNKONWN!!"
+    current_version = "!!UNKNOWN!!"
 
 # Run the hatch migration script.
 logger.info("Running hatch migration")

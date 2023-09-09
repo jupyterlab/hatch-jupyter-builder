@@ -17,7 +17,7 @@ This provides a [build hook](https://hatch.pypa.io/latest/config/build/#build-ho
 
 ## Documentation
 
-The full documenation is available on [Read The Docs](https://hatch-jupyter-builder.readthedocs.io/en/latest/).
+The full documentation is available on [Read The Docs](https://hatch-jupyter-builder.readthedocs.io/en/latest/).
 
 ## Installation
 
