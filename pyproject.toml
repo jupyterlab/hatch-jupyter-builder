@@ -74,7 +74,7 @@ test = "python -m pytest -n auto -vv --migration-tests True"
 features = ["test"]
 dependencies = ["mypy>=1.5.1"]
 [tool.hatch.envs.typing.scripts]
-test = "mypy --install-types --non-interactive {args:hatch_jupyter_builder/**/*.py tests/*.py}"
+test = "mypy --install-types --non-interactive {args}"
 
 [tool.hatch.envs.lint]
 dependencies = [

@@ -91,7 +91,7 @@ if setup_cfg.exists():
         if not matches:
             continue
 
-        if matches and line.startswith("["):
+        if line.startswith("["):
             break
 
         flake8.append(line)
