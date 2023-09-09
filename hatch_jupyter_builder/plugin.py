@@ -36,17 +36,21 @@ class JupyterBuildHook(BuildHookInterface[JupyterBuildConfig]):
     """The hatch jupyter builder build hook."""
 
     PLUGIN_NAME = "jupyter-builder"
+    _skipped = False
 
-    def initialize(self, version: str, build_data: dict[str, t.Any]) -> None:
+    def initialize(self, version: str, build_data: dict[str, t.Any]) -> bool:
         """Initialize the plugin."""
+        self._skipped = False
         log = _get_log()
         log.info("Running jupyter-builder")
         if self.target_name not in ["wheel", "sdist"]:
             log.info(f"ignoring target name {self.target_name}")
+            self._skipped = True
             return
 
         if os.getenv("SKIP_JUPYTER_BUILDER"):
             log.info("Skipping the build hook since SKIP_JUPYTER_BUILDER was set")
+            self._skipped = True
             return
 
         kwargs = normalize_kwargs(self.config)

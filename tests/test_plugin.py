@@ -13,7 +13,7 @@ from hatchling.plugin.manager import PluginManager
 from hatch_jupyter_builder.plugin import JupyterBuildHook
 
 
-def test_build_hook(tmp_path):
+def test_build_hook(tmp_path):  # noqa:PLR0915
     manager = PluginManager()
     meta = ProjectMetadata(".", manager, {})
 
@@ -36,25 +36,33 @@ def foo(target_name, version, foo_bar=None, fizz_buzz=None):
     os.makedirs(".git/hooks")
 
     hook = JupyterBuildHook(tmp_path, config, {}, meta, tmp_path, "wheel")
-    assert hook.initialize("standard", {})
-    assert hook.initialize("editable", {})
+    hook.initialize("standard", {})
+    assert not hook._skipped
+    hook.initialize("editable", {})
+    assert not hook._skipped
 
     hook = JupyterBuildHook(tmp_path, config, {}, meta, tmp_path, "sdist")
-    assert hook.initialize("standard", {})
+    hook.initialize("standard", {})
+    assert not hook._skipped
 
     hook = JupyterBuildHook(tmp_path, {}, {}, meta, tmp_path, "wheel")
-    assert hook.initialize("standard", {})
-    assert hook.initialize("editable", {})
+    hook.initialize("standard", {})
+    assert not hook._skipped
+    hook.initialize("editable", {})
+    assert not hook._skipped
 
     config["skip-if-exists"] = ["foo", "bar"]
-    assert hook.initialize("standard", {})
+    hook.initialize("standard", {})
+    assert not hook._skipped
     del config["skip-if-exists"]
 
     config["editable-build-kwargs"] = {"foo-bar": "2", "fizz_buzz": "3"}
-    assert hook.initialize("editable", {})
+    hook.initialize("editable", {})
+    assert not hook._skipped
 
     hook = JupyterBuildHook(tmp_path, config, {}, meta, tmp_path, "foo")
-    assert not hook.initialize("standard", {})
+    hook.initialize("standard", {})
+    assert hook._skipped
 
     text = """
 def foo(target_name, version, foo_bar=None, fizz_buzz=None):
@@ -69,20 +77,23 @@ def foo(target_name, version, foo_bar=None, fizz_buzz=None):
         hook.initialize("editable", {})
 
     os.environ["SKIP_JUPYTER_BUILDER"] = "1"
-    assert not hook.initialize("standard", {})
+    hook.initialize("standard", {})
+    assert hook._skipped
     del os.environ["SKIP_JUPYTER_BUILDER"]
 
     config["optional-editable-build"] = "true"
     hook = JupyterBuildHook(tmp_path, config, {}, meta, tmp_path, "wheel")
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        assert hook.initialize("editable", {})
+        hook.initialize("editable", {})
+        assert not hook._skipped
 
     config["optional-editable-build"] = True
     hook = JupyterBuildHook(tmp_path, config, {}, meta, tmp_path, "wheel")
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        assert hook.initialize("editable", {})
+        hook.initialize("editable", {})
+        assert not hook._skipped
 
     del sys.modules["test"]
 
