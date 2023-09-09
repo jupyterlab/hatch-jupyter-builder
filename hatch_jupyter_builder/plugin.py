@@ -32,10 +32,7 @@ class JupyterBuildConfig(BuilderConfig):
     optional_editable_build: str = ""
 
 
-kls = BuildHookInterface[JupyterBuildConfig] if t.TYPE_CHECKING else BuildHookInterface
-
-
-class JupyterBuildHook(kls):
+class JupyterBuildHook(BuildHookInterface[JupyterBuildConfig]):
     """The hatch jupyter builder build hook."""
 
     PLUGIN_NAME = "jupyter-builder"
