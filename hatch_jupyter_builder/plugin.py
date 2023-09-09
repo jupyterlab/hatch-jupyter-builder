@@ -7,7 +7,9 @@ import warnings
 from dataclasses import dataclass, field, fields
 
 from hatchling.builders.config import BuilderConfig
-from hatchling.builders.hooks.plugin.interface import BuildHookInterface
+
+if t.TYPE_CHECKING:
+    from hatchling.builders.hooks.plugin.interface import BuildHookInterface  # noqa:F401
 
 from .utils import (
     _get_log,
@@ -32,13 +34,13 @@ class JupyterBuildConfig(BuilderConfig):
     optional_editable_build: str = ""
 
 
-class JupyterBuildHook(BuildHookInterface[JupyterBuildConfig]):
+class JupyterBuildHook("BuildHookInterface[JupyterBuildConfig]"):
     """The hatch jupyter builder build hook."""
 
     PLUGIN_NAME = "jupyter-builder"
     _skipped = False
 
-    def initialize(self, version: str, build_data: dict[str, t.Any]) -> bool:
+    def initialize(self, version: str, build_data: dict[str, t.Any]) -> None:
         """Initialize the plugin."""
         self._skipped = False
         log = _get_log()
