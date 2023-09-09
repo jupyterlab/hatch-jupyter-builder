@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling>=1.7.0"]
+requires = ["hatchling>=1.17.0"]
 build-backend = "hatchling.build"
 
 [project]
@@ -24,7 +24,7 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = ["hatchling>=1.7.0"]
+dependencies = ["hatchling>=1.17.0"]
 
 [project.urls]
 Documentation = "https://github.com/jupyterlab/hatch-jupyter-builder#readme"
