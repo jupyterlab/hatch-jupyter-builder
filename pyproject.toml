@@ -72,7 +72,7 @@ test = "python -m pytest -n auto -vv --migration-tests True"
 
 [tool.hatch.envs.typing]
 features = ["test"]
-dependencies = ["mypy>=1.5.1"]
+dependencies = ["mypy~=1.6"]
 [tool.hatch.envs.typing.scripts]
 test = "mypy --install-types --non-interactive {args}"
 
