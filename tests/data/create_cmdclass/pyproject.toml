@@ -1,59 +1,60 @@
 [build-system]
-requires = [
-    "hatchling>=1.3.1",
-    "jupyterlab==3.*",
-]
 build-backend = "hatchling.build"
+requires = [
+  "hatchling>=1.3.1",
+  "jupyterlab==3.*",
+]
 
 [project]
 name = "myproject"
+version = "0.1.0.dev0"
 description = "A Custom Jupyter Widget Library"
 readme = "README.md"
+keywords = [
+  "IPython",
+  "Jupyter",
+  "Widgets",
+]
 license = { file = "LICENSE.txt" }
-requires-python = ">=3.6"
 authors = [
     { name = "me", email = "me@me.com" },
 ]
-keywords = [
-    "IPython",
-    "Jupyter",
-    "Widgets",
-]
+requires-python = ">=3.6"
 classifiers = [
-    "Framework :: Jupyter",
-    "Intended Audience :: Developers",
-    "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: BSD License",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.4",
-    "Programming Language :: Python :: 3.5",
-    "Programming Language :: Python :: 3.6",
-    "Programming Language :: Python :: 3.7",
+  "Framework :: Jupyter",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: BSD License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.6",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
 ]
 dependencies = [
-    "ipywidgets>=7.0.0",
+  "ipywidgets>=7",
 ]
-version = "0.1.0.dev0"
-
 [project.optional-dependencies]
 docs = [
-    "jupyter_sphinx",
-    "nbsphinx",
-    "nbsphinx-link",
-    "pypandoc",
-    "pytest_check_links",
-    "recommonmark",
-    "sphinx>=1.5",
-    "sphinx_rtd_theme",
+  "jupyter_sphinx",
+  "nbsphinx",
+  "nbsphinx-link",
+  "pypandoc",
+  "pytest_check_links",
+  "recommonmark",
+  "sphinx>=1.5",
+  "sphinx_rtd_theme",
 ]
-examples = []
+examples = [
+]
 test = [
-    "nbval",
-    "pytest-cov",
-    "pytest>=4.6",
+  "nbval",
+  "pytest>=4.6",
+  "pytest-cov",
 ]
-
 [project.urls]
 Homepage = "https://github.com/myorg/myproject"
 
