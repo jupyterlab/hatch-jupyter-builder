@@ -6,7 +6,7 @@ from hatchling.plugin import hookimpl
 from .plugin import JupyterBuildHook
 
 
-@hookimpl  # type:ignore[misc]
+@hookimpl
 def hatch_register_build_hook() -> Type[JupyterBuildHook]:
     """Get the hook implementation."""
     return JupyterBuildHook
