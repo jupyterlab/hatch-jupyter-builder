@@ -64,6 +64,7 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # a list of builtin themes.
 #
 html_theme = "pydata_sphinx_theme"
+html_theme_options = {"navigation_with_keys": False}
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {"python": {"https://docs.python.org/3/": None}}
