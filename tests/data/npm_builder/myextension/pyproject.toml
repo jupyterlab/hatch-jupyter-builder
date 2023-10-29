@@ -1,6 +1,9 @@
 [build-system]
-requires = ["jupyter_packaging~=0.10,<2", "jupyterlab~=3.1"]
 build-backend = "jupyter_packaging.build_api"
+requires = [
+  "jupyter_packaging<2,~=0.10",
+  "jupyterlab~=3.1",
+]
 
 [tool.jupyter-packaging.options]
 skip-if-exists = ["myextension/labextension/static/style.js"]
