@@ -48,17 +48,21 @@ repos:
       - id: codespell
         args: ["-L", "sur,nd"]
 
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: "v1.6.1"
+    hooks:
+      - id: mypy
+        files: hatch_jupyter_builder
+        stages: [manual]
+        args: ["--install-types", "--non-interactive"]
+        additional_dependencies: ["hatchling>=1.17", "tomli"]
+
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: "v1.10.0"
     hooks:
       - id: rst-backticks
       - id: rst-directive-colons
       - id: rst-inline-touching-normal
-
-  - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: "1.0.0"
-    hooks:
-      - id: pyproject-fmt
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.1.3

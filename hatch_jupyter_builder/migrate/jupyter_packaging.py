@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 import tomli
-import tomli_w
+import tomli_w  # type:ignore[import-not-found]
 
 __this_shim = sys.modules.pop("jupyter_packaging")
 __current_directory = sys.path.pop(0)
