@@ -52,8 +52,8 @@ examples = [
 ]
 test = [
   "nbval",
-  "pytest>=4.6",
   "pytest-cov",
+  "pytest>=4.6",
 ]
 [project.urls]
 Homepage = "https://github.com/myorg/myproject"

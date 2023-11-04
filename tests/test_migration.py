@@ -95,6 +95,9 @@ def test_create_cmdclass_migration():
         source_hooks = source_data["tool"]["hatch"]["build"]["hooks"]
         target_hooks = target_data["tool"]["hatch"]["build"]["hooks"]
         source_hooks["jupyter-builder"] = target_hooks["jupyter-builder"]
+        # Hatchling might add some classifiers
+        del source_data["project"]["classifiers"]
+        del target_data["project"]["classifiers"]
         assert source_data == target_data
 
         # Compare the produced wheel and sdist for the migrated and unmigrated
