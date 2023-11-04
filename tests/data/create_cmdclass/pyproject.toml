@@ -35,7 +35,7 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
 ]
 dependencies = [
-  "ipywidgets>=7",
+  "ipywidgets>=7.0.0",
 ]
 [project.optional-dependencies]
 docs = [
