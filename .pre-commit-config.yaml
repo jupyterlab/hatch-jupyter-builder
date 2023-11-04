@@ -55,7 +55,7 @@ repos:
         files: hatch_jupyter_builder
         stages: [manual]
         args: ["--install-types", "--non-interactive"]
-        additional_dependencies: ["hatchling>=1.17"]
+        additional_dependencies: ["hatchling>=1.17", "tomli"]
 
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: "v1.10.0"
