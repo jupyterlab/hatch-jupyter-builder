@@ -48,6 +48,15 @@ repos:
       - id: codespell
         args: ["-L", "sur,nd"]
 
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: "v1.6.1"
+    hooks:
+      - id: mypy
+        files: hatch_jupyter_builder
+        stages: [manual]
+        args: ["--install-types", "--non-interactive"]
+        additional_dependencies: ["hatchling>=1.17"]
+
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: "v1.10.0"
     hooks:

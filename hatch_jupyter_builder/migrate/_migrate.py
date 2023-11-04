@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 import tomli
-import tomli_w
+import tomli_w  # type:ignore[import-not-found]
 from packaging import version
 
 logger = logging.getLogger(__name__)
