@@ -165,7 +165,8 @@ unfixable = [
 # T201 `print` found
 # EM101 Exception must not use a string literal
 # PLR2004 Magic value used in comparison
-"tests/*" = ["B011", "F841", "C408", "E402", "T201", "EM101", "EM102", "EM103", "PLR2004"]
+# B018 Found useless expression
+"tests/*" = ["B011", "B018", "F841", "C408", "E402", "T201", "EM101", "EM102", "EM103", "PLR2004"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
