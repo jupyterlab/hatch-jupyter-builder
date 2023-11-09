@@ -96,10 +96,12 @@ test = "pre-commit run --all-files --hook-stage manual mypy"
 dependencies = ["pre-commit"]
 detached = true
 [tool.hatch.envs.lint.scripts]
-build = ["pre-commit run --all-files ruff"]
+build = [
+  "pre-commit run --all-files ruff",
+  "pre-commit run --all-files ruff-format",
+]
 
 [tool.ruff]
-target-version = "py38"
 line-length = 100
 
 [tool.ruff.lint]
@@ -163,7 +165,8 @@ unfixable = [
 # T201 `print` found
 # EM101 Exception must not use a string literal
 # PLR2004 Magic value used in comparison
-"tests/*" = ["B011", "F841", "C408", "E402", "T201", "EM101", "EM102", "EM103", "PLR2004"]
+# B018 Found useless expression
+"tests/*" = ["B011", "B018", "F841", "C408", "E402", "T201", "EM101", "EM102", "EM103", "PLR2004"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
