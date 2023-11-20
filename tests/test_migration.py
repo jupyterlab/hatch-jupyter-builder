@@ -15,7 +15,7 @@ HERE = Path(__file__).parent.absolute()
 REPO_ROOT = str(HERE.parent).replace(os.sep, "/")
 
 
-@pytest.mark.migration_test
+@pytest.mark.migration_test()
 def test_npm_builder_migration():
     python = sys.executable
     os.environ["BUILDER_VERSION_SPEC"] = f"@file://{REPO_ROOT}"
@@ -70,7 +70,7 @@ def test_npm_builder_migration():
             subprocess.check_call([python, "-m", "twine", "check", "--strict", dist_files[0]])
 
 
-@pytest.mark.migration_test
+@pytest.mark.migration_test()
 def test_create_cmdclass_migration():
     python = sys.executable
     os.environ["BUILDER_VERSION_SPEC"] = f"@file://{REPO_ROOT}"

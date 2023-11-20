@@ -41,7 +41,7 @@ extensions = [
 ]
 
 try:
-    import enchant  # type:ignore  # noqa
+    import enchant
 
     extensions += ["sphinxcontrib.spelling"]
 except ImportError:
@@ -75,12 +75,12 @@ intersphinx_mapping = {"python": {"https://docs.python.org/3/": None}}
 # html_static_path = ["_static"]
 
 
-import os.path as osp
 import shutil
+from pathlib import Path
 
-HERE = osp.abspath(osp.dirname(__file__))
+HERE = Path(__file__).parent.resolve()
 
 
-def setup(app):
-    dest = osp.join(HERE, "source", "reference", "changelog.md")
-    shutil.copy(osp.join(HERE, "..", "CHANGELOG.md"), dest)
+def setup(_):
+    dest = HERE / "source" / "reference" / "changelog.md"
+    shutil.copy(HERE / ".." / "CHANGELOG.md", dest)

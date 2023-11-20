@@ -10,13 +10,14 @@ import subprocess
 import sys
 import tarfile
 import zipfile
+from pathlib import Path
 
 
 def build_file(dirname: str, dist_name: str) -> None:
     """Build a dist file in a directory."""
-    orig_dir = os.getcwd()
+    orig_dir = Path.cwd()
     os.chdir(dirname)
-    if os.path.exists("dist"):
+    if Path("dist").exists():
         shutil.rmtree("dist")
     subprocess.check_call([sys.executable, "-m", "build", f"--{dist_name}"])
     os.chdir(orig_dir)
@@ -24,14 +25,14 @@ def build_file(dirname: str, dist_name: str) -> None:
 
 def get_tar_names(dirname: str) -> set[str]:
     """Get the tarball names in a directory."""
-    dist_file = glob.glob(f"{dirname}/dist/*.tar.gz")[0]
+    dist_file = glob.glob(f"{dirname}/dist/*.tar.gz")[0]  # noqa: PTH207
     tarf = tarfile.open(dist_file, "r:gz")
     return set(tarf.getnames())
 
 
 def get_zip_names(dirname: str) -> set[str]:
     """Get the zip (wheel) file names in a directory."""
-    wheel_file = glob.glob(f"{dirname}/dist/*.whl")[0]
+    wheel_file = glob.glob(f"{dirname}/dist/*.whl")[0]  # noqa: PTH207
     with zipfile.ZipFile(wheel_file, "r") as f:
         return set(f.namelist())
 
@@ -40,10 +41,11 @@ def filter_file(path: str) -> bool:
     """Filter a file path for interesting files."""
     if "egg-info" in path:
         return True
-    _, ext = os.path.splitext(path)
+    path_obj = Path(path)
+    ext = path_obj.suffix
     if not ext:
         return True
-    if os.path.basename(path) in [path, "setup.py", "setup.cfg", "MANIFEST.in"]:
+    if path_obj.name in [path, "setup.py", "setup.cfg", "MANIFEST.in"]:
         return True
     return False
 

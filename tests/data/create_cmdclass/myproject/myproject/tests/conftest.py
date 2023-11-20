@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # Copyright (c) me.
 # Distributed under the terms of the Modified BSD License.
 
@@ -37,7 +35,7 @@ _widget_attrs = {}
 undefined = object()
 
 
-@pytest.fixture
+@pytest.fixture()
 def mock_comm():
     _widget_attrs["_comm_default"] = getattr(Widget, "_comm_default", undefined)
     Widget._comm_default = lambda self: MockComm()

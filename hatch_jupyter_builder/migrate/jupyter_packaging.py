@@ -41,7 +41,7 @@ _npm_kwargs = ["path", "build_dir", "source_dir", "build_cmd", "npm"]
 
 def _normalize_path(path: str) -> str:
     path = str(path)
-    cwd = os.getcwd()
+    cwd = os.getcwd()  # noqa: PTH109
     if path.startswith(cwd):
         return os.path.relpath(path, cwd)
     return path
@@ -119,8 +119,8 @@ def create_cmdclass(
     shared_data = {}
     if data_files_spec is not None:
         for path, dname, pattern in data_files_spec:
-            if os.path.isabs(dname):
-                dname = os.path.relpath(dname, os.getcwd())  # noqa
+            if Path(dname).is_absolute():
+                dname = os.path.relpath(dname, os.getcwd())  # noqa: PTH109, PLW2901
             if pattern == "**":
                 shared_data[dname] = path
             else:

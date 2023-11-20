@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-#
 # myproject documentation build configuration file
 #
 # This file is execfile()d with the current directory set to its
@@ -78,7 +76,7 @@ repo = os.path.join(here, "..", "..")
 _version_py = os.path.join(repo, "myproject", "_version.py")
 version_ns = {}
 with open(_version_py) as f:
-    exec(f.read(), version_ns)  # noqa
+    exec(f.read(), version_ns)
 
 # The short X.Y version.
 version = "%i.%i" % version_ns["version_info"][:2]
@@ -206,7 +204,7 @@ def setup(app):
     def add_scripts(app):
         for fname in ["helper.js", "embed-bundle.js"]:
             if not os.path.exists(os.path.join(here, "_static", fname)):
-                logger.warning("missing javascript file: %s" % fname)
+                logger.warning("missing javascript file: %s", fname)
             app.add_js_file(fname)
 
     app.connect("builder-inited", add_scripts)
