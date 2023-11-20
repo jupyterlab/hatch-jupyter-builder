@@ -38,13 +38,13 @@ class JupyterBuildHook(BuildHookInterface[JupyterBuildConfig]):
     PLUGIN_NAME = "jupyter-builder"
     _skipped = False
 
-    def initialize(self, version: str, build_data: dict[str, t.Any]) -> None:
+    def initialize(self, version: str, _: dict[str, t.Any]) -> None:
         """Initialize the plugin."""
         self._skipped = False
         log = _get_log()
         log.info("Running jupyter-builder")
         if self.target_name not in ["wheel", "sdist"]:
-            log.info(f"ignoring target name {self.target_name}")
+            log.info("ignoring target name %s", self.target_name)
             self._skipped = True
             return
 
@@ -83,13 +83,13 @@ class JupyterBuildHook(BuildHookInterface[JupyterBuildConfig]):
         if not should_skip_build and config.build_function:
             build_func = get_build_func(config.build_function)
             build_kwargs = normalize_kwargs(build_kwargs)
-            log.info(f"Building with {config.build_function}")
-            log.info(f"With kwargs: {build_kwargs}")
+            log.info("Building with %s", config.build_function)
+            log.info("With kwargs: %s", build_kwargs)
             try:
                 build_func(self.target_name, version, **build_kwargs)
             except Exception as e:
                 if version == "editable" and config.optional_editable_build.lower() == "true":
-                    warnings.warn(f"Encountered build error:\n{e}")  # noqa B028
+                    warnings.warn(f"Encountered build error:\n{e}", stacklevel=2)
                 else:
                     raise e
         else:

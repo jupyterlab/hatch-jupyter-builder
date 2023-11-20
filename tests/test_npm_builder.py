@@ -7,7 +7,7 @@ import pytest
 from hatch_jupyter_builder import npm_builder
 
 
-@pytest.fixture
+@pytest.fixture()
 def repo(tmp_path):
     os.makedirs(os.path.join(tmp_path, ".git"))
     os.chdir(tmp_path)

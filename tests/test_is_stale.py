@@ -1,9 +1,9 @@
-from pytest import fixture
+from pytest import fixture  # noqa: PT013
 
 from hatch_jupyter_builder import is_stale
 
 
-@fixture
+@fixture()
 def source_dir(tmpdir):
     source = tmpdir.mkdir("source")
     source.join("file1.txt").write("original content")
@@ -19,7 +19,7 @@ def source_dir(tmpdir):
     return source
 
 
-@fixture
+@fixture()
 def destination_dir(tmpdir):
     destination = tmpdir.mkdir("destination")
     destination.join("file1.rtf").write("original content")

@@ -13,7 +13,7 @@ from hatchling.plugin.manager import PluginManager
 from hatch_jupyter_builder.plugin import JupyterBuildHook
 
 
-def test_build_hook(tmp_path):  # noqa:PLR0915
+def test_build_hook(tmp_path):
     manager = PluginManager()
     meta = ProjectMetadata(".", manager, {})
 

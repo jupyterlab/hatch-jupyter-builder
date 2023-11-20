@@ -66,12 +66,12 @@ subprocess.run([sys.executable, "-m", "hatch", "new", "--init"], check=False)
 # Run the jupyter-packaging migration script - must be done after
 # hatch migration to avoid conflicts.
 logger.info("Running jupyter-packaging migration")
-here = os.path.abspath(os.path.dirname(__file__))
+here = Path(__file__).parent.resolve()
 prev_pythonpath = os.environ.get("PYTHONPATH", "")
 if prev_pythonpath:
     os.environ["PYTHONPATH"] = f"{here}{os.pathsep}{prev_pythonpath}"
 else:
-    os.environ["PYTHONPATH"] = here
+    os.environ["PYTHONPATH"] = str(here)
 subprocess.run([sys.executable, "setup.py", "--version"], capture_output=True, check=False)
 os.environ["PYTHONPATH"] = prev_pythonpath
 
@@ -98,7 +98,7 @@ if setup_cfg.exists():
 
     if matches:
         Path(".flake8").write_text("\n".join(flake8) + "\n", "utf-8")
-        subprocess.run(["git", "add", ".flake"], check=False)  # noqa
+        subprocess.run(["git", "add", ".flake"], check=False)
 
 
 # Migrate and remove unused config.
@@ -233,8 +233,9 @@ setup_py.write_text(shim_text, encoding="utf-8")
 
 # Remove old files
 for fname in ["MANIFEST.in", "setup.cfg"]:
-    if os.path.exists(fname):
-        os.remove(fname)
+    fpath = Path(fname)
+    if fpath.exists():
+        fpath.unlink()
 
 # Write out the new config.
 logger.info("\n\nWriting pyproject.toml")
@@ -244,6 +245,6 @@ if warnings:
     logger.info("\n\nWarning!! Not everything could be migrated automatically.")
     logger.info("Please address the following concerns:")
     for warning in warnings:
-        logger.info(f"  - {warning}")
+        logger.info("  - %s", warning)
 
 logger.info("\n\nMigration complete!")

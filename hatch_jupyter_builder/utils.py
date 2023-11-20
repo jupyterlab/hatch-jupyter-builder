@@ -24,7 +24,7 @@ _logger = None
 
 
 def _get_log() -> logging.Logger:
-    global _logger  # noqa
+    global _logger  # noqa: PLW0603
     if _logger:
         return _logger  # type:ignore[unreachable]
     _logger = logging.getLogger(__name__)
@@ -34,7 +34,7 @@ def _get_log() -> logging.Logger:
 
 
 def npm_builder(
-    target_name: str,
+    target_name: str,  # noqa: ARG001
     version: str,
     path: str = ".",
     build_dir: str | None = None,
@@ -217,7 +217,7 @@ def normalize_kwargs(kwargs: Mapping[str, Any]) -> dict[str, Any]:
     result = {}
     for key, value in kwargs.items():
         if isinstance(value, bool):
-            value = str(value)  # noqa
+            value = str(value)  # noqa: PLW2901
         result[key.replace("-", "_")] = value
     return result
 
@@ -227,7 +227,7 @@ def run(cmd: str | list[Any], **kwargs: Any) -> int:
     kwargs.setdefault("shell", os.name == "nt")
     cmd = normalize_cmd(cmd)
     log = _get_log()
-    log.info(f"> {list2cmdline(cmd)}")
+    log.info("> %s", list2cmdline(cmd))
     return subprocess.check_call(cmd, **kwargs)
 
 
@@ -244,7 +244,7 @@ def should_skip(skip_if_exists: Any) -> bool:
     """Detect whether all the paths in skip_if_exists exist"""
     if not isinstance(skip_if_exists, list) or not len(skip_if_exists):
         return False
-    return all(os.path.exists(p) for p in skip_if_exists)
+    return all(Path(p).exists() for p in skip_if_exists)
 
 
 def install_pre_commit_hook() -> None:
@@ -257,18 +257,18 @@ ARGS+=(--hook-dir "$HERE" -- "$@")
 exec "$INSTALL_PYTHON" -m pre_commit "${{ARGS[@]}}"
 """
     log = _get_log()
-    if not os.path.exists(".git"):
+    if not Path(".git").exists():
         log.warning("Refusing to install pre-commit hook since this is not a git repository")
         return
 
     path = Path(".git/hooks/pre-commit")
     if not path.exists():
         log.info("Writing pre-commit hook")
-        with open(path, "w") as fid:
+        with path.open("w") as fid:
             fid.write(data)
     else:
         log.warning("Refusing to overwrite pre-commit hook")
 
-    mode = os.stat(path).st_mode
+    mode = path.stat().st_mode
     mode |= (mode & 0o444) >> 2  # copy R bits to X
-    os.chmod(path, mode)
+    path.chmod(mode)
