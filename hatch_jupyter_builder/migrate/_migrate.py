@@ -79,6 +79,7 @@ os.environ["PYTHONPATH"] = prev_pythonpath
 # Move flake8 config to separate file, preserving comments.
 # Add .flake8 file to git.
 setup_cfg = Path("setup.cfg")
+flake8_path = Path(".flake8")
 flake8 = ["[flake8]"]
 if setup_cfg.exists():
     lines = setup_cfg.read_text("utf-8").splitlines()
@@ -97,8 +98,8 @@ if setup_cfg.exists():
         flake8.append(line)
 
     if matches:
-        Path(".flake8").write_text("\n".join(flake8) + "\n", "utf-8")
-        subprocess.run(["git", "add", ".flake"], check=False)
+        flake8_path.write_text("\n".join(flake8) + "\n", "utf-8")
+        subprocess.run(["git", "add", str(flake8_path)], check=False)
 
 
 # Migrate and remove unused config.
