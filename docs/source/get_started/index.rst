@@ -12,4 +12,4 @@ If starting from a new project, use ``hatch new "my project name"``, and follow
 along with the prompts.  Then add the appropriate [configuration](./config) for
 ``hatch_jupyter_builder`` in your ``pyproject.toml`` flag.
 
-If migrating from existing project, find the appropriate [how to guides](../how_to_guides).
+If migrating from existing project, find the appropriate :doc:`how to guides <../how_to_guides/index>`.
