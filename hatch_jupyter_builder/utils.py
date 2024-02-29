@@ -94,16 +94,18 @@ def npm_builder(
     if isinstance(npm, str):
         npm = [npm]
 
+    is_yarn = (abs_path / "yarn.lock").exists()
+
     # Find a suitable default for the npm command.
     if npm is None:
-        is_yarn = (abs_path / "yarn.lock").exists()
         if is_yarn and not which("yarn"):
             log.warning("yarn not found, ignoring yarn.lock file")
             is_yarn = False
-
         npm = ["yarn"] if is_yarn else ["npm"]
 
     npm_cmd = normalize_cmd(npm)
+
+    install_cmd = ["install", "--immutable"] if is_yarn else ["install", "--no-audit", "--no-fund"]
 
     if build_dir and source_dir and not force:
         should_build = is_stale(build_dir, source_dir)
@@ -112,7 +114,7 @@ def npm_builder(
 
     if should_build:
         log.info("Installing build dependencies with npm.  This may take a while...")
-        run([*npm_cmd, "install"], cwd=str(abs_path))
+        run([*npm_cmd, *install_cmd], cwd=str(abs_path))
         if build_cmd:
             run([*npm_cmd, "run", build_cmd], cwd=str(abs_path))
     else:
