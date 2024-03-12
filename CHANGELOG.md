@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.9.1
+
+([Full Changelog](https://github.com/jupyterlab/hatch-jupyter-builder/compare/v0.9.0...209154e53efd7573af92c535dd5c730528358ea7))
+
+### Maintenance and upkeep improvements
+
+- Use tomllib from the Python 3.11+ standard library [#108](https://github.com/jupyterlab/hatch-jupyter-builder/pull/108) ([@hroncok](https://github.com/hroncok))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/hatch-jupyter-builder/graphs/contributors?from=2024-03-12&to=2024-03-12&type=c))
+
+[@hroncok](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Ahroncok+updated%3A2024-03-12..2024-03-12&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Awelcome+updated%3A2024-03-12..2024-03-12&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.9.0
 
 ([Full Changelog](https://github.com/jupyterlab/hatch-jupyter-builder/compare/v0.8.3...8998f9b96d89108401817c8854805eae087b199f))
@@ -35,8 +51,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/hatch-jupyter-builder/graphs/contributors?from=2023-04-14&to=2024-03-12&type=c))
 
 [@agoose77](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Aagoose77+updated%3A2023-04-14..2024-03-12&type=Issues) | [@akx](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Aakx+updated%3A2023-04-14..2024-03-12&type=Issues) | [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Ablink1073+updated%3A2023-04-14..2024-03-12&type=Issues) | [@brianhelba](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Abrianhelba+updated%3A2023-04-14..2024-03-12&type=Issues) | [@dependabot](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Adependabot+updated%3A2023-04-14..2024-03-12&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Apre-commit-ci+updated%3A2023-04-14..2024-03-12&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Awelcome+updated%3A2023-04-14..2024-03-12&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.8.3
 
