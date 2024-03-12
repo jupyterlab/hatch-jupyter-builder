@@ -2,6 +2,42 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.9.0
+
+([Full Changelog](https://github.com/jupyterlab/hatch-jupyter-builder/compare/v0.8.3...8998f9b96d89108401817c8854805eae087b199f))
+
+### Bugs fixed
+
+- Update index.rst [#139](https://github.com/jupyterlab/hatch-jupyter-builder/pull/139) ([@agoose77](https://github.com/agoose77))
+- Migration script fixes [#138](https://github.com/jupyterlab/hatch-jupyter-builder/pull/138) ([@akx](https://github.com/akx))
+
+### Maintenance and upkeep improvements
+
+- Update Release Scripts [#141](https://github.com/jupyterlab/hatch-jupyter-builder/pull/141) ([@blink1073](https://github.com/blink1073))
+- chore: update pre-commit hooks [#140](https://github.com/jupyterlab/hatch-jupyter-builder/pull/140) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- chore: update pre-commit hooks [#137](https://github.com/jupyterlab/hatch-jupyter-builder/pull/137) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- Update ruff and typings [#136](https://github.com/jupyterlab/hatch-jupyter-builder/pull/136) ([@blink1073](https://github.com/blink1073))
+- chore: update pre-commit hooks [#135](https://github.com/jupyterlab/hatch-jupyter-builder/pull/135) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- Consolidate lint [#134](https://github.com/jupyterlab/hatch-jupyter-builder/pull/134) ([@blink1073](https://github.com/blink1073))
+- Use ruff format [#133](https://github.com/jupyterlab/hatch-jupyter-builder/pull/133) ([@blink1073](https://github.com/blink1073))
+- Update typings for mypy 1.6 [#132](https://github.com/jupyterlab/hatch-jupyter-builder/pull/132) ([@blink1073](https://github.com/blink1073))
+- chore: update pre-commit hooks [#130](https://github.com/jupyterlab/hatch-jupyter-builder/pull/130) ([@pre-commit-ci](https://github.com/pre-commit-ci))
+- Bump actions/checkout from 2 to 4 [#127](https://github.com/jupyterlab/hatch-jupyter-builder/pull/127) ([@dependabot](https://github.com/dependabot))
+- Adopt sp-repo-review [#126](https://github.com/jupyterlab/hatch-jupyter-builder/pull/126) ([@blink1073](https://github.com/blink1073))
+- Fix migration test [#124](https://github.com/jupyterlab/hatch-jupyter-builder/pull/124) ([@blink1073](https://github.com/blink1073))
+
+### Documentation improvements
+
+- Fix typo in docs [#125](https://github.com/jupyterlab/hatch-jupyter-builder/pull/125) ([@brianhelba](https://github.com/brianhelba))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/hatch-jupyter-builder/graphs/contributors?from=2023-04-14&to=2024-03-12&type=c))
+
+[@agoose77](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Aagoose77+updated%3A2023-04-14..2024-03-12&type=Issues) | [@akx](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Aakx+updated%3A2023-04-14..2024-03-12&type=Issues) | [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Ablink1073+updated%3A2023-04-14..2024-03-12&type=Issues) | [@brianhelba](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Abrianhelba+updated%3A2023-04-14..2024-03-12&type=Issues) | [@dependabot](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Adependabot+updated%3A2023-04-14..2024-03-12&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Apre-commit-ci+updated%3A2023-04-14..2024-03-12&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Awelcome+updated%3A2023-04-14..2024-03-12&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.8.3
 
 ([Full Changelog](https://github.com/jupyterlab/hatch-jupyter-builder/compare/v0.8.2...110ef7d5cc4b6118d21c130965f6e88ddf31ff22))
@@ -23,8 +59,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/hatch-jupyter-builder/graphs/contributors?from=2022-12-13&to=2023-04-14&type=c))
 
 [@blink1073](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Ablink1073+updated%3A2022-12-13..2023-04-14&type=Issues) | [@codecov](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Acodecov+updated%3A2022-12-13..2023-04-14&type=Issues) | [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Afcollonval+updated%3A2022-12-13..2023-04-14&type=Issues) | [@pre-commit-ci](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Apre-commit-ci+updated%3A2022-12-13..2023-04-14&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.8.2
 
