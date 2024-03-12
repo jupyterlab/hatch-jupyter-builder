@@ -6,9 +6,13 @@ import subprocess
 import sys
 from pathlib import Path
 
-import tomli
 import tomli_w  # type:ignore[import-not-found]
 from packaging import version
+
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
 
 logger = logging.getLogger(__name__)
 logging.basicConfig()
@@ -31,7 +35,7 @@ warnings = []
 # Read pyproject before migration to get old build requirements.
 pyproject = Path("pyproject.toml")
 if pyproject.exists():
-    data = tomli.loads(pyproject.read_text("utf-8"))
+    data = tomllib.loads(pyproject.read_text("utf-8"))
     requires = data["build-system"]["requires"]
     # Install the old build reqs into this venv.
     subprocess.run([sys.executable, "-m", "pip", "install", *requires], check=False)
@@ -105,7 +109,7 @@ if setup_cfg.exists():
 # Migrate and remove unused config.
 # Read in the project.toml after auto migration.
 logger.info("Migrating static data")
-data = tomli.loads(pyproject.read_text("utf-8"))
+data = tomllib.loads(pyproject.read_text("utf-8"))
 tool_table = data.setdefault("tool", {})
 
 # Handle license file.
