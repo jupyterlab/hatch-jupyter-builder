@@ -79,7 +79,7 @@ jobs:
         run: hatch run migration:test
 
   test_docs:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
