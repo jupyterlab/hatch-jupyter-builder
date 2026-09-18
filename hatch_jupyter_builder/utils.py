@@ -7,9 +7,10 @@ import os
 import shlex
 import subprocess
 import sys
+from collections.abc import Callable, Mapping
 from pathlib import Path
 from shutil import which
-from typing import Any, Callable, Mapping, cast
+from typing import Any, cast
 
 if sys.platform == "win32":  # pragma: no cover
     from subprocess import list2cmdline
@@ -196,7 +197,7 @@ def get_build_func(build_func_str: str) -> Callable[..., None]:
 
 def normalize_cmd(cmd: str | list[Any]) -> list[str]:
     """Normalize a subprocess command."""
-    if not isinstance(cmd, (list, tuple)):
+    if not isinstance(cmd, list | tuple):
         cmd = shlex.split(cmd, posix=os.name != "nt")
     if not Path(cmd[0]).is_absolute():
         # If a command is not an absolute path find it first.

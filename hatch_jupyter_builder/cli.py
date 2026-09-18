@@ -1,14 +1,13 @@
 """The cli implementation for hatch_jupyter_builder."""
 import argparse
 import sys
-from typing import Optional
 
 from .compare_migrated import cli as compare_cli
 from .migrate import cli as migrate_cli
 
 
 def make_parser(
-    parser: Optional[argparse.ArgumentParser] = None, prog: Optional[str] = None
+    parser: argparse.ArgumentParser | None = None, prog: str | None = None
 ) -> argparse.ArgumentParser:
     """Make an arg parser."""
     if parser is None:
@@ -26,7 +25,7 @@ def make_parser(
     return parser
 
 
-def run(args: Optional[argparse.Namespace] = None) -> None:
+def run(args: argparse.Namespace | None = None) -> None:
     """Run the main script."""
     if args is None:
         prog = (
