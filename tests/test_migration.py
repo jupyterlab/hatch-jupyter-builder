@@ -18,6 +18,11 @@ from hatch_jupyter_builder.compare_migrated.cli import main
 HERE = Path(__file__).parent.absolute()
 REPO_ROOT = str(HERE.parent).replace(os.sep, "/")
 
+pytestmark = pytest.mark.skip(
+    reason="The JupyterLab 3 test projects do not build with webpack >= 5.107, "
+    "see https://github.com/jupyterlab/jupyterlab/issues/18984"
+)
+
 
 @pytest.mark.migration_test()
 def test_npm_builder_migration():
