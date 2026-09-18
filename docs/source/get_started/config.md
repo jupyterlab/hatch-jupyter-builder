@@ -80,5 +80,5 @@ The optional `install-pre-commit-hook` boolean causes a `pre-commit` hook to be 
 
 ## Npm Builder Function
 
-This library provides a convenenice `npm_builder` function which can be
-used to build `npm` assets as part of the build. See the :ref:`npm_builder_function` for more information on usage.
+This library provides a convenience {py:obj}`npm_builder <hatch_jupyter_builder.utils.npm_builder>`
+function which can be used to build `npm` assets as part of the build.
