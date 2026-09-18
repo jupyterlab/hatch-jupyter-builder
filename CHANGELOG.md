@@ -2,6 +2,26 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.10.0
+
+([Full Changelog](https://github.com/jupyterlab/hatch-jupyter-builder/compare/v0.9.1...b343121081165d77da38d48baaf412a06f79b958))
+
+### Maintenance and upkeep improvements
+
+- Fix the build hook with hatchling 1.32.3, fix other CI issues [#148](https://github.com/jupyterlab/hatch-jupyter-builder/pull/148) ([@jtpio](https://github.com/jtpio), [@Yann-P](https://github.com/Yann-P))
+- Fix docs build [#142](https://github.com/jupyterlab/hatch-jupyter-builder/pull/142) ([@blink1073](https://github.com/blink1073))
+
+### Contributors to this release
+
+The following people contributed discussions, new ideas, code and documentation contributions, and review.
+See [our definition of contributors](https://github-activity.readthedocs.io/en/latest/use/#how-does-this-tool-define-contributions-in-the-reports).
+
+([GitHub contributors page for this release](https://github.com/jupyterlab/hatch-jupyter-builder/graphs/contributors?from=2024-03-12&to=2026-09-18&type=c))
+
+@blink1073 ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Ablink1073+updated%3A2024-03-12..2026-09-18&type=Issues)) | @jtpio ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Ajtpio+updated%3A2024-03-12..2026-09-18&type=Issues)) | @Yann-P ([activity](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3AYann-P+updated%3A2024-03-12..2026-09-18&type=Issues))
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.9.1
 
 ([Full Changelog](https://github.com/jupyterlab/hatch-jupyter-builder/compare/v0.9.0...209154e53efd7573af92c535dd5c730528358ea7))
@@ -15,8 +35,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab/hatch-jupyter-builder/graphs/contributors?from=2024-03-12&to=2024-03-12&type=c))
 
 [@hroncok](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Ahroncok+updated%3A2024-03-12..2024-03-12&type=Issues) | [@welcome](https://github.com/search?q=repo%3Ajupyterlab%2Fhatch-jupyter-builder+involves%3Awelcome+updated%3A2024-03-12..2024-03-12&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.9.0
 
