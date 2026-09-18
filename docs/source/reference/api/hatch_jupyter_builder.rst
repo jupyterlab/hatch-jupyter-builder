@@ -16,31 +16,31 @@ Submodules
 
 .. automodule:: hatch_jupyter_builder.cli
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 
 .. automodule:: hatch_jupyter_builder.hooks
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 
 .. automodule:: hatch_jupyter_builder.plugin
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 
 .. automodule:: hatch_jupyter_builder.utils
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: hatch_jupyter_builder
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
