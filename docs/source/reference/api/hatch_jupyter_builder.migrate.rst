@@ -7,13 +7,13 @@ Submodules
 
 .. automodule:: hatch_jupyter_builder.migrate.cli
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: hatch_jupyter_builder.migrate
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

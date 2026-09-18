@@ -8,7 +8,6 @@ import sys
 import venv
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Optional
 
 from hatch_jupyter_builder import __version__ as builder_version
 
@@ -36,7 +35,7 @@ def main(td: str, target_dir: str) -> None:
 
 
 def make_parser(
-    parser: Optional[argparse.ArgumentParser] = None, prog: Optional[str] = None
+    parser: argparse.ArgumentParser | None = None, prog: str | None = None
 ) -> argparse.ArgumentParser:
     """Make a parser object."""
     if parser is None:
@@ -45,7 +44,7 @@ def make_parser(
     return parser
 
 
-def run(args: Optional[argparse.Namespace] = None) -> None:
+def run(args: argparse.Namespace | None = None) -> None:
     """Run the migration."""
     if args is None:
         parser = make_parser(prog=f"{sys.executable} -m hatch_jupyter_builder.migrate")
