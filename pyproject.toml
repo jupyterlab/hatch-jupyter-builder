@@ -30,7 +30,7 @@ dynamic = [
   "version",
 ]
 dependencies = [
-  "hatchling>=1.17",
+  "hatchling>=1.17,!=1.32.3",
 ]
 [project.optional-dependencies]
 docs = [
