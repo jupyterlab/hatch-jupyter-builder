@@ -39,6 +39,10 @@ dependencies = ["hatch-jupyter-builder@file://<path_to_this_repo>"]
 You can skip the build by setting the `SKIP_JUPYTER_BUILDER` environment
 variable.
 
+To skip only installing the pre-commit hook (see `install-pre-commit-hook`),
+and run the rest of the build, set the `HATCH_JUPYTER_BUILDER_SKIP_PRE_COMMIT_HOOK`
+environment variable to `1`.
+
 ## Migration
 
 This library can be used to migrate from a `setuptools` based package to
