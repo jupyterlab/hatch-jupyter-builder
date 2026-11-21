@@ -18,17 +18,9 @@ from .utils import (
     should_skip,
 )
 
-if t.TYPE_CHECKING:
-    from hatchling.plugin.manager import PluginManager
-
-    _BuilderConfigBase = BuilderConfig[PluginManager]
-else:
-    # handle hatchling 1.32.3, see https://github.com/pypa/hatch/issues/2437
-    _BuilderConfigBase = BuilderConfig
-
 
 @dataclass
-class JupyterBuildConfig(_BuilderConfigBase):
+class JupyterBuildConfig(BuilderConfig):
     """Build config values for Hatch Jupyter Builder."""
 
     install_pre_commit_hook: str = ""
@@ -40,13 +32,7 @@ class JupyterBuildConfig(_BuilderConfigBase):
     optional_editable_build: str = ""
 
 
-if t.TYPE_CHECKING:
-    _BuildHookBase = BuildHookInterface[JupyterBuildConfig, PluginManager]
-else:
-    _BuildHookBase = BuildHookInterface
-
-
-class JupyterBuildHook(_BuildHookBase):
+class JupyterBuildHook(BuildHookInterface[JupyterBuildConfig]):
     """The hatch jupyter builder build hook."""
 
     PLUGIN_NAME = "jupyter-builder"
