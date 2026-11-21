@@ -21,7 +21,7 @@ def test_npm_builder(mocker, repo):
     npm_builder("wheel", "standard", path=repo)
     run.assert_has_calls(
         [
-            call(["foo", "install"], cwd=str(repo)),
+            call(["foo", "install", "--no-audit", "--no-fund"], cwd=str(repo)),
             call(["foo", "run", "build"], cwd=str(repo)),
         ]
     )
@@ -49,7 +49,7 @@ def test_npm_builder_yarn(mocker, repo):
     npm_builder("wheel", "standard", path=repo)
     run.assert_has_calls(
         [
-            call(["foo", "install"], cwd=str(repo)),
+            call(["foo", "install", "--immutable"], cwd=str(repo)),
             call(["foo", "run", "build"], cwd=str(repo)),
         ]
     )
@@ -63,7 +63,7 @@ def test_npm_builder_missing_yarn(mocker, repo):
     npm_builder("wheel", "standard", path=repo)
     run.assert_has_calls(
         [
-            call(["foo", "install"], cwd=str(repo)),
+            call(["foo", "install", "--no-audit", "--no-fund"], cwd=str(repo)),
             call(["foo", "run", "build"], cwd=str(repo)),
         ]
     )
@@ -76,7 +76,7 @@ def test_npm_builder_path(mocker, tmp_path):
     npm_builder("wheel", "standard", path=tmp_path)
     run.assert_has_calls(
         [
-            call(["foo", "install"], cwd=str(tmp_path)),
+            call(["foo", "install", "--no-audit", "--no-fund"], cwd=str(tmp_path)),
             call(["foo", "run", "build"], cwd=str(tmp_path)),
         ]
     )
@@ -89,7 +89,7 @@ def test_npm_builder_editable(mocker, repo):
     npm_builder("wheel", "editable", path=repo, editable_build_cmd="foo")
     run.assert_has_calls(
         [
-            call(["foo", "install"], cwd=str(repo)),
+            call(["foo", "install", "--no-audit", "--no-fund"], cwd=str(repo)),
             call(["foo", "run", "foo"], cwd=str(repo)),
         ]
     )
@@ -102,7 +102,7 @@ def test_npm_builder_npm_str(mocker, repo):
     npm_builder("wheel", "standard", path=repo, npm="npm")
     run.assert_has_calls(
         [
-            call(["npm", "install"], cwd=str(repo)),
+            call(["npm", "install", "--no-audit", "--no-fund"], cwd=str(repo)),
             call(["npm", "run", "build"], cwd=str(repo)),
         ]
     )
@@ -113,7 +113,7 @@ def test_npm_builder_npm_build_command_none(mocker, repo):
     run = mocker.patch("hatch_jupyter_builder.utils.run")
     which.return_value = "npm"
     npm_builder("wheel", "standard", path=repo, build_cmd=None)
-    run.assert_has_calls([call(["npm", "install"], cwd=str(repo))])
+    run.assert_has_calls([call(["npm", "install", "--no-audit", "--no-fund"], cwd=str(repo))])
 
 
 def test_npm_builder_not_stale(mocker, repo):
