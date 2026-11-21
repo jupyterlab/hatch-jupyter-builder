@@ -63,7 +63,13 @@ class JupyterBuildHook(BuildHookInterface[JupyterBuildConfig]):
         should_install_hook = config.install_pre_commit_hook.lower() == "true"
 
         if version == "editable" and should_install_hook:
-            install_pre_commit_hook()
+            if os.environ.get("HATCH_JUPYTER_BUILDER_SKIP_PRE_COMMIT_HOOK") == "1":
+                log.info(
+                    "Skipping the pre-commit hook since "
+                    "HATCH_JUPYTER_BUILDER_SKIP_PRE_COMMIT_HOOK was set"
+                )
+            else:
+                install_pre_commit_hook()
 
         build_kwargs = config.build_kwargs
         if version == "editable":

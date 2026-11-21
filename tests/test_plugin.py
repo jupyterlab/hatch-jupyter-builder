@@ -132,3 +132,25 @@ def test_hatch_build(tmp_path):
     subprocess.check_call([python, "-m", "pip", "install", "build"], cwd=tmp_path, env=env)
 
     subprocess.check_call([python, "-m", "build", "--sdist", "."], cwd=tmp_path, env=env)
+
+
+@pytest.mark.parametrize(
+    ("skip", "version", "installed"),
+    [(None, "editable", True), ("1", "editable", False), (None, "standard", False)],
+)
+def test_build_hook_pre_commit_hook(tmp_path, monkeypatch, skip, version, installed):
+    calls = []
+    monkeypatch.setattr(
+        "hatch_jupyter_builder.plugin.install_pre_commit_hook", lambda: calls.append(1)
+    )
+    if skip is None:
+        monkeypatch.delenv("HATCH_JUPYTER_BUILDER_SKIP_PRE_COMMIT_HOOK", raising=False)
+    else:
+        monkeypatch.setenv("HATCH_JUPYTER_BUILDER_SKIP_PRE_COMMIT_HOOK", skip)
+    monkeypatch.delenv("SKIP_JUPYTER_BUILDER", raising=False)
+    monkeypatch.chdir(tmp_path)
+    meta = ProjectMetadata(".", PluginManager(), {})
+    config = {"install-pre-commit-hook": True}
+    hook = JupyterBuildHook(tmp_path, config, {}, meta, tmp_path, "wheel")
+    hook.initialize(version, {})
+    assert bool(calls) == installed

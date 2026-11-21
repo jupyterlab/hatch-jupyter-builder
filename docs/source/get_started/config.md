@@ -77,6 +77,7 @@ This can be used when build artifacts are optional for local development.
 ### install-pre-commit-hook
 
 The optional `install-pre-commit-hook` boolean causes a `pre-commit` hook to be installed during an editable install.
+Set the `HATCH_JUPYTER_BUILDER_SKIP_PRE_COMMIT_HOOK` environment variable to `1` to skip installing the hook.
 
 ## Npm Builder Function
 
