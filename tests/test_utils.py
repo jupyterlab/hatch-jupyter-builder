@@ -20,7 +20,7 @@ def test_ensure_targets(tmp_path):
 
 
 def test_run():
-    cmd = f"{sys.executable} --version"
+    cmd = f"{shlex.quote(sys.executable)} --version"
     utils.run(cmd)
     utils.run(shlex.split(cmd))
 
